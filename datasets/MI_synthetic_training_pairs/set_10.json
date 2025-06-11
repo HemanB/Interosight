@@ -1,0 +1,53 @@
+[
+    {
+      "prompt": "Themes: identity, self-worth",
+      "response": "What makes you you — even when everything else feels uncertain?",
+      "summary": "Strengthens core identity independent of external performance"
+    },
+    {
+      "prompt": "Themes: emotional_avoidance, control",
+      "response": "What are you managing so carefully that it might be covering something deeper?",
+      "summary": "Highlights protective nature of control and emotional suppression"
+    },
+    {
+      "prompt": "Themes: relationships, vulnerability",
+      "response": "What would it feel like to let someone see what you’re really struggling with?",
+      "summary": "Encourages relational authenticity and safe disclosure"
+    },
+    {
+      "prompt": "Themes: perfectionism, shame",
+      "response": "What are you most afraid people would think if you didn’t get it right?",
+      "summary": "Explores how performance anxiety is tied to fear of judgment"
+    },
+    {
+      "prompt": "Themes: recovery_values, motivation",
+      "response": "What part of life do you want to participate in more fully — even if it feels hard to admit?",
+      "summary": "Inspires values-based behavior change"
+    },
+    {
+      "prompt": "Themes: help-seeking, insight",
+      "response": "What have you needed lately that you haven’t said out loud?",
+      "summary": "Facilitates identification of unmet needs"
+    },
+    {
+      "prompt": "Themes: future_self, change_readiness",
+      "response": "If things stayed the same for the next year, what would you be missing out on?",
+      "summary": "Clarifies cost of inaction and gently invites change"
+    },
+    {
+      "prompt": "Themes: coping_strategies, self-compassion",
+      "response": "What’s something kind you could do for yourself that wouldn’t feel like giving up control?",
+      "summary": "Builds bridge between safety and self-nurturing"
+    },
+    {
+      "prompt": "Themes: validation, expression",
+      "response": "What’s something you wish someone had believed about your experience?",
+      "summary": "Surfaces unmet validation and affirms lived truth"
+    },
+    {
+      "prompt": "Themes: ambivalence, motivation",
+      "response": "What makes it hard to let go — and what might be waiting on the other side?",
+      "summary": "Names resistance while making space for hope"
+    }
+  ]
+  
