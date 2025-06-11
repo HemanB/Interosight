@@ -1,0 +1,53 @@
+[
+    {
+      "prompt": "Themes: emotional_avoidance, control",
+      "response": "What are you avoiding feeling when you focus on control?",
+      "summary": "Links need for control with avoided emotional content"
+    },
+    {
+      "prompt": "Themes: self-worth, perfectionism",
+      "response": "When did you first learn that being perfect made you feel more acceptable?",
+      "summary": "Traces self-worth to early perfectionistic beliefs"
+    },
+    {
+      "prompt": "Themes: motivation, recovery_values",
+      "response": "What matters most to you right now, and how does your recovery support that?",
+      "summary": "Aligns intrinsic motivation with personal values"
+    },
+    {
+      "prompt": "Themes: identity, insight",
+      "response": "Who are you becoming as you move through recovery?",
+      "summary": "Encourages reflection on emerging identity beyond the disorder"
+    },
+    {
+      "prompt": "Themes: relationships, expression",
+      "response": "What do you want someone close to you to understand, but haven’t said out loud?",
+      "summary": "Fosters honest emotional communication"
+    },
+    {
+      "prompt": "Themes: body_image, ambivalence",
+      "response": "What does your current relationship with your body protect you from facing?",
+      "summary": "Explores the function of body dissatisfaction in emotional avoidance"
+    },
+    {
+      "prompt": "Themes: coping_strategies, vulnerability",
+      "response": "When things feel overwhelming, what actually helps you feel safer in your body or mind?",
+      "summary": "Highlights embodied coping and self-regulation strategies"
+    },
+    {
+      "prompt": "Themes: control, interpersonal",
+      "response": "How do your control strategies affect the way you connect with others?",
+      "summary": "Explores how rigid behaviors impact relationships"
+    },
+    {
+      "prompt": "Themes: self-compassion, shame",
+      "response": "What would it feel like to respond to your shame with curiosity instead of criticism?",
+      "summary": "Invites gentleness toward difficult internal experiences"
+    },
+    {
+      "prompt": "Themes: insight, change_readiness",
+      "response": "What are you beginning to understand about yourself that you weren’t ready to see before?",
+      "summary": "Supports deepening insight as part of change process"
+    }
+  ]
+  
