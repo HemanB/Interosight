@@ -70,22 +70,22 @@ def merge_topics(base: pd.DataFrame, id2name: dict) -> pd.DataFrame:
     return df.reset_index().fillna(0)
 
 def main():
-    print("🔽 Unzipping data…")
+    print("Unzipping data...")
     unzip_all()
-    print("✅ Loaded raw files into", RAW_DIR)
+    print("Success: Loaded raw files into", RAW_DIR)
 
-    print("🔽 Loading posts…")
+    print("Loading posts...")
     posts = load_posts()
-    print("→", len(posts), "posts")
+    print("Found", len(posts), "posts")
 
-    print("🔽 Loading key…")
+    print("Loading key...")
     id2name = load_key()
 
-    print("🔽 Merging topic annotations…")
+    print("Merging topic annotations...")
     merged = merge_topics(posts, id2name)
-    print("→ merged shape:", merged.shape)
+    print("Merged shape:", merged.shape)
 
-    print("🔽 Saving HF dataset…")
+    print("Saving HF dataset...")
     os.makedirs(OUT_DIR, exist_ok=True)
     # Cast all columns except 'id' and 'text' to float if possible, otherwise to string
     for col in merged.columns:
@@ -96,7 +96,7 @@ def main():
                 merged[col] = merged[col].astype(str)
     ds = Dataset.from_pandas(merged)
     ds.save_to_disk(OUT_DIR)
-    print(f"✅ Saved {len(ds)} examples to {OUT_DIR}")
+    print(f"Success: Saved {len(ds)} examples to {OUT_DIR}")
 
 if __name__ == "__main__":
     main()
