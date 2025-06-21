@@ -4,7 +4,7 @@ Fine-tuning an open-source LLM to deliver evidence-based interventions (cognitiv
 
 ## Project Overview
 
-InteroSight is an LLM-based system that takes user input (similar to Reddit posts from eating disorder communities) and generates motivational interviewing responses that validate emotions and help users work through the underlying psychology of their disorder.
+InteroSight is an LLM-based system that takes user input (similar to Reddit posts from eating disorder communities) and generates motivational interviewing responses that validate emotions and gently guide users to work through the underlying psychology of their disorder.
 
 ## Repository Structure
 
@@ -54,9 +54,9 @@ interosight/
 
 ## Data Sources
 
-- **Reddit Posts**: Real posts from eating disorder subreddits with topic annotations
 - **Synthetic MI Data**: Generated motivational interviewing training pairs
-- **Topic Annotations**: Multi-label topic scores from multiple LLMs and human annotators
+- **Reddit Posts With Topic Annotations**: Real posts from eating disorder subreddits with topic annotations from multiple LLMs and human annotators
+  - Qiu, Jiaxing. 2025. “Topic Annotations on Reddit Posts from Eating Disorders and Dieting Forums by Human and LLMs.” University of Virginia Dataverse. https://doi.org/doi:10.18130/V3/NENELT.
 
 ## Model Architecture
 
