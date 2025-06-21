@@ -1,0 +1,25 @@
+# Core ML libraries
+torch>=2.0.0
+transformers>=4.35.0
+datasets>=2.14.0
+peft>=0.6.0
+accelerate>=0.24.0
+bitsandbytes>=0.41.0
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Utilities
+tqdm>=4.65.0
+pyyaml>=6.0
+argparse
+
+# Optional: for better performance
+flash-attn>=2.3.0  # Optional: for faster attention
+xformers>=0.0.20   # Optional: for memory efficiency
+
+# Development
+pytest>=7.0.0
+black>=23.0.0
+flake8>=6.0.0 
