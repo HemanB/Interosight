@@ -28,7 +28,7 @@ def unzip_all():
             with zipfile.ZipFile(path, "r") as z:
                 z.extractall(RAW_DIR)
 
-def load_posts():
+def load_posts() -> pd.DataFrame:
     # reddit_posts.csv was extracted from reddit_posts.csv.zip
     path = os.path.join(RAW_DIR, "reddit_posts.csv")
     df = pd.read_csv(path)                    # no compression here
@@ -42,7 +42,7 @@ def load_posts():
     if "body" in df.columns:
         df = df.rename(columns={"body": "text"})
     
-    return df[["id", "text"]]
+    return df.loc[:, ["id", "text"]]
 
 def load_key():
     # key.csv was extracted from key.csv.zip
@@ -53,6 +53,7 @@ def load_key():
 
 def merge_topics(base: pd.DataFrame, id2name: dict) -> pd.DataFrame:
     df = base.set_index("id")
+    dfs_to_join = []
     for fname in MODEL_FILES:
         model = fname.replace("topic_", "").replace(".csv.zip", "")
         csv_name = fname.replace(".zip", "")
@@ -63,10 +64,15 @@ def merge_topics(base: pd.DataFrame, id2name: dict) -> pd.DataFrame:
             tmp = tmp.rename(columns={"sm_id": "id"})
         # Drop id column from topics to avoid duplicate join columns
         topic_cols = [col for col in tmp.columns if col != "id"]
+        # Downcast topic columns to save memory
+        for col in topic_cols:
+            tmp[col] = pd.to_numeric(tmp[col], errors='coerce').astype('float32')
         # Prefix topic columns with model name
         tmp = tmp.set_index("id")
         tmp = tmp.rename(columns={col: f"{model}_{col}" for col in topic_cols})
-        df = df.join(tmp, how="left")
+        dfs_to_join.append(tmp)
+
+    df = df.join(dfs_to_join, how="left")
     return df.reset_index().fillna(0)
 
 def main():
@@ -87,13 +93,7 @@ def main():
 
     print("Saving HF dataset...")
     os.makedirs(OUT_DIR, exist_ok=True)
-    # Cast all columns except 'id' and 'text' to float if possible, otherwise to string
-    for col in merged.columns:
-        if col not in ["id", "text"]:
-            try:
-                merged[col] = merged[col].astype(float)
-            except Exception:
-                merged[col] = merged[col].astype(str)
+    # The casting to float is now handled in merge_topics
     ds = Dataset.from_pandas(merged)
     ds.save_to_disk(OUT_DIR)
     print(f"Success: Saved {len(ds)} examples to {OUT_DIR}")
