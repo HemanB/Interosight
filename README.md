@@ -6,6 +6,104 @@ Fine-tuning an open-source LLM to deliver evidence-based interventions (cognitiv
 
 InteroSight is an LLM-based system that takes user input (similar to Reddit posts from eating disorder communities) and generates motivational interviewing responses that validate emotions and gently guide users to work through the underlying psychology of their disorder.
 
+## Mobile App Design
+
+InteroSight includes a React Native mobile application designed to provide a beautiful, engaging, and therapeutic experience for eating disorder recovery. The app features a mascot-driven interface similar to Duolingo, with empathetic animations and evidence-based interventions.
+
+### App Architecture
+
+```
+app/
+├── components/             # Reusable UI components
+├── screens/               # Main app screens
+├── navigation/            # React Navigation setup
+├── hooks/                 # Custom React hooks
+├── lib/                   # Firebase, LLM API integration
+├── prompts/               # LLM prompt templates
+├── predictive/            # Predictive engine
+├── assets/                # Images, fonts, mascot animations
+└── constants/             # Colors, themes, configuration
+```
+
+### User Journey & App Flow
+
+The app follows a carefully designed user journey that prioritizes emotional safety, engagement, and therapeutic effectiveness:
+
+#### App Launch Experience
+- **Mascot Animation**: Similar to Duolingo, engaging mascot animation during app loading
+- **Home Screen**: Features mascot with minimal animations, streak indicator, XP bar, and to-do list with XP rewards
+
+#### Navigation Structure
+The app uses a bottom tab navigation with 6 main sections:
+
+1. **Home Tab** (Leftmost) - Dashboard with progress tracking
+2. **Reflect Tab** - LLM-powered therapeutic chat
+3. **Meal Logging Tab** - Food tracking with descriptive input
+4. **Triggers/Patterns Tab** - Behavioral pattern tracking and crisis tools
+5. **Community Tab** - Peer support features
+6. **Settings/Help Tab** - App configuration and resources
+
+### Core Features
+
+#### 1. Reflect Screen (LLM Chat)
+- **Intuitive Chat Interface**: Clean, therapeutic chat design
+- **Empathetic Mascot**: Animated mascot with empathetic gestures (nodding, adjusting glasses)
+- **Emotional Engagement**: Animations engineered to promote feelings of safety and being heard
+- **Real-time Processing**: Mascot animations during LLM response generation
+
+#### 2. Meal Logging
+- **Textual Focus**: Large text input for detailed meal descriptions
+- **Meal Type Toggles**: Icons for breakfast, lunch, dinner, snacks
+- **Image Support**: Optional photo uploads
+- **Non-judgmental Design**: Focus on description rather than calorie counting
+
+#### 3. Triggers & Behavioral Patterns
+- **Trigger Logging**: Track behavioral patterns and triggers
+- **Crisis Tools**: DBT and emotional regulation techniques
+- **Emergency Contacts**: Pre-made messages for quick support requests
+- **Risk Escalation**: One-tap access to suicide/mental health hotlines
+- **Post-crisis Reflection**: Adaptive tool selection based on user input
+
+#### 4. Settings & Configuration
+- **Notification Settings**: Customizable reminders and alerts
+- **Community Settings**: Privacy and interaction preferences
+- **LLM Settings**: Chat behavior and response customization
+- **Theme Customization**: Color schemes and visual preferences
+- **Mascot Settings**: Personalization options
+- **Resources**: Curated high-value recovery resources
+- **Crisis Settings**: Emergency contact and safety configuration
+
+### Design Principles
+
+- **Emotional Safety First**: All interactions designed to promote feelings of safety and support
+- **Gamification**: Streaks, XP, and progress tracking to encourage engagement
+- **Accessibility**: Easy navigation and clear visual hierarchy
+- **Crisis Awareness**: Built-in safety tools and escalation procedures
+- **Personalization**: Customizable experience to meet individual needs
+
+### Technical Implementation
+
+- **React Native with Expo**: Cross-platform mobile development
+- **React Navigation**: Custom stack navigator for full design control
+- **Firebase Integration**: Authentication, data storage, and real-time features
+- **Hugging Face LLM API**: Integration with fine-tuned therapeutic model
+- **Custom Animations**: Mascot animations and micro-interactions
+- **Responsive Design**: Optimized for various screen sizes and orientations
+
+### App Flow Documentation
+
+Detailed flowcharts and screen layouts are available in the `docs/` directory:
+
+- **`docs/app_flowchart.puml`**: Complete user journey and app flow diagram
+- **`docs/screen_flow_diagram.puml`**: Detailed screen layouts and UI components
+
+To view these diagrams:
+1. Use a PlantUML viewer (VS Code extension, online viewer, or local installation)
+2. Copy the `.puml` file content into the viewer
+3. The diagrams will render showing the complete app structure and user flows
+
+These flowcharts serve as the foundation for development and ensure all team members understand the intended user experience and technical architecture.
+
 ## Repository Structure
 
 ```

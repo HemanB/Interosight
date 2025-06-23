@@ -1,0 +1,112 @@
+@startuml InteroSight App Flowchart
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+title InteroSight - User Journey & App Flow
+
+' Start
+start
+
+' App Launch Animation
+:App Launch;
+:Show Mascot Animation\n(Loading Screen);
+note right: Similar to Duolingo\nMascot with engaging animations\nwhile app loads in background
+
+' Home Screen
+:Enter Home Screen;
+note right: Features:\n- Mascot with minimal animations\n- Streak indicator\n- XP bar\n- To-do list with XP rewards\n- 6 bottom tabs visible
+
+' Tab Navigation
+partition "Bottom Tab Navigation" {
+  :Home Tab (Leftmost);
+  :Reflect Tab (LLM Chat);
+  :Meal Logging Tab;
+  :Triggers/Patterns Tab;
+  :Community Tab;
+  :Settings/Help Tab;
+}
+
+' Reflect Screen Flow
+partition "Reflect Screen (LLM Chat)" {
+  :User taps Reflect Tab;
+  :Show Chat Interface;
+  note right: Features:\n- Intuitive chat UI\n- Mascot with empathetic animations\n- Emotional engagement design
+  :User types message;
+  :Send to LLM;
+  :Mascot animations during processing;
+  note right: Animations:\n- Nodding head\n- Adjusting glasses\n- Empathetic gestures
+  :Display LLM response;
+  :Continue conversation;
+}
+
+' Meal Logging Flow
+partition "Meal Logging Tab" {
+  :User taps Meal Tab;
+  :Show meal logging interface;
+  note right: Features:\n- Text description input\n- Meal type toggles (breakfast, lunch, dinner, snack)\n- Image upload capability
+  :User selects meal type;
+  :User enters description;
+  :User optionally adds image;
+  :Save meal log;
+}
+
+' Triggers/Patterns Flow
+partition "Triggers & Behavioral Patterns" {
+  :User taps Triggers Tab;
+  :Show logging interface;
+  note right: Features:\n- Trigger logging\n- Crisis tools\n- DBT/emotional regulation\n- Emergency contacts
+  :User logs trigger/pattern;
+  
+  if (Crisis situation?) then (yes)
+    :Show Crisis Tools;
+    :DBT/Emotional Regulation Tools;
+    :Emergency Contact Options;
+    note right: Pre-made messages:\n"Hey, I'm struggling with XYZ,\nwould appreciate a check-in"
+    
+    if (Risk escalation needed?) then (yes)
+      :Show Risk Escalation Tool;
+      :One-tap access to\nSuicide/Mental Health Hotline;
+      :Easy call initiation;
+    else (no)
+      :Continue with crisis tools;
+    endif
+    
+    :Post-crisis reflection;
+    :Adaptive crisis tool selection;
+  else (no)
+    :Continue with regular logging;
+  endif
+}
+
+' Settings Flow
+partition "Settings Tab" {
+  :User taps Settings Tab;
+  :Show settings menu;
+  note right: Features:\n- Notification settings\n- Community settings\n- LLM settings\n- Color/theme settings\n- Mascot settings\n- Resources tab\n- Crisis tab
+  :User configures preferences;
+}
+
+' Community Flow
+partition "Community Tab" {
+  :User taps Community Tab;
+  :Show community features;
+  note right: Community features\nto be defined based on\nuser needs and safety
+}
+
+' Universal Navigation
+note right
+  **Universal Navigation:**
+  Users can access any screen
+  from any other screen via
+  the bottom tab navigation.
+  Each tab maintains its state
+  and user progress.
+end note
+
+' End
+stop
+
+@enduml 
