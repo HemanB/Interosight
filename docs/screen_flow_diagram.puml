@@ -1,0 +1,140 @@
+@startuml InteroSight Screen Flow Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontSize 10
+
+title InteroSight - Screen Layouts & UI Components
+
+' Home Screen Layout
+rectangle "Home Screen" as Home {
+  rectangle "Top Section" as HomeTop {
+    rectangle "Mascot Animation" as HomeMascot
+    rectangle "Streak Indicator" as HomeStreak
+    rectangle "XP Bar" as HomeXP
+  }
+  
+  rectangle "Center Section" as HomeCenter {
+    rectangle "To-Do List" as HomeTodo
+    note right: XP rewards\nassociated with tasks
+  }
+  
+  rectangle "Bottom Navigation" as HomeNav {
+    rectangle "Home Tab (Active)" as HomeTab
+    rectangle "Reflect Tab" as ReflectTab
+    rectangle "Meals Tab" as MealsTab
+    rectangle "Triggers Tab" as TriggersTab
+    rectangle "Community Tab" as CommunityTab
+    rectangle "Settings Tab" as SettingsTab
+  }
+}
+
+' Reflect Screen Layout
+rectangle "Reflect Screen (LLM Chat)" as Reflect {
+  rectangle "Top Section" as ReflectTop {
+    rectangle "Mascot (Empathetic)" as ReflectMascot
+    note right: Animations:\n- Nodding\n- Adjusting glasses\n- Empathetic gestures
+  }
+  
+  rectangle "Chat Area" as ReflectChat {
+    rectangle "Message History" as ReflectMessages
+    rectangle "Typing Indicator" as ReflectTyping
+  }
+  
+  rectangle "Input Section" as ReflectInput {
+    rectangle "Chat Input Bar" as ReflectInputBar
+    note right: Keyboard appears\nwhen tapped
+  }
+  
+  rectangle "Bottom Navigation" as ReflectNav {
+    rectangle "Home Tab" as ReflectHomeTab
+    rectangle "Reflect Tab (Active)" as ReflectReflectTab
+    rectangle "Meals Tab" as ReflectMealsTab
+    rectangle "Triggers Tab" as ReflectTriggersTab
+    rectangle "Community Tab" as ReflectCommunityTab
+    rectangle "Settings Tab" as ReflectSettingsTab
+  }
+}
+
+' Meal Logging Screen Layout
+rectangle "Meal Logging Screen" as Meals {
+  rectangle "Top Section" as MealsTop {
+    rectangle "Meal Type Toggles" as MealsToggles
+    note right: Icons for:\n- Breakfast\n- Lunch\n- Dinner\n- Snack
+  }
+  
+  rectangle "Center Section" as MealsCenter {
+    rectangle "Text Description Box" as MealsText
+    note right: Large text input\nin center of screen
+    rectangle "Image Upload" as MealsImage
+    note right: Optional\nimage attachment
+  }
+  
+  rectangle "Bottom Section" as MealsBottom {
+    rectangle "Save Button" as MealsSave
+  }
+  
+  rectangle "Bottom Navigation" as MealsNav {
+    rectangle "Home Tab" as MealsHomeTab
+    rectangle "Reflect Tab" as MealsReflectTab
+    rectangle "Meals Tab (Active)" as MealsMealsTab
+    rectangle "Triggers Tab" as MealsTriggersTab
+    rectangle "Community Tab" as MealsCommunityTab
+    rectangle "Settings Tab" as MealsSettingsTab
+  }
+}
+
+' Triggers/Patterns Screen Layout
+rectangle "Triggers & Patterns Screen" as Triggers {
+  rectangle "Top Section" as TriggersTop {
+    rectangle "Trigger Logging" as TriggersLog
+    rectangle "Crisis Tool Access" as TriggersCrisis
+  }
+  
+  rectangle "Center Section" as TriggersCenter {
+    rectangle "DBT Tools" as TriggersDBT
+    rectangle "Emergency Contacts" as TriggersEmergency
+    note right: Pre-made messages\nfor quick contact
+  }
+  
+  rectangle "Crisis Section" as TriggersCrisisSection {
+    rectangle "Risk Escalation" as TriggersRisk
+    note right: One-tap hotline\naccess
+    rectangle "Post-Crisis Reflection" as TriggersReflection
+  }
+  
+  rectangle "Bottom Navigation" as TriggersNav {
+    rectangle "Home Tab" as TriggersHomeTab
+    rectangle "Reflect Tab" as TriggersReflectTab
+    rectangle "Meals Tab" as TriggersMealsTab
+    rectangle "Triggers Tab (Active)" as TriggersTriggersTab
+    rectangle "Community Tab" as TriggersCommunityTab
+    rectangle "Settings Tab" as TriggersSettingsTab
+  }
+}
+
+' Settings Screen Layout
+rectangle "Settings Screen" as Settings {
+  rectangle "Settings Menu" as SettingsMenu {
+    rectangle "Notifications" as SettingsNotif
+    rectangle "Community" as SettingsCommunity
+    rectangle "LLM Settings" as SettingsLLM
+    rectangle "Color/Theme" as SettingsTheme
+    rectangle "Mascot Settings" as SettingsMascot
+    rectangle "Resources" as SettingsResources
+    rectangle "Crisis Settings" as SettingsCrisis
+  }
+  
+  rectangle "Bottom Navigation" as SettingsNav {
+    rectangle "Home Tab" as SettingsHomeTab
+    rectangle "Reflect Tab" as SettingsReflectTab
+    rectangle "Meals Tab" as SettingsMealsTab
+    rectangle "Triggers Tab" as SettingsTriggersTab
+    rectangle "Community Tab" as SettingsCommunityTab
+    rectangle "Settings Tab (Active)" as SettingsSettingsTab
+  }
+}
+
+
+@enduml 
