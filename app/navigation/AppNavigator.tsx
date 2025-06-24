@@ -5,8 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from '../screens/HomeScreen';
 import ReflectScreen from '../screens/ReflectScreen';
-import MealsScreen from '../screens/MealsScreen';
-import TriggersScreen from '../screens/TriggersScreen';
+import TrackingScreen from '../screens/TrackingScreen';
+import ExploreScreen from '../screens/ExploreScreen';
 import CommunityScreen from '../screens/CommunityScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
@@ -22,12 +22,12 @@ export default function AppNavigator() {
 
             if (route.name === 'Home') {
               iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'Reflect') {
-              iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
-            } else if (route.name === 'Meals') {
-              iconName = focused ? 'restaurant' : 'restaurant-outline';
-            } else if (route.name === 'Triggers') {
-              iconName = focused ? 'warning' : 'warning-outline';
+            } else if (route.name === 'Stone of Wisdom') {
+              iconName = focused ? 'diamond' : 'diamond-outline';
+            } else if (route.name === 'Tracking') {
+              iconName = focused ? 'list' : 'list-outline';
+            } else if (route.name === 'Explore') {
+              iconName = focused ? 'map' : 'map-outline';
             } else if (route.name === 'Community') {
               iconName = focused ? 'people' : 'people-outline';
             } else if (route.name === 'Settings') {
@@ -61,19 +61,19 @@ export default function AppNavigator() {
           options={{ title: 'Home' }}
         />
         <Tab.Screen 
-          name="Reflect" 
+          name="Stone of Wisdom" 
           component={ReflectScreen}
-          options={{ title: 'Reflect' }}
+          options={{ title: 'Stone of Wisdom' }}
         />
         <Tab.Screen 
-          name="Meals" 
-          component={MealsScreen}
-          options={{ title: 'Meals' }}
+          name="Tracking" 
+          component={TrackingScreen}
+          options={{ title: 'Tracking' }}
         />
         <Tab.Screen 
-          name="Triggers" 
-          component={TriggersScreen}
-          options={{ title: 'Triggers' }}
+          name="Explore" 
+          component={ExploreScreen}
+          options={{ title: 'Explore' }}
         />
         <Tab.Screen 
           name="Community" 
