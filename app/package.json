@@ -8,7 +8,12 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "test:llama": "node ./scripts/test-llama.js",
+    "test:llm": "node ./scripts/test-llm.js",
+    "test:load": "node ./scripts/test-llm.js --load",
+    "test:queue": "node ./scripts/test-llm.js --queue",
+    "test:smart-fallback": "node ./scripts/test-smart-fallback.js"
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",

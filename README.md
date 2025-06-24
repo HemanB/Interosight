@@ -43,6 +43,22 @@ conda activate interosight
 pip install -r requirements.txt
 ```
 
+### Mobile App Development
+```bash
+cd app
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your HUGGING_FACE_API_KEY
+
+# Test LLM integration
+npm run test:llm
+
+# Start development server
+npx expo start
+```
+
 ### Data Processing
 ```bash
 # Process high-relevance posts
@@ -55,13 +71,6 @@ python -m interosight.data.pipeline --step status
 ### Model Training
 ```bash
 python -m interosight.training.train --config configs/training_config.yaml
-```
-
-### Mobile App Development
-```bash
-cd app
-npm install
-npx expo start
 ```
 
 ## Data Sources

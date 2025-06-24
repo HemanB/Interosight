@@ -14,6 +14,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Mascot from '../components/Mascot';
+import NetworkStatus from '../components/NetworkStatus';
 import { ChatMessage } from '../prompts/prompts';
 import { llmService, LLMResponse } from '../lib/llm';
 
@@ -23,6 +24,8 @@ interface ChatBubble {
   isUser: boolean;
   timestamp: Date;
   isCrisis?: boolean;
+  source?: 'llama' | 'fallback' | 'crisis';
+  latency?: number;
 }
 
 export default function ReflectScreen() {
@@ -80,6 +83,8 @@ export default function ReflectScreen() {
         isUser: false,
         timestamp: new Date(),
         isCrisis: response.isCrisis,
+        source: response.source,
+        latency: response.latency,
       };
       
       setMessages(prev => [...prev, aiMessage]);
@@ -106,6 +111,7 @@ export default function ReflectScreen() {
         message: "I'm having trouble connecting right now, but I'm still here for you. How are you feeling?",
         isUser: false,
         timestamp: new Date(),
+        source: 'fallback',
       };
       
       setMessages(prev => [...prev, errorMessage]);
@@ -149,6 +155,9 @@ export default function ReflectScreen() {
         style={styles.keyboardAvoidingView}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
+        {/* Network Status */}
+        <NetworkStatus />
+        
         {/* Header with Mascot */}
         <View style={styles.header}>
           <Mascot mood={mascotMood} size={60} />

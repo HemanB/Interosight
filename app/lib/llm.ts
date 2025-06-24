@@ -1,9 +1,11 @@
-import { ChatMessage, buildChatPrompt, detectCrisisKeywords, getCrisisResponse } from '../prompts/prompts';
+import { ChatMessage, detectCrisisKeywords, getCrisisResponse } from '../prompts/prompts';
 
 export interface LLMResponse {
   message: string;
   isCrisis: boolean;
   confidence: number;
+  source: 'llama' | 'fallback' | 'crisis';
+  latency: number;
 }
 
 export class LLMService {
@@ -12,13 +14,14 @@ export class LLMService {
   private modelName: string;
 
   constructor() {
-    // These would typically come from environment variables
-    this.apiKey = process.env.HUGGING_FACE_API_KEY || '';
+    this.apiKey = process.env.HF_TOKEN || '';
     this.baseUrl = 'https://api-inference.huggingface.co/models';
-    this.modelName = 'meta-llama/Llama-2-7b-chat-hf'; // Default model, can be changed
+    this.modelName = 'meta-llama/Llama-3.2-1B-Instruct';
   }
 
   async sendMessage(messages: ChatMessage[]): Promise<LLMResponse> {
+    const startTime = Date.now();
+
     try {
       const lastMessage = messages[messages.length - 1];
       
@@ -27,12 +30,14 @@ export class LLMService {
         return {
           message: getCrisisResponse(),
           isCrisis: true,
-          confidence: 0.9
+          confidence: 0.9,
+          source: 'crisis',
+          latency: Date.now() - startTime
         };
       }
 
-      // Build the prompt
-      const prompt = buildChatPrompt(messages);
+      // Build the prompt for Llama 3.2 1B
+      const prompt = this.buildPrompt(messages);
 
       // Make API call to Hugging Face
       const response = await this.callHuggingFaceAPI(prompt);
@@ -40,24 +45,62 @@ export class LLMService {
       return {
         message: response,
         isCrisis: false,
-        confidence: 0.8
+        confidence: 0.8,
+        source: 'llama',
+        latency: Date.now() - startTime
       };
 
     } catch (error) {
       console.error('LLM API Error:', error);
       
-      // Fallback response
       return {
         message: "I'm having trouble connecting right now, but I'm still here for you. How are you feeling?",
         isCrisis: false,
-        confidence: 0.5
+        confidence: 0.5,
+        source: 'fallback',
+        latency: Date.now() - startTime
       };
     }
   }
 
+  private buildPrompt(messages: ChatMessage[]): string {
+    const systemPrompt = `You are InteroSight, a compassionate AI companion designed to support individuals in eating disorder recovery. Your role is to provide empathetic, non-judgmental support while maintaining therapeutic boundaries.
+
+Key Guidelines:
+- Always respond with warmth, empathy, and understanding
+- Never give medical advice or replace professional treatment
+- Focus on emotional support and gentle encouragement
+- Use inclusive, body-positive language
+- Avoid triggering content about calories, weight, or specific eating behaviors
+- Encourage self-compassion and self-care
+- Recognize crisis situations and provide appropriate resources
+- Maintain a supportive, non-coercive approach
+
+Your responses should be:
+- Warm and conversational
+- Focused on emotional well-being
+- Encouraging of professional support when needed
+- Mindful of recovery language and triggers
+- Supportive of individual recovery journeys
+
+Remember: You are here to listen, support, and encourage, not to diagnose or treat.`;
+
+    // Format for Llama 3.2 1B Instruct
+    let prompt = `<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n${systemPrompt}<|eot_id|>`;
+    
+    for (const message of messages) {
+      const role = message.role === 'user' ? 'user' : 'assistant';
+      prompt += `<|start_header_id|>${role}<|end_header_id|>\n${message.content}<|eot_id|>`;
+    }
+    
+    prompt += `<|start_header_id|>assistant<|end_header_id|>\n`;
+    
+    return prompt;
+  }
+
   private async callHuggingFaceAPI(prompt: string): Promise<string> {
     if (!this.apiKey) {
-      throw new Error('Hugging Face API key not configured');
+      throw new Error('HF_TOKEN not configured');
     }
 
     const response = await fetch(`${this.baseUrl}/${this.modelName}`, {
@@ -90,11 +133,6 @@ export class LLMService {
     }
     
     return 'I understand. How can I support you right now?';
-  }
-
-  // Method to update the model (useful for switching between different fine-tuned models)
-  setModel(modelName: string): void {
-    this.modelName = modelName;
   }
 
   // Method to test the connection
