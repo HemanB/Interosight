@@ -9,7 +9,8 @@ import {
   updatePassword,
   deleteUser,
   reauthenticateWithCredential,
-  EmailAuthProvider
+  EmailAuthProvider,
+  Auth
 } from 'firebase/auth';
 import { 
   doc, 
@@ -25,8 +26,6 @@ import {
   Timestamp
 } from 'firebase/firestore';
 import { auth, db } from './firebase';
-import * as LocalAuthentication from 'expo-local-authentication';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // User profile interface
 export interface UserProfile {
@@ -37,7 +36,6 @@ export interface UserProfile {
   createdAt: Timestamp;
   updatedAt: Timestamp;
   preferences: {
-    biometricEnabled: boolean;
     notifications: boolean;
     dataCollectionConsent: boolean;
     theme: 'light' | 'dark' | 'auto';
@@ -64,27 +62,38 @@ export interface AuthError {
 class AuthService {
   private currentUser: User | null = null;
   private userProfile: UserProfile | null = null;
+  private authInstance: Auth | null = null;
 
   constructor() {
-    // Listen for auth state changes
-    auth.onAuthStateChanged(async (user) => {
-      this.currentUser = user;
-      if (user) {
-        await this.loadUserProfile(user.uid);
-      } else {
-        this.userProfile = null;
-      }
-    });
+    // Synchronous initialization for Expo Go / web SDK
+    this.authInstance = auth;
+    if (this.authInstance) {
+      this.authInstance.onAuthStateChanged(async (user: User | null) => {
+        this.currentUser = user;
+        if (user) {
+          await this.loadUserProfile(user.uid);
+        } else {
+          this.userProfile = null;
+        }
+      });
+    } else {
+      console.warn('Firebase Auth not available - running in offline mode');
+    }
   }
 
   // Get current user
-  getCurrentUser(): User | null {
+  async getCurrentUser(): Promise<User | null> {
     return this.currentUser;
   }
 
   // Get current user profile
-  getUserProfile(): UserProfile | null {
+  async getUserProfile(): Promise<UserProfile | null> {
     return this.userProfile;
+  }
+
+  // Check if auth is ready
+  private isAuthReady(): boolean {
+    return this.authInstance !== null;
   }
 
   // Register new user
@@ -94,10 +103,14 @@ class AuthService {
     displayName: string,
     profileData: Partial<UserProfile['profile']> = {}
   ): Promise<{ user: User; profile: UserProfile }> {
+    if (!this.isAuthReady()) {
+      throw { code: 'auth-not-ready', message: 'Authentication service is not ready' };
+    }
+
     try {
-      // Create user account
+      // Create user account using web SDK
       const userCredential: UserCredential = await createUserWithEmailAndPassword(
-        auth, 
+        this.authInstance!, 
         email, 
         password
       );
@@ -115,7 +128,6 @@ class AuthService {
         createdAt: serverTimestamp() as Timestamp,
         updatedAt: serverTimestamp() as Timestamp,
         preferences: {
-          biometricEnabled: false,
           notifications: true,
           dataCollectionConsent: false,
           theme: 'auto'
@@ -125,7 +137,9 @@ class AuthService {
         }
       };
 
-      await setDoc(doc(db, 'users', user.uid), userProfile);
+      if (db) {
+        await setDoc(doc(db, 'users', user.uid), userProfile);
+      }
 
       // Load the profile
       this.userProfile = userProfile;
@@ -138,9 +152,13 @@ class AuthService {
 
   // Sign in with email and password
   async signIn(email: string, password: string): Promise<{ user: User; profile: UserProfile }> {
+    if (!this.isAuthReady()) {
+      throw { code: 'auth-not-ready', message: 'Authentication service is not ready' };
+    }
+
     try {
       const userCredential: UserCredential = await signInWithEmailAndPassword(
-        auth, 
+        this.authInstance!, 
         email, 
         password
       );
@@ -156,93 +174,17 @@ class AuthService {
 
   // Sign out
   async signOut(): Promise<void> {
-    try {
-      await signOut(auth);
+    if (!this.isAuthReady()) {
+      // If auth is not ready, just clear local state
       this.currentUser = null;
       this.userProfile = null;
-      await AsyncStorage.removeItem('biometricEnabled');
-    } catch (error: any) {
-      throw this.handleAuthError(error);
+      return;
     }
-  }
 
-  // Setup biometric authentication
-  async setupBiometric(): Promise<boolean> {
     try {
-      // Check if device supports biometrics
-      const hasHardware = await LocalAuthentication.hasHardwareAsync();
-      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-
-      if (!hasHardware || !isEnrolled) {
-        throw new Error('Biometric authentication not available on this device');
-      }
-
-      // Authenticate with biometrics
-      const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: 'Authenticate to enable biometric login',
-        fallbackLabel: 'Use password',
-        cancelLabel: 'Cancel'
-      });
-
-      if (result.success) {
-        // Update user preferences
-        if (this.currentUser && this.userProfile) {
-          await updateDoc(doc(db, 'users', this.currentUser.uid), {
-            'preferences.biometricEnabled': true,
-            updatedAt: serverTimestamp()
-          });
-
-          this.userProfile.preferences.biometricEnabled = true;
-          await AsyncStorage.setItem('biometricEnabled', 'true');
-        }
-
-        return true;
-      }
-
-      return false;
-    } catch (error: any) {
-      throw this.handleAuthError(error);
-    }
-  }
-
-  // Authenticate with biometrics
-  async authenticateWithBiometric(): Promise<{ user: User; profile: UserProfile }> {
-    try {
-      // Check if biometric is enabled
-      const biometricEnabled = await AsyncStorage.getItem('biometricEnabled');
-      if (biometricEnabled !== 'true') {
-        throw new Error('Biometric authentication not enabled');
-      }
-
-      // Authenticate with biometrics
-      const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: 'Authenticate to continue',
-        fallbackLabel: 'Use password',
-        cancelLabel: 'Cancel'
-      });
-
-      if (result.success && this.currentUser && this.userProfile) {
-        return { user: this.currentUser, profile: this.userProfile };
-      } else {
-        throw new Error('Biometric authentication failed');
-      }
-    } catch (error: any) {
-      throw this.handleAuthError(error);
-    }
-  }
-
-  // Disable biometric authentication
-  async disableBiometric(): Promise<void> {
-    try {
-      if (this.currentUser && this.userProfile) {
-        await updateDoc(doc(db, 'users', this.currentUser.uid), {
-          'preferences.biometricEnabled': false,
-          updatedAt: serverTimestamp()
-        });
-
-        this.userProfile.preferences.biometricEnabled = false;
-        await AsyncStorage.removeItem('biometricEnabled');
-      }
+      await signOut(this.authInstance!);
+      this.currentUser = null;
+      this.userProfile = null;
     } catch (error: any) {
       throw this.handleAuthError(error);
     }
@@ -251,16 +193,12 @@ class AuthService {
   // Update user profile
   async updateProfile(updates: Partial<UserProfile['profile']>): Promise<void> {
     try {
-      if (!this.currentUser) {
-        throw new Error('No user logged in');
-      }
+      if (this.currentUser && this.userProfile && db) {
+        await updateDoc(doc(db, 'users', this.currentUser.uid), {
+          profile: { ...this.userProfile.profile, ...updates },
+          updatedAt: serverTimestamp()
+        });
 
-      await updateDoc(doc(db, 'users', this.currentUser.uid), {
-        profile: updates,
-        updatedAt: serverTimestamp()
-      });
-
-      if (this.userProfile) {
         this.userProfile.profile = { ...this.userProfile.profile, ...updates };
       }
     } catch (error: any) {
@@ -271,21 +209,12 @@ class AuthService {
   // Update user preferences
   async updatePreferences(updates: Partial<UserProfile['preferences']>): Promise<void> {
     try {
-      if (!this.currentUser) {
-        throw new Error('No user logged in');
-      }
+      if (this.currentUser && this.userProfile && db) {
+        await updateDoc(doc(db, 'users', this.currentUser.uid), {
+          preferences: { ...this.userProfile.preferences, ...updates },
+          updatedAt: serverTimestamp()
+        });
 
-      const preferenceUpdates: any = {};
-      Object.keys(updates).forEach(key => {
-        preferenceUpdates[`preferences.${key}`] = updates[key as keyof UserProfile['preferences']];
-      });
-
-      await updateDoc(doc(db, 'users', this.currentUser.uid), {
-        ...preferenceUpdates,
-        updatedAt: serverTimestamp()
-      });
-
-      if (this.userProfile) {
         this.userProfile.preferences = { ...this.userProfile.preferences, ...updates };
       }
     } catch (error: any) {
@@ -295,8 +224,12 @@ class AuthService {
 
   // Reset password
   async resetPassword(email: string): Promise<void> {
+    if (!this.isAuthReady()) {
+      throw { code: 'auth-not-ready', message: 'Authentication service is not ready' };
+    }
+
     try {
-      await sendPasswordResetEmail(auth, email);
+      await sendPasswordResetEmail(this.authInstance!, email);
     } catch (error: any) {
       throw this.handleAuthError(error);
     }
@@ -304,19 +237,17 @@ class AuthService {
 
   // Change password
   async changePassword(currentPassword: string, newPassword: string): Promise<void> {
-    try {
-      if (!this.currentUser || !this.currentUser.email) {
-        throw new Error('No user logged in');
-      }
+    if (!this.isAuthReady() || !this.currentUser) {
+      throw { code: 'auth-not-ready', message: 'Authentication service is not ready' };
+    }
 
-      // Re-authenticate user
+    try {
+      // For web SDK, we need to use EmailAuthProvider.credential
       const credential = EmailAuthProvider.credential(
-        this.currentUser.email,
+        this.currentUser.email!,
         currentPassword
       );
       await reauthenticateWithCredential(this.currentUser, credential);
-
-      // Update password
       await updatePassword(this.currentUser, newPassword);
     } catch (error: any) {
       throw this.handleAuthError(error);
@@ -325,23 +256,25 @@ class AuthService {
 
   // Delete account
   async deleteAccount(password: string): Promise<void> {
-    try {
-      if (!this.currentUser || !this.currentUser.email) {
-        throw new Error('No user logged in');
-      }
+    if (!this.isAuthReady() || !this.currentUser) {
+      throw { code: 'auth-not-ready', message: 'Authentication service is not ready' };
+    }
 
-      // Re-authenticate user
+    try {
+      // For web SDK, we need to use EmailAuthProvider.credential
       const credential = EmailAuthProvider.credential(
-        this.currentUser.email,
+        this.currentUser.email!,
         password
       );
       await reauthenticateWithCredential(this.currentUser, credential);
-
-      // Delete user profile from Firestore
-      await deleteDoc(doc(db, 'users', this.currentUser.uid));
-
-      // Delete user account
+      
+      if (db) {
+        await deleteDoc(doc(db, 'users', this.currentUser.uid));
+      }
+      
       await deleteUser(this.currentUser);
+      this.currentUser = null;
+      this.userProfile = null;
     } catch (error: any) {
       throw this.handleAuthError(error);
     }
@@ -350,12 +283,17 @@ class AuthService {
   // Load user profile from Firestore
   private async loadUserProfile(uid: string): Promise<void> {
     try {
+      if (!db) {
+        console.warn('Firestore not available, cannot load user profile');
+        return;
+      }
+
       const userDoc = await getDoc(doc(db, 'users', uid));
       
       if (userDoc.exists()) {
-        this.userProfile = { id: userDoc.id, ...userDoc.data() } as UserProfile;
+        this.userProfile = userDoc.data() as UserProfile;
       } else {
-        // Create a default profile if one doesn't exist
+        // Create default profile if it doesn't exist
         const defaultProfile: UserProfile = {
           uid,
           email: this.currentUser?.email || '',
@@ -363,86 +301,29 @@ class AuthService {
           createdAt: serverTimestamp() as Timestamp,
           updatedAt: serverTimestamp() as Timestamp,
           preferences: {
-            biometricEnabled: false,
             notifications: true,
             dataCollectionConsent: false,
             theme: 'auto'
           },
           profile: {}
         };
-        
+
         await setDoc(doc(db, 'users', uid), defaultProfile);
         this.userProfile = defaultProfile;
       }
-    } catch (error: any) {
-      console.warn('Error loading user profile:', error);
-      
-      // Handle offline errors gracefully
-      if (error.code === 'unavailable' || error.message?.includes('offline')) {
-        console.log('User is offline, using cached profile or creating default');
-        
-        // Create a minimal profile for offline use
-        this.userProfile = {
-          uid,
-          email: this.currentUser?.email || '',
-          displayName: this.currentUser?.displayName || '',
-          createdAt: serverTimestamp() as Timestamp,
-          updatedAt: serverTimestamp() as Timestamp,
-          preferences: {
-            biometricEnabled: false,
-            notifications: true,
-            dataCollectionConsent: false,
-            theme: 'auto'
-          },
-          profile: {}
-        };
-      } else {
-        // For other errors, re-throw
-        throw error;
-      }
+    } catch (error) {
+      console.error('Error loading user profile:', error);
+      // Don't throw error, just log it
     }
   }
 
   // Handle authentication errors
   private handleAuthError(error: any): AuthError {
-    let message = 'An unexpected error occurred';
-    let code = 'unknown';
-
-    switch (error.code) {
-      case 'auth/user-not-found':
-        message = 'No account found with this email address';
-        code = 'user-not-found';
-        break;
-      case 'auth/wrong-password':
-        message = 'Incorrect password';
-        code = 'wrong-password';
-        break;
-      case 'auth/email-already-in-use':
-        message = 'An account with this email already exists';
-        code = 'email-already-in-use';
-        break;
-      case 'auth/weak-password':
-        message = 'Password should be at least 6 characters';
-        code = 'weak-password';
-        break;
-      case 'auth/invalid-email':
-        message = 'Invalid email address';
-        code = 'invalid-email';
-        break;
-      case 'auth/too-many-requests':
-        message = 'Too many failed attempts. Please try again later';
-        code = 'too-many-requests';
-        break;
-      case 'auth/network-request-failed':
-        message = 'Network error. Please check your connection';
-        code = 'network-error';
-        break;
-      default:
-        message = error.message || message;
-        code = error.code || code;
+    if (error.code && error.message) {
+      return error;
+    } else {
+      return { code: 'unknown', message: 'An unexpected error occurred' };
     }
-
-    return { code, message };
   }
 }
 
