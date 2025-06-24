@@ -2,7 +2,7 @@
 
 /**
  * Local LLM Server for InteroSight
- * Hosts Llama 3.1 8B locally using Ollama
+ * Hosts Llama 3.2 1B locally using Ollama
  */
 
 const express = require('express');
@@ -49,7 +49,7 @@ app.get('/health', (req, res) => {
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     memory: process.memoryUsage(),
-    model: 'llama3.1:8b'
+    model: 'llama3.2:1b'
   });
 });
 
@@ -58,7 +58,7 @@ app.post('/api/chat', rateLimiterMiddleware, async (req, res) => {
   const startTime = Date.now();
   
   try {
-    const { messages, model = 'llama3.1:8b' } = req.body;
+    const { messages, model = 'llama3.2:1b' } = req.body;
     
     if (!messages || !Array.isArray(messages)) {
       return res.status(400).json({
@@ -136,7 +136,7 @@ Remember: You are here to listen, support, and encourage, not to diagnose or tre
 }
 
 // Call Ollama API
-async function callOllama(prompt, model = 'llama3.1:8b') {
+async function callOllama(prompt, model = 'llama3.2:1b') {
   const response = await fetch('http://localhost:11434/api/generate', {
     method: 'POST',
     headers: {
@@ -186,10 +186,10 @@ app.use((error, req, res, next) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 InteroSight Local LLM Server running on port ${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/health`);
-  console.log(`🤖 Chat endpoint: http://localhost:${PORT}/api/chat`);
-  console.log(`📱 Make sure Ollama is running: ollama serve`);
+  console.log(`InteroSight Local LLM Server running on port ${PORT}`);
+  console.log(`Health check: http://localhost:${PORT}/health`);
+  console.log(`Chat endpoint: http://localhost:${PORT}/api/chat`);
+  console.log(`Make sure Ollama is running: ollama serve`);
 });
 
 module.exports = app; 

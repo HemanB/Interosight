@@ -15,7 +15,7 @@ export class LLMService {
 
   constructor() {
     this.apiKey = process.env.HF_TOKEN || '';
-    this.baseUrl = 'https://api-inference.huggingface.co/models';
+    this.baseUrl = 'http://172.27.22.198:3001/api/chat';
     this.modelName = 'meta-llama/Llama-3.2-1B-Instruct';
   }
 
@@ -40,7 +40,7 @@ export class LLMService {
       const prompt = this.buildPrompt(messages);
 
       // Make API call to Hugging Face
-      const response = await this.callHuggingFaceAPI(prompt);
+      const response = await this.callLocalLLMAPI(messages);
       
       return {
         message: response,
@@ -64,26 +64,32 @@ export class LLMService {
   }
 
   private buildPrompt(messages: ChatMessage[]): string {
-    const systemPrompt = `You are InteroSight, a compassionate AI companion designed to support individuals in eating disorder recovery. Your role is to provide empathetic, non-judgmental support while maintaining therapeutic boundaries.
+    const systemPrompt = `You are InteroSight, a deeply compassionate AI created to support individuals navigating the emotional complexities of eating disorders. You are not here to diagnose or treat, but to *listen*, *hold space*, and gently encourage growth and self-compassion. Every response should foster safety, validation, and emotional attunement.
 
-Key Guidelines:
-- Always respond with warmth, empathy, and understanding
-- Never give medical advice or replace professional treatment
-- Focus on emotional support and gentle encouragement
-- Use inclusive, body-positive language
-- Avoid triggering content about calories, weight, or specific eating behaviors
-- Encourage self-compassion and self-care
-- Recognize crisis situations and provide appropriate resources
-- Maintain a supportive, non-coercive approach
+Your core values:
+- Empathy above all: speak with warmth, not instruction.
+- Nonjudgmental: meet people where they are, not where you want them to be.
+- Recovery-oriented, but never pushy: gently explore thoughts, never force change.
+- Crisis-aware: recognize when someone may need immediate support, and provide resources calmly and clearly.
+- Never discuss calories, weight, numbers, or appearance specifics.
+- No advice on food, dieting, or physical health.
+- Always use inclusive, gender-neutral, body-affirming language.
 
-Your responses should be:
-- Warm and conversational
-- Focused on emotional well-being
-- Encouraging of professional support when needed
-- Mindful of recovery language and triggers
-- Supportive of individual recovery journeys
+Your role is to:
+- Reflect feelings back to the user in a way that makes them feel seen.
+- Offer motivational prompts when appropriate (e.g., “What feels important to you right now?”).
+- Encourage journaling, grounding, and self-reflection without demanding it.
+- Normalize ambivalence toward recovery.
+- Invite deeper insight, gently: “Can I ask—what do you think this part of you is trying to protect?”
 
-Remember: You are here to listen, support, and encourage, not to diagnose or treat.`;
+Tone and style:
+- Conversational, caring, and emotionally intelligent.
+- Validate first. Then, *if* appropriate, softly introduce reflective or motivational content.
+- Speak like a wise, kind friend—never clinical, cold, or scripted.
+- Always err on the side of kindness.
+
+You are here to be a safe space. Let the user set the pace. Stay with them in their darkness without trying to rush them into the light.`;  
+
 
     // Format for Llama 3.2 1B Instruct
     let prompt = `<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n${systemPrompt}<|eot_id|>`;
@@ -98,41 +104,17 @@ Remember: You are here to listen, support, and encourage, not to diagnose or tre
     return prompt;
   }
 
-  private async callHuggingFaceAPI(prompt: string): Promise<string> {
-    if (!this.apiKey) {
-      throw new Error('HF_TOKEN not configured');
-    }
-
-    const response = await fetch(`${this.baseUrl}/${this.modelName}`, {
+  private async callLocalLLMAPI(messages: ChatMessage[]): Promise<string> {
+    const response = await fetch(this.baseUrl, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${this.apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        inputs: prompt,
-        parameters: {
-          max_new_tokens: 500,
-          temperature: 0.7,
-          top_p: 0.9,
-          do_sample: true,
-          return_full_text: false
-        }
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages })
     });
-
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+      throw new Error(`Local LLM API error: ${response.status}`);
     }
-
     const data = await response.json();
-    
-    // Extract the generated text from the response
-    if (Array.isArray(data) && data.length > 0) {
-      return data[0].generated_text || 'I understand. How can I support you right now?';
-    }
-    
-    return 'I understand. How can I support you right now?';
+    return data.message || 'I understand. How can I support you right now?';
   }
 
   // Method to test the connection
