@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Mascot from '../components/Mascot';
-import { NetworkStatus } from '../components/NetworkStatus';
+import NetworkStatus from '../components/NetworkStatus';
 import { useAuth } from '../contexts/AuthContext';
 import { createDatabaseService, MealLog } from '../lib/database';
 import { Timestamp } from 'firebase/firestore';
@@ -147,7 +147,7 @@ export default function MealsScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Network Status */}
-        <NetworkStatus isOnline={!networkError} error={networkError} />
+        <NetworkStatus />
         
         {/* Header */}
         <View style={styles.header}>

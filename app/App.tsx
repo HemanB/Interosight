@@ -1,29 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { LoginScreen } from './screens/LoginScreen';
+import LoginScreen from './screens/LoginScreen';
 import AppNavigator from './navigation/AppNavigator';
-import * as LocalAuthentication from 'expo-local-authentication';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { NetworkStatus } from './components/NetworkStatus';
+import NetworkStatus from './components/NetworkStatus';
 
-// Suppress Firebase errors that might block interaction
-const originalError = console.error;
-console.error = (...args) => {
-  const message = args[0];
-  if (typeof message === 'string' && (
-    message.includes('Component auth has not been registered yet') ||
-    message.includes('AsyncStorage') ||
-    message.includes('persistence')
-  )) {
-    // Suppress Firebase Auth errors that don't affect functionality
-    console.warn('Firebase Auth warning (suppressed):', ...args);
-    return;
+// Error Boundary Component
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean; error?: Error }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
   }
-  originalError.apply(console, args);
-};
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorTitle}>Something went wrong</Text>
+          <Text style={styles.errorMessage}>
+            The app encountered an error. Please restart the app.
+          </Text>
+        </View>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 // Loading Screen Component
 const LoadingScreen = () => (
@@ -46,43 +62,7 @@ const ErrorScreen = ({ message }: { message: string }) => (
 );
 
 function AppContent() {
-  const { user, biometricEnabled, authenticateWithBiometric, isLoading, error } = useAuth();
-  const [showBiometricPrompt, setShowBiometricPrompt] = useState(false);
-  const [biometricChecked, setBiometricChecked] = useState(false);
-
-  useEffect(() => {
-    const checkBiometricAuth = async () => {
-      if (user && biometricEnabled && !biometricChecked) {
-        try {
-          // Check if biometric is available
-          const hasHardware = await LocalAuthentication.hasHardwareAsync();
-          const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-          
-          if (hasHardware && isEnrolled) {
-            setShowBiometricPrompt(true);
-          }
-        } catch (error) {
-          console.error('Error checking biometric availability:', error);
-        } finally {
-          setBiometricChecked(true);
-        }
-      } else {
-        setBiometricChecked(true);
-      }
-    };
-
-    checkBiometricAuth();
-  }, [user, biometricEnabled, biometricChecked]);
-
-  const handleBiometricAuth = async () => {
-    try {
-      await authenticateWithBiometric();
-      setShowBiometricPrompt(false);
-    } catch (error) {
-      console.error('Biometric authentication failed:', error);
-      setShowBiometricPrompt(false);
-    }
-  };
+  const { user, isLoading, error } = useAuth();
 
   // Show error screen if there's an initialization error
   if (error && error.code === 'initialization-error') {
@@ -90,38 +70,37 @@ function AppContent() {
   }
 
   // Show loading screen while checking authentication state
-  if (isLoading || !biometricChecked) {
+  if (isLoading) {
     return <LoadingScreen />;
-  }
-
-  // Show biometric prompt if user is logged in and biometric is enabled
-  if (showBiometricPrompt) {
-    return (
-      <LoginScreen />
-    );
   }
 
   // Show main app if user is authenticated
   if (user) {
     return (
-      <>
-        <NetworkStatus isOnline={!error} error={error?.message} />
+      <ErrorBoundary>
+        <NetworkStatus />
         <AppNavigator />
-      </>
+      </ErrorBoundary>
     );
   }
 
-  // Show login screen if user is not authenticated (including when Firebase Auth is not available)
-  return <LoginScreen />;
+  // Show login screen if user is not authenticated
+  return (
+    <ErrorBoundary>
+      <LoginScreen />
+    </ErrorBoundary>
+  );
 }
 
 export default function App() {
   return (
     <SafeAreaProvider>
-      <AuthProvider>
-        <AppContent />
-        <StatusBar style="auto" />
-      </AuthProvider>
+      <ErrorBoundary>
+        <AuthProvider>
+          <AppContent />
+          <StatusBar style="auto" />
+        </AuthProvider>
+      </ErrorBoundary>
     </SafeAreaProvider>
   );
 }

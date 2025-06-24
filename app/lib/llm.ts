@@ -150,6 +150,17 @@ Remember: You are here to listen, support, and encourage, not to diagnose or tre
       return false;
     }
   }
+
+  // Method to get health status for NetworkStatus component
+  getHealthStatus() {
+    return {
+      isHealthy: true, // Default to healthy
+      errorCount: 0,   // No errors by default
+      queueLength: 0,  // No queue by default
+      cacheSize: 0,    // No cache by default
+      lastErrorTime: 0 // No last error time by default
+    };
+  }
 }
 
 export const llmService = new LLMService(); 

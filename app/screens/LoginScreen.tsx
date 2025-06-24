@@ -16,9 +16,9 @@ import { ThemedText } from '../components/ThemedText';
 import { Colors } from '../constants/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { NetworkStatus } from '../components/NetworkStatus';
+import NetworkStatus from '../components/NetworkStatus';
 
-export const LoginScreen: React.FC = () => {
+const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
@@ -29,9 +29,6 @@ export const LoginScreen: React.FC = () => {
   const { 
     signIn, 
     register, 
-    setupBiometric, 
-    authenticateWithBiometric, 
-    biometricEnabled, 
     error, 
     clearError 
   } = useAuth();
@@ -66,54 +63,11 @@ export const LoginScreen: React.FC = () => {
         await signIn(email, password);
       } else {
         await register(email, password, displayName);
-        
-        // After successful registration, offer biometric setup
-        Alert.alert(
-          'Setup Biometric Login',
-          'Would you like to enable biometric authentication for faster login?',
-          [
-            {
-              text: 'Not Now',
-              style: 'cancel',
-            },
-            {
-              text: 'Setup',
-              onPress: async () => {
-                try {
-                  const success = await setupBiometric();
-                  if (success) {
-                    Alert.alert('Success', 'Biometric authentication enabled!');
-                  }
-                } catch (error: any) {
-                  Alert.alert('Error', error.message || 'Failed to setup biometric authentication');
-                }
-              },
-            },
-          ]
-        );
       }
     } catch (error: any) {
       Alert.alert('Error', error.message || 'Authentication failed');
     } finally {
       clearTimeout(timeoutId);
-      setIsLoading(false);
-    }
-  };
-
-  const handleBiometricAuth = async () => {
-    if (!biometricEnabled) {
-      Alert.alert('Biometric Not Enabled', 'Please enable biometric authentication in settings first.');
-      return;
-    }
-
-    setIsLoading(true);
-    clearError();
-
-    try {
-      await authenticateWithBiometric();
-    } catch (error: any) {
-      Alert.alert('Biometric Error', error.message || 'Biometric authentication failed');
-    } finally {
       setIsLoading(false);
     }
   };
@@ -128,7 +82,7 @@ export const LoginScreen: React.FC = () => {
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {/* Network Status */}
-          <NetworkStatus isOnline={!error} error={error?.message} />
+          <NetworkStatus />
           
           <View style={styles.header}>
             <ThemedText style={styles.title}>InteroSight</ThemedText>
@@ -186,22 +140,6 @@ export const LoginScreen: React.FC = () => {
                 {isLoading ? 'Loading...' : (isLogin ? 'Sign In' : 'Create Account')}
               </Text>
             </TouchableOpacity>
-
-            {isLogin && biometricEnabled && (
-              <TouchableOpacity
-                style={[styles.biometricButton, isLoading && styles.buttonDisabled]}
-                onPress={handleBiometricAuth}
-                disabled={isLoading}
-              >
-                <Text style={styles.biometricButtonText}>
-                  Use Face ID / Touch ID
-                </Text>
-              </TouchableOpacity>
-            )}
-
-            {error && (
-              <Text style={styles.errorText}>{error.message}</Text>
-            )}
           </View>
 
           <View style={styles.footer}>
@@ -233,6 +171,8 @@ export const LoginScreen: React.FC = () => {
     </SafeAreaView>
   );
 };
+
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -285,20 +225,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  biometricButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: Colors.light.tint,
-    borderRadius: 8,
-    padding: 15,
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  biometricButtonText: {
-    color: Colors.light.tint,
     fontSize: 16,
     fontWeight: '600',
   },

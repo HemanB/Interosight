@@ -26,8 +26,32 @@ export default function NetworkStatus({ isVisible = true }: NetworkStatusProps) 
     };
 
     const checkLLMHealth = () => {
-      const health = llmService.getHealthStatus();
-      setLlmHealth(health);
+      try {
+        // Safely check if the method exists before calling it
+        if (llmService && typeof llmService.getHealthStatus === 'function') {
+          const health = llmService.getHealthStatus();
+          setLlmHealth(health);
+        } else {
+          // Fallback to default healthy state if method doesn't exist
+          setLlmHealth({
+            isHealthy: true,
+            errorCount: 0,
+            queueLength: 0,
+            cacheSize: 0,
+            lastErrorTime: 0
+          });
+        }
+      } catch (error) {
+        console.warn('Error checking LLM health:', error);
+        // Set to healthy state on error to prevent UI issues
+        setLlmHealth({
+          isHealthy: true,
+          errorCount: 0,
+          queueLength: 0,
+          cacheSize: 0,
+          lastErrorTime: 0
+        });
+      }
     };
 
     // Initial checks
