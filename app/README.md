@@ -1,161 +1,222 @@
-# InteroSight Mobile App
+# InteroSight Mobile Application
 
-A React Native mobile application designed to support individuals in eating disorder recovery through LLM-powered therapeutic chat, non-judgmental meal logging, and crisis-aware design.
+A React Native mobile application built with Expo and TypeScript, designed to support eating disorder recovery through therapeutic chat, meal logging, and crisis-aware design.
 
-## Features
+## Overview
 
-### 🏠 Home Screen
-- **Gamification Elements**: Streak tracking, XP system, level progression
-- **Daily Goals**: Interactive to-do list with XP rewards
-- **Quick Actions**: Easy access to meal logging, chat, and self-care
-- **Mascot Animations**: Duolingo-style animated mascot for emotional engagement
+InteroSight provides a comprehensive platform for individuals in eating disorder recovery, featuring LLM-powered therapeutic conversations, non-judgmental meal tracking, and integrated crisis support tools.
 
-### 💭 Reflect & Chat
-- **LLM Integration**: Hugging Face API-powered therapeutic conversations
-- **Crisis Detection**: Automatic detection of crisis keywords with appropriate responses
-- **Real-time Chat**: Live conversation with mascot animations during processing
-- **Crisis Support**: One-tap access to emergency resources
+## Core Features
 
-### 🍽️ Meal Logging
-- **Non-judgmental Design**: Focus on descriptions rather than calories
-- **Meal Types**: Breakfast, lunch, dinner, and snack categorization
-- **Supportive Messaging**: Encouraging feedback and gentle reminders
-- **Recent History**: View and reflect on past meal logs
+### Authentication & Security
+- Firebase Authentication with email/password
+- Biometric authentication support
+- Secure user profile management
+- Privacy-focused data handling
 
-### ⚠️ Triggers & Patterns
-- **Crisis Tools**: Emergency contacts and DBT techniques
-- **Trigger Logging**: Track triggers with severity levels
-- **Coping Strategies**: Document what helps during difficult moments
-- **Risk Escalation**: One-tap access to suicide prevention resources
+### Home Dashboard
+- Recovery streak tracking
+- XP-based gamification system
+- Daily goal management
+- Quick access to core features
 
-### 👥 Community (Coming Soon)
-- **Safety-First Design**: Community features designed with user safety in mind
-- **Recovery Stories**: Inspiring stories from others on their journey
-- **Support Groups**: Safe, moderated environments
-- **Resource Sharing**: Helpful coping strategies and resources
+### Therapeutic Chat
+- Hugging Face API integration for LLM conversations
+- Crisis keyword detection and response
+- Real-time chat with animated mascot
+- Emergency resource integration
 
-### ⚙️ Settings
-- **Notification Preferences**: Customizable reminders and alerts
-- **Crisis Resources**: Quick access to emergency contacts
-- **Privacy Controls**: Data export and account deletion options
-- **App Customization**: Theme and mascot animation settings
+### Meal Logging
+- Non-judgmental meal description system
+- Categorized meal types (breakfast, lunch, dinner, snacks)
+- Supportive feedback and encouragement
+- Historical meal tracking
 
-## Technical Stack
+### Crisis Support
+- Emergency contact management
+- DBT (Dialectical Behavior Therapy) tools
+- Trigger logging and severity tracking
+- Suicide prevention resource integration
 
-- **React Native** with Expo
-- **React Navigation** for bottom tab navigation
-- **Firebase** for authentication and data storage
-- **Hugging Face API** for LLM integration
-- **TypeScript** for type safety
-- **Custom Animations** for mascot and micro-interactions
+### Settings & Preferences
+- Notification management
+- Privacy controls and data export
+- Theme customization
+- Biometric authentication settings
 
-## Project Structure
+## Technical Architecture
 
+### Technology Stack
+- **Framework**: React Native with Expo SDK 53
+- **Language**: TypeScript
+- **Navigation**: React Navigation v7
+- **Authentication**: Firebase Auth
+- **Database**: Firebase Firestore
+- **AI Integration**: Hugging Face Inference API
+- **State Management**: React Context API
+- **Storage**: AsyncStorage for local data
+
+### Project Structure
 ```
 app/
-├── components/
-│   └── Mascot.tsx              # Animated mascot component
-├── contexts/
-│   └── AuthContext.tsx         # Firebase authentication context
-├── lib/
-│   ├── firebase.ts             # Firebase configuration
-│   └── llm.ts                  # Hugging Face LLM service
-├── predictive/
-│   └── engine.ts               # Pattern analysis and insights
-├── prompts/
-│   └── prompts.ts              # Centralized LLM prompts
-├── screens/
-│   ├── HomeScreen.tsx          # Main dashboard
-│   ├── ReflectScreen.tsx       # LLM chat interface
-│   ├── MealsScreen.tsx         # Meal logging
-│   ├── TriggersScreen.tsx      # Crisis tools and triggers
-│   ├── CommunityScreen.tsx     # Community features
-│   └── SettingsScreen.tsx      # App settings
-└── App.tsx                     # Main app component
+├── components/           # Reusable UI components
+├── contexts/            # React Context providers
+├── hooks/               # Custom React hooks
+├── lib/                 # Core services and utilities
+├── navigation/          # Navigation configuration
+├── screens/             # Screen components
+├── types/               # TypeScript type definitions
+├── utils/               # Helper functions
+└── App.tsx             # Main application component
 ```
 
-## Key Design Principles
+### Key Design Principles
 
-### 🛡️ Safety-First
+#### Safety-First Approach
 - Crisis detection and appropriate resource provision
 - No triggering content about calories or specific behaviors
-- Emergency contact integration throughout the app
+- Emergency contact integration throughout the application
 - Professional treatment encouragement
 
-### 💙 Empathetic Design
+#### User Experience
 - Non-judgmental language and interactions
-- Gentle, supportive messaging
-- Mascot animations for emotional engagement
+- Supportive messaging and feedback
+- Animated mascot for emotional engagement
 - Focus on progress over perfection
 
-### 🎮 Gamification
-- Streak tracking for consistency
-- XP rewards for positive behaviors
-- Level progression system
-- Achievement celebrations
-
-### 🔒 Privacy & Security
+#### Privacy & Security
 - Local data storage options
 - No tracking of sensitive information
-- User control over data export/deletion
+- User control over data export and deletion
 - Secure Firebase integration
 
-## Setup Instructions
+## Development Setup
 
-1. **Install Dependencies**
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- Expo CLI
+- iOS Simulator (for iOS development)
+- Android Studio (for Android development)
+
+### Installation
+
+1. **Clone and Install Dependencies**
    ```bash
    cd app
    npm install
    ```
 
 2. **Environment Configuration**
-   - Add your Hugging Face API key to environment variables
-   - Configure Firebase project settings
+   - Configure Firebase project settings in `lib/firebase.ts`
+   - Add Hugging Face API key to environment variables
+   - Set up biometric authentication (optional)
 
-3. **Run the App**
+3. **Start Development Server**
    ```bash
    npm start
    ```
 
-4. **Development**
-   - Use Expo Go app for testing on physical devices
-   - Run on iOS simulator or Android emulator
+4. **Platform-Specific Development**
+   ```bash
+   # iOS
+   npm run ios
+   
+   # Android
+   npm run android
+   
+   # Web
+   npm run web
+   ```
 
-## LLM Integration
+## Authentication System
 
-The app uses Hugging Face's inference API for therapeutic conversations. The LLM is prompted with:
+The application uses Firebase Authentication with the following features:
 
-- **System Prompt**: Defines the AI's role as a supportive companion
-- **Crisis Detection**: Keywords trigger appropriate safety responses
-- **Contextual Responses**: Maintains conversation history for continuity
-- **Fallback Handling**: Graceful degradation when API is unavailable
+- Email/password registration and login
+- Biometric authentication (Face ID, Touch ID, fingerprint)
+- Secure user profile management
+- Password reset functionality
+- Account deletion with data cleanup
 
-## Crisis Support Features
+### Firebase Configuration
+Firebase is initialized in `lib/firebase.ts` with proper error handling and fallback mechanisms for offline functionality.
 
-- **Automatic Detection**: Scans messages for crisis keywords
-- **Immediate Resources**: Provides emergency contact information
-- **DBT Tools**: Dialectical Behavior Therapy techniques
-- **Risk Escalation**: Direct access to suicide prevention hotlines
+## API Integration
 
-## Future Enhancements
+### Hugging Face LLM Service
+- Therapeutic conversation generation
+- Crisis keyword detection
+- Contextual response management
+- Graceful API failure handling
 
-- [ ] Dark mode support
-- [ ] Offline functionality
-- [ ] Push notifications
-- [ ] Community features
-- [ ] Advanced analytics
-- [ ] Multi-language support
-- [ ] Integration with treatment providers
+### Crisis Support Integration
+- Emergency contact management
+- DBT technique integration
+- Suicide prevention resource access
+- Real-time crisis assessment
+
+## Development Guidelines
+
+### Code Organization
+- Modular component architecture
+- Separation of concerns
+- TypeScript for type safety
+- Consistent naming conventions
+
+### State Management
+- React Context for global state
+- Local state for component-specific data
+- AsyncStorage for persistent local data
+- Firebase for cloud synchronization
+
+### Error Handling
+- Graceful degradation for network issues
+- User-friendly error messages
+- Comprehensive logging for debugging
+- Fallback mechanisms for critical features
+
+## Testing
+
+### Manual Testing
+- Authentication flow testing
+- Cross-platform compatibility
+- Offline functionality verification
+- Crisis support feature validation
+
+### Development Testing
+- Expo Go for physical device testing
+- iOS Simulator for iOS-specific features
+- Android Emulator for Android-specific features
+- Web browser for web platform testing
+
+## Deployment
+
+### Build Configuration
+- Expo managed workflow
+- Platform-specific optimizations
+- Environment-specific configurations
+- Asset optimization
+
+### Distribution
+- App Store (iOS)
+- Google Play Store (Android)
+- Web deployment (optional)
 
 ## Contributing
 
-This app is designed for eating disorder recovery support. All contributions should prioritize:
-
-1. **User Safety**: Never compromise on crisis support features
+### Development Standards
+1. **Safety First**: Never compromise on crisis support features
 2. **Recovery-Focused**: Support healing, not harmful behaviors
 3. **Professional Boundaries**: Encourage professional treatment
-4. **Inclusive Design**: Accessible to all users
+4. **Inclusive Design**: Ensure accessibility for all users
+
+### Code Review Process
+- TypeScript compliance verification
+- Firebase authentication integrity checks
+- Cross-platform compatibility testing
+- Security and privacy review
 
 ## License
 
-This project is designed for therapeutic support and should be used responsibly in conjunction with professional treatment.
+This project is designed for therapeutic support and should be used responsibly in conjunction with professional treatment. All development should prioritize user safety and recovery outcomes.

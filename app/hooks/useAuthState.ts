@@ -1,42 +1,39 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { authService } from '../lib/auth';
-import { LocalUser, AuthContextType, AuthError } from '../types/auth';
+import { LocalUser, AuthError, LoginCredentials, RegisterCredentials, PasswordChangeData } from '../types/auth';
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const useAuthState = () => {
   const [user, setUser] = useState<LocalUser | null>(null);
-  const [userProfile, setUserProfile] = useState<LocalUser | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AuthError | null>(null);
 
+  // Check initial auth state
   useEffect(() => {
     const checkAuthState = () => {
       try {
         const currentUser = authService.getCurrentUser();
         setUser(currentUser);
-        setUserProfile(currentUser);
       } catch (err) {
         console.error('Error checking auth state:', err);
         setUser(null);
-        setUserProfile(null);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
+    // Check immediately
     checkAuthState();
   }, []);
 
-  const login = async (email: string, password: string) => {
-    setIsLoading(true);
+  // Login function
+  const login = useCallback(async (credentials: LoginCredentials) => {
+    setLoading(true);
     setError(null);
     
     try {
-      const user = await authService.signIn(email, password);
+      const user = await authService.signIn(credentials.email, credentials.password);
       setUser(user);
-      setUserProfile(user);
-      return user;
+      return { user, profile: user };
     } catch (err: any) {
       const authError: AuthError = {
         code: err.code || 'unknown',
@@ -45,19 +42,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
-  };
+  }, []);
 
-  const register = async (email: string, password: string, displayName: string) => {
-    setIsLoading(true);
+  // Register function
+  const register = useCallback(async (credentials: RegisterCredentials) => {
+    setLoading(true);
     setError(null);
     
     try {
-      const user = await authService.registerUser(email, password, displayName);
+      const user = await authService.registerUser(
+        credentials.email, 
+        credentials.password, 
+        credentials.displayName
+      );
       setUser(user);
-      setUserProfile(user);
-      return user;
+      return { user, profile: user };
     } catch (err: any) {
       const authError: AuthError = {
         code: err.code || 'unknown',
@@ -66,18 +67,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
-  };
+  }, []);
 
-  const logout = async () => {
-    setIsLoading(true);
+  // Logout function
+  const logout = useCallback(async () => {
+    setLoading(true);
     setError(null);
     
     try {
       await authService.signOut();
       setUser(null);
-      setUserProfile(null);
     } catch (err: any) {
       const authError: AuthError = {
         code: err.code || 'unknown',
@@ -86,19 +87,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
-  };
+  }, []);
 
-  const updateProfile = async (updates: Partial<LocalUser['profile']>) => {
+  // Update profile function
+  const updateProfile = useCallback(async (updates: Partial<LocalUser['profile']>) => {
     setError(null);
     
     try {
       await authService.updateProfile(updates);
       if (user) {
-        const updatedUser = { ...user, profile: { ...user.profile, ...updates } };
-        setUser(updatedUser);
-        setUserProfile(updatedUser);
+        setUser({ ...user, profile: { ...user.profile, ...updates } });
       }
     } catch (err: any) {
       const authError: AuthError = {
@@ -108,17 +108,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     }
-  };
+  }, [user]);
 
-  const updatePreferences = async (updates: Partial<LocalUser['preferences']>) => {
+  // Update preferences function
+  const updatePreferences = useCallback(async (updates: Partial<LocalUser['preferences']>) => {
     setError(null);
     
     try {
       await authService.updatePreferences(updates);
       if (user) {
-        const updatedUser = { ...user, preferences: { ...user.preferences, ...updates } };
-        setUser(updatedUser);
-        setUserProfile(updatedUser);
+        setUser({ ...user, preferences: { ...user.preferences, ...updates } });
       }
     } catch (err: any) {
       const authError: AuthError = {
@@ -128,17 +127,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     }
-  };
+  }, [user]);
 
-  const setupBiometric = async () => {
+  // Setup biometric function
+  const setupBiometric = useCallback(async () => {
     setError(null);
     
     try {
       const success = await authService.setupBiometric();
       if (success && user) {
-        const updatedUser = { ...user, preferences: { ...user.preferences, biometricEnabled: true } };
-        setUser(updatedUser);
-        setUserProfile(updatedUser);
+        setUser({ ...user, preferences: { ...user.preferences, biometricEnabled: true } });
       }
       return success;
     } catch (err: any) {
@@ -149,17 +147,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     }
-  };
+  }, [user]);
 
-  const disableBiometric = async () => {
+  // Disable biometric function
+  const disableBiometric = useCallback(async () => {
     setError(null);
     
     try {
       await authService.disableBiometric();
       if (user) {
-        const updatedUser = { ...user, preferences: { ...user.preferences, biometricEnabled: false } };
-        setUser(updatedUser);
-        setUserProfile(updatedUser);
+        setUser({ ...user, preferences: { ...user.preferences, biometricEnabled: false } });
       }
     } catch (err: any) {
       const authError: AuthError = {
@@ -169,9 +166,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     }
-  };
+  }, [user]);
 
-  const resetPassword = async (email: string) => {
+  // Reset password function
+  const resetPassword = useCallback(async (email: string) => {
     setError(null);
     
     try {
@@ -184,13 +182,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     }
-  };
+  }, []);
 
-  const changePassword = async (currentPassword: string, newPassword: string) => {
+  // Change password function
+  const changePassword = useCallback(async (passwordData: PasswordChangeData) => {
     setError(null);
     
     try {
-      await authService.changePassword(currentPassword, newPassword);
+      await authService.changePassword(passwordData.currentPassword, passwordData.newPassword);
     } catch (err: any) {
       const authError: AuthError = {
         code: err.code || 'unknown',
@@ -199,16 +198,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     }
-  };
+  }, []);
 
-  const deleteAccount = async (password: string) => {
-    setIsLoading(true);
+  // Delete account function
+  const deleteAccount = useCallback(async (password: string) => {
+    setLoading(true);
     setError(null);
     
     try {
       await authService.deleteAccount(password);
       setUser(null);
-      setUserProfile(null);
     } catch (err: any) {
       const authError: AuthError = {
         code: err.code || 'unknown',
@@ -217,18 +216,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(authError);
       throw authError;
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
-  };
+  }, []);
 
-  const clearError = () => {
+  // Clear error function
+  const clearError = useCallback(() => {
     setError(null);
-  };
+  }, []);
 
-  const value: AuthContextType = {
+  return {
     user,
-    userProfile,
-    isLoading,
+    loading,
     error,
     login,
     register,
@@ -242,18 +241,4 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     deleteAccount,
     clearError
   };
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
 }; 

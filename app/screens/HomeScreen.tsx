@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
-  Animated,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import Mascot from '../components/Mascot';
-
-const { width } = Dimensions.get('window');
+import { useAuth } from '../contexts/AuthContext';
 
 interface TodoItem {
   id: string;
@@ -21,7 +17,117 @@ interface TodoItem {
   xpReward: number;
 }
 
+// Streak Card Component
+const StreakCard = ({ streak }: { streak: number }) => (
+  <View style={styles.card}>
+    <View style={styles.streakHeader}>
+      <Ionicons name="flame" size={24} color="#f97316" />
+      <Text style={styles.streakTitle}>Recovery Streak</Text>
+    </View>
+    <Text style={styles.streakNumber}>{streak} days</Text>
+    <Text style={styles.streakSubtext}>Keep up the great work!</Text>
+  </View>
+);
+
+// Level Progress Component
+const LevelProgress = ({ level, xp, xpToNextLevel }: { level: number; xp: number; xpToNextLevel: number }) => {
+  const xpProgress = (xp % xpToNextLevel) / xpToNextLevel;
+  
+  return (
+    <View style={styles.card}>
+      <View style={styles.levelHeader}>
+        <Text style={styles.levelTitle}>Level {level}</Text>
+        <Text style={styles.xpText}>{xp} XP</Text>
+      </View>
+      <View style={styles.progressContainer}>
+        <View style={styles.progressBar}>
+          <View 
+            style={[
+              styles.progressFill,
+              { width: `${xpProgress * 100}%` }
+            ]} 
+          />
+        </View>
+        <Text style={styles.progressText}>
+          {xp % xpToNextLevel} / {xpToNextLevel} XP to next level
+        </Text>
+      </View>
+    </View>
+  );
+};
+
+// Todo Item Component
+const TodoItem = ({ 
+  todo, 
+  onComplete 
+}: { 
+  todo: TodoItem; 
+  onComplete: (id: string) => void;
+}) => (
+  <TouchableOpacity
+    style={[
+      styles.todoItem,
+      todo.completed && styles.todoCompleted
+    ]}
+    onPress={() => !todo.completed && onComplete(todo.id)}
+    disabled={todo.completed}
+  >
+    <View style={styles.todoContent}>
+      <View style={styles.todoLeft}>
+        <View style={[
+          styles.todoCheckbox,
+          todo.completed && styles.todoCheckboxCompleted
+        ]}>
+          {todo.completed && (
+            <Ionicons name="checkmark" size={16} color="#ffffff" />
+          )}
+        </View>
+        <Text style={[
+          styles.todoText,
+          todo.completed && styles.todoTextCompleted
+        ]}>
+          {todo.text}
+        </Text>
+      </View>
+      <View style={styles.xpReward}>
+        <Ionicons name="star" size={16} color="#fbbf24" />
+        <Text style={styles.xpRewardText}>{todo.xpReward}</Text>
+      </View>
+    </View>
+  </TouchableOpacity>
+);
+
+// Quick Actions Component
+const QuickActions = () => (
+  <View style={styles.card}>
+    <Text style={styles.sectionTitle}>Quick Actions</Text>
+    <View style={styles.quickActions}>
+      <TouchableOpacity style={styles.quickAction}>
+        <View style={styles.quickActionIcon}>
+          <Ionicons name="restaurant" size={24} color="#6366f1" />
+        </View>
+        <Text style={styles.quickActionText}>Log Meal</Text>
+      </TouchableOpacity>
+      
+      <TouchableOpacity style={styles.quickAction}>
+        <View style={styles.quickActionIcon}>
+          <Ionicons name="chatbubbles" size={24} color="#6366f1" />
+        </View>
+        <Text style={styles.quickActionText}>Chat</Text>
+      </TouchableOpacity>
+      
+      <TouchableOpacity style={styles.quickAction}>
+        <View style={styles.quickActionIcon}>
+          <Ionicons name="heart" size={24} color="#6366f1" />
+        </View>
+        <Text style={styles.quickActionText}>Self-Care</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+);
+
 export default function HomeScreen() {
+  const { user } = useAuth();
   const [streak, setStreak] = useState(7);
   const [xp, setXp] = useState(1250);
   const [level, setLevel] = useState(5);
@@ -31,10 +137,8 @@ export default function HomeScreen() {
     { id: '3', text: 'Check in with your feelings', completed: false, xpReward: 40 },
     { id: '4', text: 'Reach out to support network', completed: false, xpReward: 60 },
   ]);
-  const [mascotMood, setMascotMood] = useState<'happy' | 'supportive' | 'celebrating'>('happy');
 
   const xpToNextLevel = 2000;
-  const xpProgress = (xp % xpToNextLevel) / xpToNextLevel;
 
   const completeTodo = (id: string) => {
     setTodos(prev => 
@@ -48,53 +152,31 @@ export default function HomeScreen() {
     const todo = todos.find(t => t.id === id);
     if (todo) {
       setXp(prev => prev + todo.xpReward);
-      setMascotMood('celebrating');
-      setTimeout(() => setMascotMood('happy'), 2000);
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Header with Mascot */}
+        {/* Header */}
         <View style={styles.header}>
-          <View style={styles.mascotContainer}>
-            <Mascot mood={mascotMood} size={100} />
-          </View>
-          <Text style={styles.welcomeText}>Welcome back!</Text>
-          <Text style={styles.subtitleText}>You're doing amazing in your recovery journey</Text>
+          <Text style={styles.welcomeText}>
+            Welcome back, {user?.displayName || 'friend'}!
+          </Text>
+          <Text style={styles.subtitleText}>
+            You're doing amazing in your recovery journey
+          </Text>
         </View>
 
         {/* Streak Card */}
-        <View style={styles.card}>
-          <View style={styles.streakHeader}>
-            <Ionicons name="flame" size={24} color="#f97316" />
-            <Text style={styles.streakTitle}>Recovery Streak</Text>
-          </View>
-          <Text style={styles.streakNumber}>{streak} days</Text>
-          <Text style={styles.streakSubtext}>Keep up the great work!</Text>
-        </View>
+        <StreakCard streak={streak} />
 
         {/* Level Progress */}
-        <View style={styles.card}>
-          <View style={styles.levelHeader}>
-            <Text style={styles.levelTitle}>Level {level}</Text>
-            <Text style={styles.xpText}>{xp} XP</Text>
-          </View>
-          <View style={styles.progressContainer}>
-            <View style={styles.progressBar}>
-              <Animated.View 
-                style={[
-                  styles.progressFill,
-                  { width: `${xpProgress * 100}%` }
-                ]} 
-              />
-            </View>
-            <Text style={styles.progressText}>
-              {xp % xpToNextLevel} / {xpToNextLevel} XP to next level
-            </Text>
-          </View>
-        </View>
+        <LevelProgress 
+          level={level} 
+          xp={xp} 
+          xpToNextLevel={xpToNextLevel} 
+        />
 
         {/* Daily Goals */}
         <View style={styles.card}>
@@ -102,67 +184,16 @@ export default function HomeScreen() {
           <Text style={styles.sectionSubtitle}>Complete these for XP rewards</Text>
           
           {todos.map((todo) => (
-            <TouchableOpacity
-              key={todo.id}
-              style={[
-                styles.todoItem,
-                todo.completed && styles.todoCompleted
-              ]}
-              onPress={() => !todo.completed && completeTodo(todo.id)}
-              disabled={todo.completed}
-            >
-              <View style={styles.todoContent}>
-                <View style={styles.todoLeft}>
-                  <View style={[
-                    styles.todoCheckbox,
-                    todo.completed && styles.todoCheckboxCompleted
-                  ]}>
-                    {todo.completed && (
-                      <Ionicons name="checkmark" size={16} color="#ffffff" />
-                    )}
-                  </View>
-                  <Text style={[
-                    styles.todoText,
-                    todo.completed && styles.todoTextCompleted
-                  ]}>
-                    {todo.text}
-                  </Text>
-                </View>
-                <View style={styles.xpReward}>
-                  <Ionicons name="star" size={16} color="#fbbf24" />
-                  <Text style={styles.xpRewardText}>{todo.xpReward}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+            <TodoItem 
+              key={todo.id} 
+              todo={todo} 
+              onComplete={completeTodo}
+            />
           ))}
         </View>
 
         {/* Quick Actions */}
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
-          <View style={styles.quickActions}>
-            <TouchableOpacity style={styles.quickAction}>
-              <View style={styles.quickActionIcon}>
-                <Ionicons name="restaurant" size={24} color="#6366f1" />
-              </View>
-              <Text style={styles.quickActionText}>Log Meal</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={styles.quickAction}>
-              <View style={styles.quickActionIcon}>
-                <Ionicons name="chatbubbles" size={24} color="#6366f1" />
-              </View>
-              <Text style={styles.quickActionText}>Chat</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={styles.quickAction}>
-              <View style={styles.quickActionIcon}>
-                <Ionicons name="heart" size={24} color="#6366f1" />
-              </View>
-              <Text style={styles.quickActionText}>Self-Care</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <QuickActions />
 
         {/* Encouragement Message */}
         <View style={styles.encouragementCard}>
@@ -186,9 +217,6 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     paddingHorizontal: 20,
   },
-  mascotContainer: {
-    marginBottom: 20,
-  },
   welcomeText: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -203,18 +231,18 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 20,
     marginHorizontal: 20,
     marginBottom: 16,
-    borderRadius: 16,
-    padding: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   streakHeader: {
     flexDirection: 'row',
@@ -244,13 +272,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   levelTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: 'bold',
     color: '#1e293b',
   },
   xpText: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: '600',
     color: '#6366f1',
   },
   progressContainer: {
@@ -258,7 +286,7 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: 8,
-    backgroundColor: '#e2e8f0',
+    backgroundColor: '#e5e7eb',
     borderRadius: 4,
     marginBottom: 8,
   },
@@ -270,12 +298,13 @@ const styles = StyleSheet.create({
   progressText: {
     fontSize: 12,
     color: '#64748b',
+    textAlign: 'center',
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: '#1e293b',
-    marginBottom: 4,
+    marginBottom: 8,
   },
   sectionSubtitle: {
     fontSize: 14,
@@ -283,12 +312,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   todoItem: {
-    marginBottom: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f1f5f9',
   },
   todoCompleted: {
     opacity: 0.6,
   },
   todoContent: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -319,7 +353,7 @@ const styles = StyleSheet.create({
   },
   todoTextCompleted: {
     textDecorationLine: 'line-through',
-    color: '#9ca3af',
+    color: '#64748b',
   },
   xpReward: {
     flexDirection: 'row',
@@ -327,7 +361,7 @@ const styles = StyleSheet.create({
   },
   xpRewardText: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '600',
     color: '#fbbf24',
     marginLeft: 4,
   },
@@ -350,15 +384,16 @@ const styles = StyleSheet.create({
   },
   quickActionText: {
     fontSize: 12,
-    color: '#64748b',
+    fontWeight: '500',
+    color: '#1e293b',
     textAlign: 'center',
   },
   encouragementCard: {
     backgroundColor: '#fdf2f8',
+    borderRadius: 12,
+    padding: 20,
     marginHorizontal: 20,
     marginBottom: 20,
-    borderRadius: 16,
-    padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
   },

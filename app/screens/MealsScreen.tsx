@@ -11,11 +11,21 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Mascot from '../components/Mascot';
 import { NetworkStatus } from '../components/NetworkStatus';
 import { useAuth } from '../contexts/AuthContext';
-import { createDatabaseService, MealLog } from '../lib/database';
-import { Timestamp } from 'firebase/firestore';
+
+// Local meal log interface
+interface MealLog {
+  id: string;
+  userId: string;
+  type: 'breakfast' | 'lunch' | 'dinner' | 'snack';
+  description: string;
+  timestamp: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export default function MealsScreen() {
   const { user } = useAuth();
@@ -24,32 +34,32 @@ export default function MealsScreen() {
   const [mealLogs, setMealLogs] = useState<MealLog[]>([]);
   const [mascotMood, setMascotMood] = useState<'happy' | 'supportive' | 'celebrating'>('happy');
   const [isLoading, setIsLoading] = useState(false);
-  const [networkError, setNetworkError] = useState<string | undefined>(undefined);
-
-  const dbService = user ? createDatabaseService(user.uid) : null;
 
   // Load meal logs on component mount
   useEffect(() => {
-    if (dbService) {
+    if (user) {
       loadMealLogs();
     }
-  }, [dbService]);
+  }, [user]);
 
   const loadMealLogs = async () => {
-    if (!dbService) return;
+    if (!user) return;
     
     try {
       setIsLoading(true);
-      setNetworkError(undefined);
-      const logs = await dbService.getMealLogs(20); // Get last 20 meals
-      setMealLogs(logs);
+      const storedLogs = await AsyncStorage.getItem(`mealLogs_${user.id}`);
+      if (storedLogs) {
+        const logs = JSON.parse(storedLogs).map((log: any) => ({
+          ...log,
+          timestamp: new Date(log.timestamp),
+          createdAt: new Date(log.createdAt),
+          updatedAt: new Date(log.updatedAt)
+        }));
+        setMealLogs(logs.slice(-20)); // Get last 20 meals
+      }
     } catch (error: any) {
       console.error('Error loading meal logs:', error);
-      if (error.message?.includes('offline') || error.message?.includes('internet')) {
-        setNetworkError('Unable to load meals - check your connection');
-      } else {
-        Alert.alert('Error', 'Failed to load your meal history.');
-      }
+      Alert.alert('Error', 'Failed to load your meal history.');
     } finally {
       setIsLoading(false);
     }
@@ -61,7 +71,7 @@ export default function MealsScreen() {
       return;
     }
 
-    if (!dbService) {
+    if (!user) {
       Alert.alert('Error', 'Please log in to save meals.');
       return;
     }
@@ -69,16 +79,22 @@ export default function MealsScreen() {
     try {
       setIsLoading(true);
       
-      const newMeal: Omit<MealLog, 'id' | 'userId' | 'createdAt' | 'updatedAt'> = {
+      const newMeal: MealLog = {
+        id: Date.now().toString(),
+        userId: user.id,
         type: selectedMealType as 'breakfast' | 'lunch' | 'dinner' | 'snack',
         description: description.trim(),
-        timestamp: Timestamp.now(),
+        timestamp: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date()
       };
 
-      await dbService.createMealLog(newMeal);
+      // Add to local state
+      const updatedLogs = [...mealLogs, newMeal];
+      setMealLogs(updatedLogs.slice(-20)); // Keep only last 20
       
-      // Reload meal logs to show the new entry
-      await loadMealLogs();
+      // Save to AsyncStorage
+      await AsyncStorage.setItem(`mealLogs_${user.id}`, JSON.stringify(updatedLogs));
       
       setDescription('');
       setMascotMood('celebrating');
@@ -93,17 +109,7 @@ export default function MealsScreen() {
       }, 2000);
     } catch (error: any) {
       console.error('Error saving meal:', error);
-      
-      // Show specific error messages for different scenarios
-      if (error.message?.includes('offline') || error.message?.includes('internet')) {
-        Alert.alert(
-          'Connection Issue',
-          'You appear to be offline. Please check your internet connection and try again.',
-          [{ text: 'OK', style: 'default' }]
-        );
-      } else {
-        Alert.alert('Error', error.message || 'Failed to save your meal. Please try again.');
-      }
+      Alert.alert('Error', 'Failed to save your meal. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -129,14 +135,12 @@ export default function MealsScreen() {
     }
   };
 
-  const formatTime = (timestamp: Timestamp) => {
-    const date = timestamp.toDate();
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formatTime = (timestamp: Date) => {
+    return timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  const formatDate = (timestamp: Timestamp) => {
-    const date = timestamp.toDate();
-    return date.toLocaleDateString([], { 
+  const formatDate = (timestamp: Date) => {
+    return timestamp.toLocaleDateString([], { 
       weekday: 'short', 
       month: 'short', 
       day: 'numeric' 
@@ -147,7 +151,7 @@ export default function MealsScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Network Status */}
-        <NetworkStatus isOnline={!networkError} error={networkError} />
+        <NetworkStatus isOnline={true} error={undefined} />
         
         {/* Header */}
         <View style={styles.header}>

@@ -11,12 +11,9 @@ import {
   ScrollView,
 } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
-import { ThemedView } from '../components/ThemedView';
-import { ThemedText } from '../components/ThemedText';
-import { Colors } from '../constants/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { NetworkStatus } from '../components/NetworkStatus';
+import { validateForm } from '../utils/validation';
 
 export const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -27,63 +24,53 @@ export const LoginScreen: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   
   const { 
-    signIn, 
+    login, 
     register, 
     setupBiometric, 
-    authenticateWithBiometric, 
-    biometricEnabled, 
     error, 
     clearError 
   } = useAuth();
 
   const handleAuth = async () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Please fill in all fields');
+    console.log('LoginScreen: handleAuth called, isLogin:', isLogin);
+    
+    // Validate form
+    const formData = isLogin ? { email, password } : { email, password, displayName };
+    const { isValid, errors } = validateForm(formData);
+    
+    if (!isValid) {
+      const errorMessage = Object.values(errors).flat().join('\n');
+      console.log('LoginScreen: Validation failed:', errorMessage);
+      Alert.alert('Validation Error', errorMessage);
       return;
     }
 
-    if (!isLogin && !displayName) {
-      Alert.alert('Error', 'Please enter your name');
-      return;
-    }
-
+    console.log('LoginScreen: Form validation passed, starting auth process');
     setIsLoading(true);
     clearError();
 
-    // Add a timeout for slow connections
-    const timeoutId = setTimeout(() => {
-      if (isLoading) {
-        Alert.alert(
-          'Slow Connection',
-          'This is taking longer than usual. Please check your internet connection.',
-          [{ text: 'OK', style: 'default' }]
-        );
-      }
-    }, 10000); // 10 second timeout
-
     try {
       if (isLogin) {
-        await signIn(email, password);
+        console.log('LoginScreen: Attempting login with email:', email);
+        await login(email, password);
+        console.log('LoginScreen: Login successful');
       } else {
+        console.log('LoginScreen: Attempting registration with email:', email);
         await register(email, password, displayName);
+        console.log('LoginScreen: Registration successful');
         
-        // After successful registration, offer biometric setup
+        // Offer biometric setup after registration
         Alert.alert(
           'Setup Biometric Login',
           'Would you like to enable biometric authentication for faster login?',
           [
-            {
-              text: 'Not Now',
-              style: 'cancel',
-            },
+            { text: 'Not Now', style: 'cancel' },
             {
               text: 'Setup',
               onPress: async () => {
                 try {
-                  const success = await setupBiometric();
-                  if (success) {
-                    Alert.alert('Success', 'Biometric authentication enabled!');
-                  }
+                  await setupBiometric();
+                  Alert.alert('Success', 'Biometric authentication enabled!');
                 } catch (error: any) {
                   Alert.alert('Error', error.message || 'Failed to setup biometric authentication');
                 }
@@ -93,32 +80,24 @@ export const LoginScreen: React.FC = () => {
         );
       }
     } catch (error: any) {
+      console.error('LoginScreen: Auth error:', error);
       Alert.alert('Error', error.message || 'Authentication failed');
     } finally {
-      clearTimeout(timeoutId);
       setIsLoading(false);
     }
   };
 
   const handleBiometricAuth = async () => {
-    if (!biometricEnabled) {
-      Alert.alert('Biometric Not Enabled', 'Please enable biometric authentication in settings first.');
-      return;
-    }
-
-    setIsLoading(true);
-    clearError();
-
-    try {
-      await authenticateWithBiometric();
-    } catch (error: any) {
-      Alert.alert('Biometric Error', error.message || 'Biometric authentication failed');
-    } finally {
-      setIsLoading(false);
-    }
+    Alert.alert('Biometric Not Available', 'Biometric authentication is not available in this demo version.');
   };
 
-  const isFormValid = email.trim() && password.trim() && (isLogin || displayName.trim());
+  const toggleMode = () => {
+    setIsLogin(!isLogin);
+    setEmail('');
+    setPassword('');
+    setDisplayName('');
+    clearError();
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -127,18 +106,13 @@ export const LoginScreen: React.FC = () => {
         style={styles.keyboardAvoidingView}
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {/* Network Status */}
-          <NetworkStatus isOnline={!error} error={error?.message} />
-          
           <View style={styles.header}>
-            <ThemedText style={styles.title}>InteroSight</ThemedText>
-            <ThemedText style={styles.subtitle}>
+            <Text style={styles.title}>InteroSight</Text>
+            <Text style={styles.subtitle}>
               {isLogin ? 'Welcome back!' : 'Create your account'}
-            </ThemedText>
-            {error && error.code === 'initialization-error' && (
-              <ThemedText style={styles.offlineMessage}>
-                Offline mode - Some features may be limited
-              </ThemedText>
+            </Text>
+            {error && (
+              <Text style={styles.errorText}>{error.message}</Text>
             )}
           </View>
 
@@ -147,7 +121,7 @@ export const LoginScreen: React.FC = () => {
               <TextInput
                 style={styles.input}
                 placeholder="Full Name"
-                placeholderTextColor={Colors.light.text}
+                placeholderTextColor="#64748b"
                 value={displayName}
                 onChangeText={setDisplayName}
                 autoCapitalize="words"
@@ -158,7 +132,7 @@ export const LoginScreen: React.FC = () => {
             <TextInput
               style={styles.input}
               placeholder="Email"
-              placeholderTextColor={Colors.light.text}
+              placeholderTextColor="#64748b"
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
@@ -166,16 +140,28 @@ export const LoginScreen: React.FC = () => {
               autoCorrect={false}
             />
 
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor={Colors.light.text}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry={!showPassword}
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
+            <View style={styles.passwordContainer}>
+              <TextInput
+                style={[styles.input, styles.passwordInput]}
+                placeholder="Password"
+                placeholderTextColor="#64748b"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <TouchableOpacity
+                style={styles.eyeButton}
+                onPress={() => setShowPassword(!showPassword)}
+              >
+                <Ionicons 
+                  name={showPassword ? 'eye-off' : 'eye'} 
+                  size={20} 
+                  color="#64748b" 
+                />
+              </TouchableOpacity>
+            </View>
 
             <TouchableOpacity
               style={[styles.button, isLoading && styles.buttonDisabled]}
@@ -187,46 +173,11 @@ export const LoginScreen: React.FC = () => {
               </Text>
             </TouchableOpacity>
 
-            {isLogin && biometricEnabled && (
-              <TouchableOpacity
-                style={[styles.biometricButton, isLoading && styles.buttonDisabled]}
-                onPress={handleBiometricAuth}
-                disabled={isLoading}
-              >
-                <Text style={styles.biometricButtonText}>
-                  Use Face ID / Touch ID
-                </Text>
-              </TouchableOpacity>
-            )}
-
-            {error && (
-              <Text style={styles.errorText}>{error.message}</Text>
-            )}
-          </View>
-
-          <View style={styles.footer}>
-            <TouchableOpacity
-              onPress={() => {
-                setIsLogin(!isLogin);
-                setEmail('');
-                setPassword('');
-                setDisplayName('');
-                clearError();
-              }}
-            >
+            <TouchableOpacity style={styles.switchButton} onPress={toggleMode}>
               <Text style={styles.switchText}>
-                {isLogin 
-                  ? "Don't have an account? Sign up" 
-                  : 'Already have an account? Sign in'
-                }
+                {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
               </Text>
             </TouchableOpacity>
-
-            {isLogin && (
-              <TouchableOpacity style={styles.forgotPassword}>
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-              </TouchableOpacity>
-            )}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -254,77 +205,84 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
+    color: '#1e293b',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    opacity: 0.7,
+    color: '#64748b',
+    textAlign: 'center',
+  },
+  errorText: {
+    fontSize: 14,
+    color: '#dc2626',
+    textAlign: 'center',
+    marginTop: 8,
   },
   form: {
-    marginBottom: 30,
+    width: '100%',
   },
   input: {
-    backgroundColor: Colors.light.background,
+    backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: Colors.light.border,
+    borderColor: '#e2e8f0',
     borderRadius: 8,
-    padding: 15,
-    marginBottom: 15,
+    padding: 16,
     fontSize: 16,
-    color: Colors.light.text,
+    color: '#1e293b',
+    marginBottom: 16,
+  },
+  passwordContainer: {
+    position: 'relative',
+    marginBottom: 16,
+  },
+  passwordInput: {
+    paddingRight: 50,
+  },
+  eyeButton: {
+    position: 'absolute',
+    right: 16,
+    top: 16,
   },
   button: {
-    backgroundColor: Colors.light.tint,
+    backgroundColor: '#6366f1',
     borderRadius: 8,
-    padding: 15,
+    padding: 16,
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 16,
   },
   buttonDisabled: {
     opacity: 0.6,
   },
   buttonText: {
-    color: 'white',
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
   },
   biometricButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: '#f1f5f9',
     borderWidth: 1,
-    borderColor: Colors.light.tint,
+    borderColor: '#6366f1',
     borderRadius: 8,
-    padding: 15,
+    padding: 16,
     alignItems: 'center',
-    marginBottom: 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 16,
   },
   biometricButtonText: {
-    color: Colors.light.tint,
+    color: '#6366f1',
     fontSize: 16,
     fontWeight: '600',
+    marginLeft: 8,
   },
-  errorText: {
-    color: 'red',
-    textAlign: 'center',
-    marginTop: 10,
-  },
-  footer: {
+  switchButton: {
     alignItems: 'center',
+    padding: 16,
   },
   switchText: {
-    color: Colors.light.tint,
+    color: '#6366f1',
     fontSize: 14,
-    marginBottom: 15,
-  },
-  forgotPassword: {
-    marginTop: 10,
-  },
-  forgotPasswordText: {
-    color: Colors.light.tint,
-    fontSize: 14,
-  },
-  offlineMessage: {
-    color: 'red',
-    textAlign: 'center',
-    marginTop: 10,
+    fontWeight: '500',
   },
 }); 
