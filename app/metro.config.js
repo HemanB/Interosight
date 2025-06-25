@@ -6,6 +6,9 @@ const config = getDefaultConfig(__dirname);
 config.resolver.platforms = ['ios', 'android', 'native', 'web'];
 config.resolver.resolverMainFields = ['react-native', 'browser', 'main'];
 
+// KEEP THIS LINE NO MATTER WHAT
+config.resolver.unstable_enablePackageExports = false;
+
 // Enable Hermes for better performance
 config.transformer.minifierConfig = {
   keep_fnames: true,

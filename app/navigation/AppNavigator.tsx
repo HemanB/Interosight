@@ -39,11 +39,11 @@ export default function AppNavigator() {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: '#6366f1',
-          tabBarInactiveTintColor: '#64748b',
+          tabBarInactiveTintColor: '#9ca3af',
           tabBarStyle: {
-            backgroundColor: '#ffffff',
+            backgroundColor: '#0f0f23',
             borderTopWidth: 1,
-            borderTopColor: '#e5e7eb',
+            borderTopColor: '#374151',
             paddingBottom: 5,
             paddingTop: 5,
             height: 60,

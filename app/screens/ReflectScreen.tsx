@@ -1,324 +1,449 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
-  FlatList,
+  ScrollView,
+  ActivityIndicator,
+  Alert,
+  Modal,
+  Dimensions,
+  TextInput,
   KeyboardAvoidingView,
   Platform,
-  Alert,
-  ActivityIndicator,
-  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Mascot from '../components/Mascot';
-import { ChatMessage } from '../prompts/prompts';
-import { llmService, LLMResponse } from '../lib/llm';
+import { generateResponse } from '../lib/llm';
+import { SYSTEM_PROMPTS, getRandomPrompt, buildPrompt, buildFollowUpPrompt } from '../prompts/prompts';
 
-interface ReflectionEntry {
+interface ChatMessage {
   id: string;
-  prompt: string;
-  response: string;
-  followUps?: string[];
-  tags: string[];
+  type: 'prompt' | 'user' | 'followup' | 'user-followup';
+  content: string;
   timestamp: Date;
-  xpEarned: number;
+  isTyping?: boolean;
+  followUpOptions?: string[];
+  selectedFollowUp?: number;
 }
 
-interface DailyPrompt {
-  id: string;
-  prompt: string;
-  category: string;
-  used: boolean;
-}
+const { width, height } = Dimensions.get('window');
 
 export default function ReflectScreen() {
-  const [currentPrompt, setCurrentPrompt] = useState<DailyPrompt | null>(null);
-  const [userResponse, setUserResponse] = useState('');
-  const [followUpQuestions, setFollowUpQuestions] = useState<string[]>([]);
-  const [currentFollowUp, setCurrentFollowUp] = useState<number>(-1);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [currentInput, setCurrentInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [mascotMood, setMascotMood] = useState<'happy' | 'supportive' | 'thinking'>('happy');
-  const [reflections, setReflections] = useState<ReflectionEntry[]>([]);
+  const [mascotMood, setMascotMood] = useState<'happy' | 'thinking' | 'supportive'>('happy');
   const [showCalendar, setShowCalendar] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [reflections, setReflections] = useState<any[]>([]);
+  const [canType, setCanType] = useState(false);
+  const [currentPromptId, setCurrentPromptId] = useState<string | null>(null);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null);
+  const inputRef = useRef<TextInput>(null);
+  const typingRef = useRef(false);
 
-  const dailyPrompts: DailyPrompt[] = [
-    {
-      id: '1',
-      prompt: "What does self-compassion feel like to you today?",
-      category: 'self-compassion',
-      used: false,
-    },
-    {
-      id: '2',
-      prompt: "How are you honoring your body's needs right now?",
-      category: 'body-awareness',
-      used: false,
-    },
-    {
-      id: '3',
-      prompt: "What's one small victory you can celebrate today?",
-      category: 'celebration',
-      used: false,
-    },
-    {
-      id: '4',
-      prompt: "What emotions are present for you in this moment?",
-      category: 'emotional-awareness',
-      used: false,
-    },
-    {
-      id: '5',
-      prompt: "How can you be kinder to yourself today?",
-      category: 'self-compassion',
-      used: false,
-    },
-  ];
-
+  // Initialize with first prompt
   useEffect(() => {
-    // Get today's prompt
-    const today = new Date().toDateString();
-    const todayReflection = reflections.find(r => 
-      r.timestamp.toDateString() === today
-    );
-    
-    if (!todayReflection) {
-      const unusedPrompts = dailyPrompts.filter(p => !p.used);
-      if (unusedPrompts.length > 0) {
-        const randomPrompt = unusedPrompts[Math.floor(Math.random() * unusedPrompts.length)];
-        setCurrentPrompt(randomPrompt);
-      }
-    }
+    const initialPrompt = getRandomPrompt();
+    const firstMessage: ChatMessage = {
+      id: '1',
+      type: 'prompt',
+      content: initialPrompt.text,
+      timestamp: new Date(),
+      isTyping: true
+    };
+    setMessages([firstMessage]);
+    setCurrentPromptId('1');
   }, []);
 
-  const generateFollowUps = async (response: string) => {
-    setIsLoading(true);
-    setMascotMood('thinking');
-
-    try {
-      // This would integrate with your LLM service
-      // For now, using placeholder follow-ups
-      const mockFollowUps = [
-        "What does that tell you about your needs right now?",
-        "How might you respond to yourself with more kindness?",
-        "What would it feel like to hold this experience with gentleness?"
-      ];
+  // Typewriter effect for new messages
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.isTyping && lastMessage.type === 'prompt' && !typingRef.current) {
+      console.log('Starting typewriter effect for:', lastMessage.content);
+      typingRef.current = true;
+      let index = 0;
+      const originalContent = lastMessage.content;
+      setCanType(false);
       
-      setFollowUpQuestions(mockFollowUps);
-      setCurrentFollowUp(0);
-    } catch (error) {
-      console.error('Error generating follow-ups:', error);
-    } finally {
-      setIsLoading(false);
-      setMascotMood('supportive');
-    }
-  };
+      const typeInterval = setInterval(() => {
+        if (index < originalContent.length) {
+          setMessages(prev => {
+            const newMessages = prev.map(msg => 
+              msg.id === lastMessage.id 
+                ? { ...msg, content: originalContent.substring(0, index + 1) }
+                : msg
+            );
+            return newMessages;
+          });
+          index++;
+        } else {
+          console.log('Typewriter effect completed');
+          clearInterval(typeInterval);
+          typingRef.current = false;
+          
+          // Ensure the final message is set correctly
+          setMessages(prev => 
+            prev.map(msg => 
+              msg.id === lastMessage.id 
+                ? { ...msg, isTyping: false, content: originalContent }
+                : msg
+            )
+          );
+          
+          setCanType(true);
+          setCurrentPromptId(lastMessage.id);
+          
+          // Focus the input after typing is complete
+          setTimeout(() => {
+            inputRef.current?.focus();
+          }, 500);
+        }
+      }, 30);
 
-  const submitReflection = async () => {
-    if (!userResponse.trim() || !currentPrompt) return;
+      // Fallback timeout to ensure completion
+      const fallbackTimeout = setTimeout(() => {
+        if (typingRef.current) {
+          console.log('Typewriter fallback triggered');
+          clearInterval(typeInterval);
+          typingRef.current = false;
+          setMessages(prev => 
+            prev.map(msg => 
+              msg.id === lastMessage.id 
+                ? { ...msg, isTyping: false, content: originalContent }
+                : msg
+            )
+          );
+          setCanType(true);
+          setCurrentPromptId(lastMessage.id);
+          setTimeout(() => {
+            inputRef.current?.focus();
+          }, 500);
+        }
+      }, 10000); // 10 second fallback
 
-    setIsLoading(true);
-    setMascotMood('thinking');
-
-    try {
-      // Generate follow-ups
-      await generateFollowUps(userResponse);
-
-      // Calculate XP based on response length and emotional richness
-      const xpEarned = Math.min(50 + (userResponse.length / 10), 100);
-
-      // Create reflection entry
-      const newReflection: ReflectionEntry = {
-        id: Date.now().toString(),
-        prompt: currentPrompt.prompt,
-        response: userResponse,
-        tags: [currentPrompt.category],
-        timestamp: new Date(),
-        xpEarned,
+      return () => {
+        clearInterval(typeInterval);
+        clearTimeout(fallbackTimeout);
+        typingRef.current = false;
       };
+    }
+  }, [messages.length]);
 
-      setReflections(prev => [newReflection, ...prev]);
+  // Auto-scroll to bottom when new messages are added or input changes
+  useEffect(() => {
+    setTimeout(() => {
+      scrollViewRef.current?.scrollToEnd({ animated: true });
+    }, 100);
+  }, [messages, currentInput]);
+
+  const generateFollowUps = async (userResponse: string) => {
+    try {
+      setIsLoading(true);
+      setMascotMood('thinking');
+
+      const prompt = buildFollowUpPrompt(userResponse);
+      const result = await generateResponse(prompt);
       
-      // Mark prompt as used
-      setCurrentPrompt(prev => prev ? { ...prev, used: true } : null);
+      const followUpQuestions = result
+        .split('\n')
+        .map((line: string) => line.trim())
+        .filter((line: string) => line.length > 0 && line.length < 200)
+        .slice(0, 3);
+
+      // Add follow-up options message
+      setMessages(prev => [...prev, {
+        id: Date.now().toString(),
+        type: 'followup',
+        content: 'Here are some deeper questions to explore:',
+        timestamp: new Date(),
+        followUpOptions: followUpQuestions
+      }]);
 
     } catch (error) {
-      console.error('Error submitting reflection:', error);
-      Alert.alert('Error', 'Unable to save your reflection. Please try again.');
+      console.error('Failed to generate follow-ups:', error);
+      Alert.alert('Error', 'Unable to generate follow-up questions');
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const answerFollowUp = async (followUpIndex: number) => {
-    if (currentFollowUp < 0) return;
-
-    const followUpResponse = userResponse; // This would be a separate input
-    setCurrentFollowUp(followUpIndex + 1);
-
-    if (followUpIndex + 1 >= followUpQuestions.length) {
-      // All follow-ups answered, complete the reflection
-      setUserResponse('');
-      setFollowUpQuestions([]);
-      setCurrentFollowUp(-1);
       setMascotMood('supportive');
     }
   };
 
-  const renderReflectionCard = ({ item }: { item: ReflectionEntry }) => (
-    <View style={styles.reflectionCard}>
-      <View style={styles.reflectionHeader}>
-        <Text style={styles.reflectionDate}>
-          {item.timestamp.toLocaleDateString()}
-        </Text>
-        <View style={styles.xpBadge}>
-          <Ionicons name="star" size={12} color="#fbbf24" />
-          <Text style={styles.xpText}>+{item.xpEarned}</Text>
+  const handleSubmit = async () => {
+    if (!currentInput.trim()) return;
+
+    const userMessage: ChatMessage = {
+      id: Date.now().toString(),
+      type: 'user',
+      content: currentInput,
+      timestamp: new Date()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setCurrentInput('');
+    setCanType(false);
+
+    // Generate follow-ups
+    await generateFollowUps(currentInput);
+
+    // Save to reflections
+    const newReflection = {
+      id: Date.now().toString(),
+      prompt: messages[0]?.content || '',
+      response: currentInput,
+      timestamp: new Date(),
+    };
+    setReflections(prev => [newReflection, ...prev]);
+  };
+
+  const handleFollowUpSelection = (messageId: string, optionIndex: number) => {
+    setMessages(prev => 
+      prev.map(msg => 
+        msg.id === messageId 
+          ? { ...msg, selectedFollowUp: optionIndex }
+          : msg
+      )
+    );
+  };
+
+  const handleFollowUpResponse = async () => {
+    const lastMessage = messages[messages.length - 1];
+    if (!lastMessage || lastMessage.type !== 'followup' || lastMessage.selectedFollowUp === undefined) return;
+
+    const selectedQuestion = lastMessage.followUpOptions![lastMessage.selectedFollowUp];
+    
+    // Add the selected question as a user message
+    const followUpQuestionMessage: ChatMessage = {
+      id: Date.now().toString(),
+      type: 'user-followup',
+      content: selectedQuestion,
+      timestamp: new Date()
+    };
+
+    setMessages(prev => [...prev, followUpQuestionMessage]);
+
+    // Generate new prompt for next reflection
+    const newPrompt = getRandomPrompt();
+    const newPromptMessage: ChatMessage = {
+      id: (Date.now() + 1).toString(),
+      type: 'prompt',
+      content: newPrompt.text,
+      timestamp: new Date(),
+      isTyping: true
+    };
+
+    setMessages(prev => [...prev, newPromptMessage]);
+  };
+
+  // Get the current active prompt message
+  const getCurrentPromptMessage = () => {
+    return messages.find(msg => msg.id === currentPromptId && msg.type === 'prompt');
+  };
+
+  const renderMessage = (message: ChatMessage) => {
+    switch (message.type) {
+      case 'user':
+        return (
+          <View key={message.id} style={styles.messageContainer}>
+            <View style={styles.userContainer}>
+              <Text style={styles.userText}>{message.content}</Text>
+            </View>
+          </View>
+        );
+
+      case 'followup':
+        return (
+          <View key={message.id} style={styles.messageContainer}>
+            <View style={styles.stoneContainer}>
+              <Mascot mood={mascotMood} size={80} />
+            </View>
+            <View style={styles.followUpContainer}>
+              <Text style={styles.followUpTitle}>{message.content}</Text>
+              {message.followUpOptions?.map((option, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.followUpOption,
+                    message.selectedFollowUp === index && styles.followUpOptionSelected
+                  ]}
+                  onPress={() => handleFollowUpSelection(message.id, index)}
+                >
+                  <Text style={[
+                    styles.followUpOptionText,
+                    message.selectedFollowUp === index && styles.followUpOptionTextSelected
+                  ]}>
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+              {message.selectedFollowUp !== undefined && (
+                <TouchableOpacity
+                  style={styles.continueButton}
+                  onPress={handleFollowUpResponse}
+                >
+                  <Text style={styles.continueButtonText}>Continue</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+        );
+
+      case 'user-followup':
+        return (
+          <View key={message.id} style={styles.messageContainer}>
+            <View style={styles.userContainer}>
+              <Text style={styles.userText}>{message.content}</Text>
+            </View>
+          </View>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  const renderCalendarModal = () => (
+    <Modal
+      visible={showCalendar}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={() => setShowCalendar(false)}
+    >
+      <View style={styles.modalOverlay}>
+        <View style={styles.calendarModal}>
+          <View style={styles.calendarHeader}>
+            <Text style={styles.calendarTitle}>Reflection History</Text>
+            <TouchableOpacity onPress={() => setShowCalendar(false)}>
+              <Ionicons name="close" size={24} color="#ffffff" />
+            </TouchableOpacity>
+          </View>
+          
+          <ScrollView style={styles.calendarContent}>
+            {reflections.length === 0 ? (
+              <Text style={styles.noReflectionsText}>No reflections yet</Text>
+            ) : (
+              reflections.map((reflection) => (
+                <TouchableOpacity
+                  key={reflection.id}
+                  style={styles.calendarItem}
+                  onPress={() => {
+                    setSelectedDate(reflection.timestamp);
+                    setShowCalendar(false);
+                  }}
+                >
+                  <Text style={styles.calendarDate}>
+                    {reflection.timestamp.toLocaleDateString()}
+                  </Text>
+                  <Text style={styles.calendarPreview} numberOfLines={2}>
+                    {reflection.response}
+                  </Text>
+                </TouchableOpacity>
+              ))
+            )}
+          </ScrollView>
         </View>
       </View>
-      
-      <Text style={styles.promptText}>"{item.prompt}"</Text>
-      <Text style={styles.responseText}>{item.response}</Text>
-      
-      <View style={styles.tagsContainer}>
-        {item.tags.map((tag, index) => (
-          <View key={index} style={styles.tag}>
-            <Text style={styles.tagText}>{tag}</Text>
-          </View>
-        ))}
-      </View>
-    </View>
+    </Modal>
   );
+
+  const currentPrompt = getCurrentPromptMessage();
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Calendar Button */}
+      <TouchableOpacity 
+        style={styles.calendarButton}
+        onPress={() => setShowCalendar(true)}
+      >
+        <Ionicons name="calendar" size={24} color="#6366f1" />
+      </TouchableOpacity>
+
       <KeyboardAvoidingView 
         style={styles.keyboardAvoidingView}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
       >
-        {/* Header */}
-        <View style={styles.header}>
-          <Mascot mood={mascotMood} size={60} />
-          <View style={styles.headerContent}>
-            <Text style={styles.headerText}>Stone of Wisdom</Text>
-            <Text style={styles.subtitleText}>Daily reflection and growth</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.calendarButton}
-            onPress={() => setShowCalendar(!showCalendar)}
-          >
-            <Ionicons name="calendar" size={24} color="#6366f1" />
-          </TouchableOpacity>
-        </View>
-
-        {showCalendar ? (
-          // Reflection Calendar View
-          <View style={styles.calendarView}>
-            <Text style={styles.calendarTitle}>Your Reflection Journey</Text>
-            <FlatList
-              data={reflections}
-              renderItem={renderReflectionCard}
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.calendarList}
-            />
-          </View>
-        ) : (
-          // Daily Reflection View
-          <ScrollView style={styles.reflectionView} showsVerticalScrollIndicator={false}>
-            {currentPrompt && (
-              <View style={styles.promptCard}>
-                <View style={styles.promptHeader}>
-                  <Ionicons name="diamond" size={24} color="#6366f1" />
-                  <Text style={styles.promptTitle}>Today's Wisdom</Text>
-                </View>
-                <Text style={styles.promptText}>{currentPrompt.prompt}</Text>
-              </View>
-            )}
-
-            {currentFollowUp >= 0 && followUpQuestions.length > 0 && (
-              <View style={styles.followUpCard}>
-                <Text style={styles.followUpTitle}>Deeper Reflection</Text>
-                <Text style={styles.followUpQuestion}>
-                  {followUpQuestions[currentFollowUp]}
-                </Text>
-              </View>
-            )}
-
-            <View style={styles.inputSection}>
-              <TextInput
-                style={styles.textInput}
-                value={userResponse}
-                onChangeText={setUserResponse}
-                placeholder={
-                  currentFollowUp >= 0 
-                    ? "Share your thoughts..."
-                    : "What comes to mind when you reflect on this?"
-                }
-                placeholderTextColor="#9ca3af"
-                multiline
-                maxLength={1000}
-                editable={!isLoading}
-              />
-              
-              <TouchableOpacity
-                style={[
-                  styles.submitButton,
-                  (!userResponse.trim() || isLoading) && styles.submitButtonDisabled
-                ]}
-                onPress={submitReflection}
-                disabled={!userResponse.trim() || isLoading}
-              >
-                {isLoading ? (
-                  <ActivityIndicator size="small" color="#ffffff" />
-                ) : (
-                  <>
-                    <Ionicons name="send" size={20} color="#ffffff" />
-                    <Text style={styles.submitButtonText}>
-                      {currentFollowUp >= 0 ? 'Continue' : 'Reflect'}
-                    </Text>
-                  </>
-                )}
-              </TouchableOpacity>
-            </View>
-
-            {reflections.length > 0 && (
-              <View style={styles.recentSection}>
-                <Text style={styles.sectionTitle}>Recent Reflections</Text>
-                {reflections.slice(0, 3).map((reflection) => (
-                  <View key={reflection.id} style={styles.recentCard}>
-                    <Text style={styles.recentPrompt}>"{reflection.prompt}"</Text>
-                    <Text style={styles.recentResponse} numberOfLines={2}>
-                      {reflection.response}
-                    </Text>
-                    <Text style={styles.recentDate}>
-                      {reflection.timestamp.toLocaleDateString()}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            )}
-          </ScrollView>
-        )}
-
-        {/* Crisis Support */}
-        <TouchableOpacity
-          style={styles.crisisButton}
-          onPress={() => {
-            Alert.alert(
-              'Crisis Support',
-              'If you\'re in crisis or need immediate support:\n\n• NEDA Helpline: 1-800-931-2237\n• Crisis Text Line: Text HOME to 741741\n• National Suicide Prevention Lifeline: 988',
-              [{ text: 'OK', style: 'default' }]
-            );
-          }}
+        {/* Chat Messages */}
+        <ScrollView 
+          ref={scrollViewRef}
+          style={styles.chatContainer}
+          contentContainerStyle={styles.chatContent}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
         >
-          <Ionicons name="warning" size={16} color="#dc2626" />
-          <Text style={styles.crisisButtonText}>Crisis Support</Text>
-        </TouchableOpacity>
+          {/* Previous messages */}
+          {messages.filter(msg => msg.type !== 'prompt' || msg.id !== currentPromptId).map(renderMessage)}
+          
+          {/* Current prompt and input area */}
+          {currentPrompt && (
+            <View style={styles.messageContainer}>
+              <View style={styles.stoneContainer}>
+                <Mascot mood={mascotMood} size={80} />
+              </View>
+              <View style={styles.seamlessContainer}>
+                <Text style={styles.promptText}>
+                  {currentPrompt.content}
+                  {currentPrompt.isTyping && <Text style={styles.cursor}>|</Text>}
+                </Text>
+                {!currentPrompt.isTyping && canType && (
+                  <TextInput
+                    ref={inputRef}
+                    style={styles.seamlessInput}
+                    value={currentInput}
+                    onChangeText={setCurrentInput}
+                    placeholder="your response"
+                    placeholderTextColor="#6b7280"
+                    multiline
+                    maxLength={1000}
+                    editable={true}
+                    autoFocus={true}
+                    selectionColor="#6366f1"
+                    scrollEnabled={false}
+                    textAlignVertical="top"
+                    numberOfLines={undefined}
+                    onContentSizeChange={() => {
+                      setTimeout(() => {
+                        scrollViewRef.current?.scrollToEnd({ animated: true });
+                      }, 50);
+                    }}
+                  />
+                )}
+              </View>
+            </View>
+          )}
+          
+          {isLoading && (
+            <View style={styles.messageContainer}>
+              <View style={styles.stoneContainer}>
+                <Mascot mood="thinking" size={80} />
+              </View>
+              <View style={styles.loadingContainer}>
+                <ActivityIndicator size="small" color="#6366f1" />
+                <Text style={styles.loadingText}>Thinking...</Text>
+              </View>
+            </View>
+          )}
+        </ScrollView>
+
+        {/* Submit Button */}
+        {canType && currentInput.trim() && (
+          <View style={styles.submitContainer}>
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={handleSubmit}
+              disabled={isLoading}
+            >
+              <Ionicons name="send" size={20} color="#ffffff" />
+            </TouchableOpacity>
+          </View>
+        )}
       </KeyboardAvoidingView>
+
+      {renderCalendarModal()}
     </SafeAreaView>
   );
 }
@@ -326,244 +451,196 @@ export default function ReflectScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#0f0f23',
+  },
+  calendarButton: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    zIndex: 10,
+    padding: 10,
   },
   keyboardAvoidingView: {
     flex: 1,
   },
-  header: {
+  chatContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 100,
+  },
+  chatContent: {
+    paddingBottom: 100,
+  },
+  messageContainer: {
+    marginBottom: 40,
+    width: '100%',
+  },
+  stoneContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  seamlessContainer: {
+    width: '100%',
+    minHeight: 100,
+  },
+  promptText: {
+    fontSize: 18,
+    lineHeight: 26,
+    color: '#e5e7eb',
+    textAlign: 'left',
+    fontFamily: 'monospace',
+    marginBottom: 0,
+  },
+  cursor: {
+    color: '#6366f1',
+    fontWeight: 'bold',
+  },
+  seamlessInput: {
+    width: '100%',
+    fontSize: 18,
+    lineHeight: 26,
+    color: '#6366f1',
+    fontFamily: 'monospace',
+    textAlign: 'left',
+    padding: 0,
+    margin: 0,
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    height: 'auto',
+    minHeight: 26,
+  },
+  userContainer: {
+    width: '100%',
+    paddingLeft: 20,
+  },
+  userText: {
+    fontSize: 18,
+    lineHeight: 26,
+    color: '#6366f1',
+    textAlign: 'left',
+    fontFamily: 'monospace',
+  },
+  followUpContainer: {
+    width: '100%',
+  },
+  followUpTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#6366f1',
+    marginBottom: 16,
+    textAlign: 'left',
+  },
+  followUpOption: {
+    width: '100%',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#374151',
+    backgroundColor: '#111827',
+  },
+  followUpOptionSelected: {
+    backgroundColor: '#6366f1',
+    borderColor: '#6366f1',
+  },
+  followUpOptionText: {
+    fontSize: 16,
+    color: '#9ca3af',
+    lineHeight: 22,
+    textAlign: 'left',
+  },
+  followUpOptionTextSelected: {
+    color: '#ffffff',
+    fontWeight: '600',
+  },
+  continueButton: {
+    backgroundColor: '#10b981',
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    marginTop: 16,
+    width: '100%',
+  },
+  continueButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  loadingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    backgroundColor: '#ffffff',
+    gap: 12,
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#9ca3af',
+  },
+  submitContainer: {
+    position: 'absolute',
+    bottom: 40,
+    right: 20,
+  },
+  submitButton: {
+    backgroundColor: '#6366f1',
+    borderRadius: 25,
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  calendarModal: {
+    backgroundColor: '#1f2937',
+    borderRadius: 16,
+    width: width * 0.9,
+    maxHeight: height * 0.8,
+    borderWidth: 1,
+    borderColor: '#374151',
+  },
+  calendarHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
-  },
-  headerContent: {
-    flex: 1,
-    marginLeft: 12,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1e293b',
-  },
-  subtitleText: {
-    fontSize: 14,
-    color: '#64748b',
-  },
-  calendarButton: {
-    padding: 8,
-  },
-  calendarView: {
-    flex: 1,
-    paddingHorizontal: 20,
+    borderBottomColor: '#374151',
   },
   calendarTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#1e293b',
-    marginVertical: 20,
-  },
-  calendarList: {
-    paddingBottom: 20,
-  },
-  reflectionView: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
-  promptCard: {
-    backgroundColor: '#ffffff',
-    borderRadius: 16,
-    padding: 20,
-    marginVertical: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  promptHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  promptTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1e293b',
-    marginLeft: 8,
-  },
-  promptText: {
-    fontSize: 16,
-    color: '#374151',
-    lineHeight: 24,
-  },
-  followUpCard: {
-    backgroundColor: '#fef3c7',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-  },
-  followUpTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#92400e',
-    marginBottom: 8,
-  },
-  followUpQuestion: {
-    fontSize: 14,
-    color: '#92400e',
-    lineHeight: 20,
-  },
-  inputSection: {
-    backgroundColor: '#ffffff',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#e5e7eb',
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    minHeight: 120,
-    textAlignVertical: 'top',
-    marginBottom: 16,
-  },
-  submitButton: {
-    backgroundColor: '#6366f1',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    borderRadius: 12,
-  },
-  submitButtonDisabled: {
-    backgroundColor: '#d1d5db',
-  },
-  submitButtonText: {
     color: '#ffffff',
+  },
+  calendarContent: {
+    padding: 20,
+  },
+  noReflectionsText: {
+    color: '#9ca3af',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  calendarItem: {
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#374151',
+  },
+  calendarDate: {
     fontSize: 16,
     fontWeight: '600',
-    marginLeft: 8,
-  },
-  recentSection: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1e293b',
-    marginBottom: 12,
-  },
-  recentCard: {
-    backgroundColor: '#ffffff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  recentPrompt: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#374151',
-    marginBottom: 8,
-  },
-  recentResponse: {
-    fontSize: 14,
-    color: '#6b7280',
-    marginBottom: 8,
-  },
-  recentDate: {
-    fontSize: 12,
-    color: '#9ca3af',
-  },
-  reflectionCard: {
-    backgroundColor: '#ffffff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  reflectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  reflectionDate: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#6b7280',
-  },
-  xpBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fef3c7',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-  },
-  xpText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#92400e',
-    marginLeft: 4,
-  },
-  responseText: {
-    fontSize: 14,
-    color: '#374151',
-    lineHeight: 20,
-    marginBottom: 12,
-  },
-  tagsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  tag: {
-    backgroundColor: '#e0e7ff',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-    marginRight: 6,
+    color: '#6366f1',
     marginBottom: 4,
   },
-  tagText: {
-    fontSize: 11,
-    color: '#3730a3',
-  },
-  crisisButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fef2f2',
-    paddingVertical: 12,
-    marginHorizontal: 20,
-    marginBottom: 20,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#fecaca',
-  },
-  crisisButtonText: {
-    color: '#dc2626',
+  calendarPreview: {
     fontSize: 14,
-    fontWeight: '600',
-    marginLeft: 6,
+    color: '#d1d5db',
   },
-});
+}); 

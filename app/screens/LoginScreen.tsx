@@ -17,6 +17,7 @@ import { Colors } from '../constants/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { NetworkStatus } from '../components/NetworkStatus';
+import Mascot from '../components/Mascot';
 
 export const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -38,12 +39,12 @@ export const LoginScreen: React.FC = () => {
 
   const handleAuth = async () => {
     if (!email || !password) {
-      Alert.alert('Error', 'Please fill in all fields');
+      Alert.alert('Welcome to Intero', 'Please fill in all fields to begin your journey');
       return;
     }
 
     if (!isLogin && !displayName) {
-      Alert.alert('Error', 'Please enter your name');
+      Alert.alert('Welcome to Intero', 'Please enter your name to create your character');
       return;
     }
 
@@ -54,8 +55,8 @@ export const LoginScreen: React.FC = () => {
     const timeoutId = setTimeout(() => {
       if (isLoading) {
         Alert.alert(
-          'Slow Connection',
-          'This is taking longer than usual. Please check your internet connection.',
+          'Connection Slow',
+          'The Stone of Wisdom is taking longer to respond. Please check your connection.',
           [{ text: 'OK', style: 'default' }]
         );
       }
@@ -69,23 +70,23 @@ export const LoginScreen: React.FC = () => {
         
         // After successful registration, offer biometric setup
         Alert.alert(
-          'Setup Biometric Login',
-          'Would you like to enable biometric authentication for faster login?',
+          'Enable Biometric Access',
+          'Would you like to enable biometric authentication for faster access to your inner world?',
           [
             {
               text: 'Not Now',
               style: 'cancel',
             },
             {
-              text: 'Setup',
+              text: 'Enable',
               onPress: async () => {
                 try {
                   const success = await setupBiometric();
                   if (success) {
-                    Alert.alert('Success', 'Biometric authentication enabled!');
+                    Alert.alert('Success', 'Biometric authentication enabled! Your journey awaits.');
                   }
                 } catch (error: any) {
-                  Alert.alert('Error', error.message || 'Failed to setup biometric authentication');
+                  Alert.alert('Setup Incomplete', error.message || 'Biometric setup failed, but you can still access Intero');
                 }
               },
             },
@@ -93,7 +94,7 @@ export const LoginScreen: React.FC = () => {
         );
       }
     } catch (error: any) {
-      Alert.alert('Error', error.message || 'Authentication failed');
+      Alert.alert('Journey Paused', error.message || 'Unable to continue. Please try again.');
     } finally {
       clearTimeout(timeoutId);
       setIsLoading(false);
@@ -131,59 +132,82 @@ export const LoginScreen: React.FC = () => {
           <NetworkStatus isOnline={!error} error={error?.message} />
           
           <View style={styles.header}>
-            <ThemedText style={styles.title}>InteroSight</ThemedText>
+            <Mascot mood="happy" size={80} />
+            <ThemedText style={styles.title}>Intero</ThemedText>
             <ThemedText style={styles.subtitle}>
-              {isLogin ? 'Welcome back!' : 'Create your account'}
+              {isLogin ? 'Welcome back, wanderer' : 'Begin your journey of self-discovery'}
+            </ThemedText>
+            <ThemedText style={styles.tagline}>
+              A reflective RPG for inner wisdom
             </ThemedText>
             {error && error.code === 'initialization-error' && (
               <ThemedText style={styles.offlineMessage}>
-                Offline mode - Some features may be limited
+                Offline mode - Your journey continues locally
               </ThemedText>
             )}
           </View>
 
           <View style={styles.form}>
             {!isLogin && (
-              <TextInput
-                style={styles.input}
-                placeholder="Full Name"
-                placeholderTextColor={Colors.light.text}
-                value={displayName}
-                onChangeText={setDisplayName}
-                autoCapitalize="words"
-                autoCorrect={false}
-              />
+              <View style={styles.inputContainer}>
+                <Ionicons name="person" size={20} color="#6366f1" style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Your Character Name"
+                  placeholderTextColor="#9ca3af"
+                  value={displayName}
+                  onChangeText={setDisplayName}
+                  autoCapitalize="words"
+                  autoCorrect={false}
+                />
+              </View>
             )}
 
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              placeholderTextColor={Colors.light.text}
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
+            <View style={styles.inputContainer}>
+              <Ionicons name="mail" size={20} color="#6366f1" style={styles.inputIcon} />
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="#9ca3af"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+            </View>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor={Colors.light.text}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry={!showPassword}
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
+            <View style={styles.inputContainer}>
+              <Ionicons name="lock-closed" size={20} color="#6366f1" style={styles.inputIcon} />
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#9ca3af"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <TouchableOpacity
+                style={styles.passwordToggle}
+                onPress={() => setShowPassword(!showPassword)}
+              >
+                <Ionicons 
+                  name={showPassword ? "eye-off" : "eye"} 
+                  size={20} 
+                  color="#9ca3af" 
+                />
+              </TouchableOpacity>
+            </View>
 
             <TouchableOpacity
-              style={[styles.button, isLoading && styles.buttonDisabled]}
+              style={[styles.button, !isFormValid && styles.buttonDisabled]}
               onPress={handleAuth}
-              disabled={isLoading}
+              disabled={isLoading || !isFormValid}
             >
               <Text style={styles.buttonText}>
-                {isLoading ? 'Loading...' : (isLogin ? 'Sign In' : 'Create Account')}
+                {isLoading ? 'Opening Portal...' : (isLogin ? 'Enter Inner World' : 'Begin Journey')}
               </Text>
             </TouchableOpacity>
 
@@ -193,14 +217,18 @@ export const LoginScreen: React.FC = () => {
                 onPress={handleBiometricAuth}
                 disabled={isLoading}
               >
+                <Ionicons name="finger-print" size={20} color="#6366f1" />
                 <Text style={styles.biometricButtonText}>
-                  Use Face ID / Touch ID
+                  Quick Access with Biometrics
                 </Text>
               </TouchableOpacity>
             )}
 
             {error && (
-              <Text style={styles.errorText}>{error.message}</Text>
+              <View style={styles.errorContainer}>
+                <Ionicons name="warning" size={16} color="#dc2626" />
+                <Text style={styles.errorText}>{error.message}</Text>
+              </View>
             )}
           </View>
 
@@ -216,17 +244,23 @@ export const LoginScreen: React.FC = () => {
             >
               <Text style={styles.switchText}>
                 {isLogin 
-                  ? "Don't have an account? Sign up" 
-                  : 'Already have an account? Sign in'
+                  ? "New to Intero? Create your character" 
+                  : 'Already have a character? Sign in'
                 }
               </Text>
             </TouchableOpacity>
 
             {isLogin && (
               <TouchableOpacity style={styles.forgotPassword}>
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+                <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
               </TouchableOpacity>
             )}
+          </View>
+
+          <View style={styles.disclaimer}>
+            <Text style={styles.disclaimerText}>
+              Intero is designed to support your recovery journey, not replace professional care.
+            </Text>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -237,7 +271,7 @@ export const LoginScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#0f0f23',
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -245,86 +279,147 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: 20,
+    paddingHorizontal: 24,
+    paddingVertical: 40,
   },
   header: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 48,
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
+    color: '#ffffff',
+    marginTop: 16,
     marginBottom: 8,
   },
   subtitle: {
-    fontSize: 16,
-    opacity: 0.7,
+    fontSize: 18,
+    color: '#e5e7eb',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  tagline: {
+    fontSize: 14,
+    color: '#9ca3af',
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+  offlineMessage: {
+    fontSize: 12,
+    color: '#fbbf24',
+    textAlign: 'center',
+    marginTop: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: 'rgba(251, 191, 36, 0.1)',
+    borderRadius: 8,
   },
   form: {
-    marginBottom: 30,
+    width: '100%',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1f2937',
+    borderRadius: 12,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#374151',
+    paddingHorizontal: 16,
+    paddingVertical: 4,
+  },
+  inputIcon: {
+    marginRight: 12,
   },
   input: {
-    backgroundColor: Colors.light.background,
-    borderWidth: 1,
-    borderColor: Colors.light.border,
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 15,
+    flex: 1,
     fontSize: 16,
-    color: Colors.light.text,
+    color: '#ffffff',
+    paddingVertical: 16,
+    paddingHorizontal: 0,
+    backgroundColor: 'transparent',
+  },
+  passwordToggle: {
+    padding: 8,
   },
   button: {
-    backgroundColor: Colors.light.tint,
-    borderRadius: 8,
-    padding: 15,
+    backgroundColor: '#6366f1',
+    borderRadius: 12,
+    paddingVertical: 16,
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   buttonDisabled: {
-    opacity: 0.6,
+    backgroundColor: '#374151',
   },
   buttonText: {
-    color: 'white',
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
   },
   biometricButton: {
     backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: Colors.light.tint,
-    borderRadius: 8,
-    padding: 15,
+    borderRadius: 12,
+    paddingVertical: 16,
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#6366f1',
   },
   biometricButtonText: {
-    color: Colors.light.tint,
+    color: '#6366f1',
     fontSize: 16,
     fontWeight: '600',
   },
+  errorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(220, 38, 38, 0.1)',
+    borderWidth: 1,
+    borderColor: '#dc2626',
+    borderRadius: 8,
+    padding: 12,
+    marginTop: 8,
+  },
   errorText: {
-    color: 'red',
-    textAlign: 'center',
-    marginTop: 10,
+    color: '#fca5a5',
+    fontSize: 14,
+    marginLeft: 8,
+    flex: 1,
   },
   footer: {
     alignItems: 'center',
+    marginBottom: 20,
   },
   switchText: {
-    color: Colors.light.tint,
+    color: '#6366f1',
     fontSize: 14,
-    marginBottom: 15,
+    fontWeight: '500',
+    marginBottom: 16,
+    textAlign: 'center',
   },
   forgotPassword: {
-    marginTop: 10,
+    marginTop: 8,
   },
   forgotPasswordText: {
-    color: Colors.light.tint,
+    color: '#6366f1',
     fontSize: 14,
+    textDecorationLine: 'underline',
   },
-  offlineMessage: {
-    color: 'red',
+  disclaimer: {
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  disclaimerText: {
+    color: '#9ca3af',
+    fontSize: 12,
     textAlign: 'center',
-    marginTop: 10,
+    lineHeight: 16,
   },
 }); 

@@ -1,9 +1,79 @@
+export interface Prompt {
+  id: string;
+  text: string;
+  category: string;
+}
+
+export interface SystemPrompt {
+  id: string;
+  text: string;
+}
+
+// Core system prompts
+export const SYSTEM_PROMPTS = {
+  STONE_OF_WISDOM: {
+    id: 'stone-of-wisdom',
+    text: `You are the Stone of Wisdom in Intero, a reflective RPG for eating disorder recovery. You provide empathetic, non-judgmental support while maintaining therapeutic boundaries. Focus on emotional awareness, self-compassion, and gentle encouragement.`
+  },
+  FOLLOW_UP_GENERATOR: {
+    id: 'follow-up-generator',
+    text: `You are the Stone of Wisdom. Generate 2-3 thoughtful, personalized follow-up questions based on the user's reflection. Focus on emotional awareness and self-compassion. Keep each question under 100 characters. Format as a simple list, one question per line.`
+  }
+};
+
+// Daily reflection prompts
+export const DAILY_PROMPTS: Prompt[] = [
+  {
+    id: 'self-compassion',
+    text: "What does self-compassion feel like to you today?",
+    category: 'self-compassion'
+  },
+  {
+    id: 'body-awareness',
+    text: "How are you honoring your body's needs right now?",
+    category: 'body-awareness'
+  },
+  {
+    id: 'celebration',
+    text: "What's one small victory you can celebrate today?",
+    category: 'celebration'
+  },
+  {
+    id: 'emotional-awareness',
+    text: "What emotions are present for you in this moment?",
+    category: 'emotional-awareness'
+  },
+  {
+    id: 'kindness',
+    text: "How can you be kinder to yourself today?",
+    category: 'self-compassion'
+  }
+];
+
+// Prompt builders
+export const buildPrompt = (systemPrompt: SystemPrompt, userInput: string): string => {
+  return `${systemPrompt.text}\n\nUser: ${userInput}\n\nAssistant:`;
+};
+
+export const buildFollowUpPrompt = (userReflection: string): string => {
+  return `${SYSTEM_PROMPTS.FOLLOW_UP_GENERATOR.text}\n\nUser reflection: "${userReflection}"\n\nGenerate follow-up questions:`;
+};
+
+// Utility functions
+export const getRandomPrompt = (): Prompt => {
+  return DAILY_PROMPTS[Math.floor(Math.random() * DAILY_PROMPTS.length)];
+};
+
+export const getPromptById = (id: string): Prompt | undefined => {
+  return DAILY_PROMPTS.find(prompt => prompt.id === id);
+};
+
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
   content: string;
 }
 
-export const SYSTEM_PROMPT = `You are InteroSight, a compassionate AI companion designed to support individuals in eating disorder recovery. Your role is to provide empathetic, non-judgmental support while maintaining therapeutic boundaries.
+export const SYSTEM_PROMPT = `You are the Stone of Wisdom, a compassionate AI companion in Intero - a reflective RPG for eating disorder recovery. Your role is to provide empathetic, non-judgmental support while maintaining therapeutic boundaries.
 
 Key Guidelines:
 - Always respond with warmth, empathy, and understanding
@@ -14,15 +84,17 @@ Key Guidelines:
 - Encourage self-compassion and self-care
 - Recognize crisis situations and provide appropriate resources
 - Maintain a supportive, non-coercive approach
+- Use the language of growth, wisdom, and inner exploration
 
 Your responses should be:
-- Warm and conversational
-- Focused on emotional well-being
+- Warm and conversational, like a wise friend
+- Focused on emotional well-being and self-discovery
 - Encouraging of professional support when needed
 - Mindful of recovery language and triggers
 - Supportive of individual recovery journeys
+- Framed in terms of personal growth and wisdom
 
-Remember: You are here to listen, support, and encourage, not to diagnose or treat.`;
+Remember: You are the Stone of Wisdom, here to listen, support, and encourage reflection, not to diagnose or treat.`;
 
 export const CRISIS_PROMPT = `I notice you're expressing some concerning thoughts. While I'm here to support you, it's important to reach out to professional help if you're struggling.
 
@@ -64,11 +136,26 @@ Remember:
 What's one thing you're proud of today, no matter how small?`;
 
 export const buildChatPrompt = (messages: ChatMessage[]): string => {
-  const conversation = messages
-    .map(msg => `${msg.role}: ${msg.content}`)
-    .join('\n');
+  // Start with system prompt
+  let prompt = SYSTEM_PROMPT + "\n\n";
   
-  return `${SYSTEM_PROMPT}\n\nConversation:\n${conversation}\n\nassistant:`;
+  // Add conversation history
+  for (const msg of messages) {
+    if (msg.role === 'system') {
+      continue; // Skip system messages as we already have the system prompt
+    }
+    
+    if (msg.role === 'user') {
+      prompt += `User: ${msg.content}\n`;
+    } else if (msg.role === 'assistant') {
+      prompt += `Assistant: ${msg.content}\n`;
+    }
+  }
+  
+  // End with assistant prefix
+  prompt += "Assistant: ";
+  
+  return prompt;
 };
 
 export const detectCrisisKeywords = (message: string): boolean => {
