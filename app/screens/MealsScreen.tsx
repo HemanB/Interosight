@@ -11,21 +11,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Mascot from '../components/Mascot';
 import { NetworkStatus } from '../components/NetworkStatus';
 import { useAuth } from '../contexts/AuthContext';
-
-// Local meal log interface
-interface MealLog {
-  id: string;
-  userId: string;
-  type: 'breakfast' | 'lunch' | 'dinner' | 'snack';
-  description: string;
-  timestamp: Date;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { mealService, MealLog } from '../lib/services/mealService';
+import { MealValidation } from '../lib/validation/mealValidation';
+import { DateUtils } from '../lib/utils/dateUtils';
+import { MEAL_TYPES, MealTypeUtils, MEAL_PROMPTS } from '../lib/constants/mealTypes';
 
 export default function MealsScreen() {
   const { user } = useAuth();
@@ -47,16 +39,8 @@ export default function MealsScreen() {
     
     try {
       setIsLoading(true);
-      const storedLogs = await AsyncStorage.getItem(`mealLogs_${user.id}`);
-      if (storedLogs) {
-        const logs = JSON.parse(storedLogs).map((log: any) => ({
-          ...log,
-          timestamp: new Date(log.timestamp),
-          createdAt: new Date(log.createdAt),
-          updatedAt: new Date(log.updatedAt)
-        }));
-        setMealLogs(logs.slice(-20)); // Get last 20 meals
-      }
+      const logs = await mealService.getMeals(user.id, 20);
+      setMealLogs(logs);
     } catch (error: any) {
       console.error('Error loading meal logs:', error);
       Alert.alert('Error', 'Failed to load your meal history.');
@@ -66,35 +50,35 @@ export default function MealsScreen() {
   };
 
   const saveMeal = async () => {
-    if (!description.trim()) {
-      Alert.alert('Missing Information', 'Please describe your meal to continue.');
+    if (!user) {
+      Alert.alert('Error', 'Please log in to save meals.');
       return;
     }
 
-    if (!user) {
-      Alert.alert('Error', 'Please log in to save meals.');
+    // Validate meal data
+    const mealData = {
+      type: selectedMealType as 'breakfast' | 'lunch' | 'dinner' | 'snack',
+      description: description.trim()
+    };
+
+    const validation = MealValidation.validateMeal(mealData);
+    if (!validation.isValid) {
+      const errorMessage = MealValidation.getMealErrorMessage(validation);
+      Alert.alert('Validation Error', errorMessage);
       return;
     }
 
     try {
       setIsLoading(true);
       
-      const newMeal: MealLog = {
-        id: Date.now().toString(),
-        userId: user.id,
-        type: selectedMealType as 'breakfast' | 'lunch' | 'dinner' | 'snack',
-        description: description.trim(),
-        timestamp: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-
-      // Add to local state
-      const updatedLogs = [...mealLogs, newMeal];
-      setMealLogs(updatedLogs.slice(-20)); // Keep only last 20
+      const sanitizedData = MealValidation.sanitizeMealData(mealData);
+      const newMeal = await mealService.saveMeal(user.id, {
+        ...sanitizedData,
+        timestamp: new Date()
+      });
       
-      // Save to AsyncStorage
-      await AsyncStorage.setItem(`mealLogs_${user.id}`, JSON.stringify(updatedLogs));
+      // Add to local state
+      setMealLogs(prev => [newMeal, ...prev.slice(0, 19)]); // Keep only last 20
       
       setDescription('');
       setMascotMood('celebrating');
@@ -103,7 +87,7 @@ export default function MealsScreen() {
         setMascotMood('happy');
         Alert.alert(
           'Meal Logged!',
-          'Great job taking care of yourself. Every meal is a step toward healing.',
+          MEAL_PROMPTS.success,
           [{ text: 'Thank you', style: 'default' }]
         );
       }, 2000);
@@ -116,35 +100,19 @@ export default function MealsScreen() {
   };
 
   const getMealTypeColor = (type: string) => {
-    switch (type) {
-      case 'breakfast': return '#fbbf24';
-      case 'lunch': return '#10b981';
-      case 'dinner': return '#6366f1';
-      case 'snack': return '#ec4899';
-      default: return '#6366f1';
-    }
+    return MealTypeUtils.getMealTypeColor(type);
   };
 
   const getMealTypeIcon = (type: string) => {
-    switch (type) {
-      case 'breakfast': return 'sunny';
-      case 'lunch': return 'restaurant';
-      case 'dinner': return 'moon';
-      case 'snack': return 'cafe';
-      default: return 'restaurant';
-    }
+    return MealTypeUtils.getMealTypeIcon(type);
   };
 
   const formatTime = (timestamp: Date) => {
-    return timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return DateUtils.formatTime(timestamp);
   };
 
   const formatDate = (timestamp: Date) => {
-    return timestamp.toLocaleDateString([], { 
-      weekday: 'short', 
-      month: 'short', 
-      day: 'numeric' 
-    });
+    return DateUtils.formatDate(timestamp);
   };
 
   return (
@@ -158,7 +126,7 @@ export default function MealsScreen() {
           <Mascot mood={mascotMood} size={80} />
           <Text style={styles.headerTitle}>Meal Logging</Text>
           <Text style={styles.headerSubtitle}>
-            Log your meals with kindness and compassion
+            {MEAL_PROMPTS.description}
           </Text>
         </View>
 
@@ -166,20 +134,20 @@ export default function MealsScreen() {
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>What type of meal?</Text>
           <View style={styles.mealTypeContainer}>
-            {mealTypes.map((mealType) => (
+            {MEAL_TYPES.map((mealType) => (
               <TouchableOpacity
                 key={mealType.key}
                 style={[
                   styles.mealTypeButton,
                   selectedMealType === mealType.key && styles.mealTypeButtonSelected,
-                  { borderColor: getMealTypeColor(mealType.key) }
+                  { borderColor: mealType.color }
                 ]}
                 onPress={() => setSelectedMealType(mealType.key)}
               >
                 <Ionicons
                   name={mealType.icon as any}
                   size={24}
-                  color={selectedMealType === mealType.key ? '#ffffff' : getMealTypeColor(mealType.key)}
+                  color={selectedMealType === mealType.key ? '#ffffff' : mealType.color}
                 />
                 <Text style={[
                   styles.mealTypeText,
@@ -196,78 +164,62 @@ export default function MealsScreen() {
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Describe your meal</Text>
           <Text style={styles.sectionSubtitle}>
-            Focus on what you enjoyed, how it tasted, or how it made you feel
+            {MEAL_PROMPTS.description}
           </Text>
           
           <TextInput
             style={styles.descriptionInput}
             value={description}
             onChangeText={setDescription}
-            placeholder="e.g., 'I had a warm bowl of oatmeal with berries. It felt comforting and gave me energy for the day.'"
-            placeholderTextColor="#9ca3af"
+            placeholder="What did you eat? How did it taste? How did it make you feel?"
+            placeholderTextColor="#64748b"
             multiline
             numberOfLines={4}
-            maxLength={500}
+            textAlignVertical="top"
           />
-          
-          <Text style={styles.characterCount}>
-            {description.length}/500 characters
-          </Text>
         </View>
 
         {/* Save Button */}
-        <TouchableOpacity
-          style={[
-            styles.saveButton,
-            (!description.trim() || isLoading) && styles.saveButtonDisabled
-          ]}
-          onPress={saveMeal}
-          disabled={!description.trim() || isLoading}
-        >
-          <Ionicons name="checkmark-circle" size={20} color="#ffffff" />
-          <Text style={styles.saveButtonText}>
-            {isLoading ? 'Saving...' : 'Log This Meal'}
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.card}>
+          <TouchableOpacity
+            style={[styles.saveButton, isLoading && styles.buttonDisabled]}
+            onPress={saveMeal}
+            disabled={isLoading}
+          >
+            <Text style={styles.saveButtonText}>
+              {isLoading ? 'Saving...' : 'Log Meal'}
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-        {/* Recent Meals */}
-        {mealLogs.length > 0 && (
-          <View style={styles.card}>
-            <Text style={styles.sectionTitle}>Recent Meals</Text>
-            {mealLogs.slice(0, 5).map((meal) => (
-              <View key={meal.id} style={styles.mealLogItem}>
-                <View style={styles.mealLogHeader}>
-                  <View style={styles.mealLogType}>
+        {/* Meal History */}
+        <View style={styles.card}>
+          <Text style={styles.sectionTitle}>Recent Meals</Text>
+          {mealLogs.length === 0 ? (
+            <Text style={styles.emptyText}>No meals logged yet. Start by logging your first meal above!</Text>
+          ) : (
+            mealLogs.map((meal) => (
+              <View key={meal.id} style={styles.mealItem}>
+                <View style={styles.mealHeader}>
+                  <View style={styles.mealTypeInfo}>
                     <Ionicons
                       name={getMealTypeIcon(meal.type) as any}
                       size={16}
                       color={getMealTypeColor(meal.type)}
                     />
-                    <Text style={styles.mealLogTypeText}>
-                      {meal.type.charAt(0).toUpperCase() + meal.type.slice(1)}
+                    <Text style={styles.mealTypeLabel}>
+                      {MealTypeUtils.getMealTypeLabel(meal.type)}
                     </Text>
                   </View>
-                  <Text style={styles.mealLogTime}>
+                  <Text style={styles.mealTime}>
                     {formatTime(meal.timestamp)}
                   </Text>
                 </View>
-                <Text style={styles.mealLogDescription}>
-                  {meal.description}
-                </Text>
-                <Text style={styles.mealLogDate}>
-                  {formatDate(meal.timestamp)}
-                </Text>
+                <Text style={styles.mealDescription}>{meal.description}</Text>
+                <Text style={styles.mealDate}>{formatDate(meal.timestamp)}</Text>
               </View>
-            ))}
-          </View>
-        )}
-
-        {/* Encouragement */}
-        <View style={styles.encouragementCard}>
-          <Ionicons name="heart" size={24} color="#ec4899" />
-          <Text style={styles.encouragementText}>
-            Remember: There's no "perfect" way to eat. Every meal is nourishment for your body and mind.
-          </Text>
+            ))
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -361,12 +313,6 @@ const styles = StyleSheet.create({
     minHeight: 100,
     textAlignVertical: 'top',
   },
-  characterCount: {
-    fontSize: 12,
-    color: '#9ca3af',
-    textAlign: 'right',
-    marginTop: 8,
-  },
   saveButton: {
     backgroundColor: '#10b981',
     flexDirection: 'row',
@@ -377,7 +323,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginBottom: 16,
   },
-  saveButtonDisabled: {
+  buttonDisabled: {
     backgroundColor: '#d1d5db',
   },
   saveButtonText: {
@@ -386,62 +332,44 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 8,
   },
-  mealLogItem: {
+  mealItem: {
     paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#f1f5f9',
   },
-  mealLogHeader: {
+  mealHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
   },
-  mealLogType: {
+  mealTypeInfo: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  mealLogTypeText: {
+  mealTypeLabel: {
     fontSize: 14,
     fontWeight: '500',
     color: '#1e293b',
     marginLeft: 6,
   },
-  mealLogTime: {
+  mealTime: {
     fontSize: 12,
     color: '#64748b',
   },
-  mealLogDescription: {
+  mealDescription: {
     fontSize: 16,
     color: '#1e293b',
     lineHeight: 22,
     marginBottom: 8,
   },
-  mealLogDate: {
+  mealDate: {
     fontSize: 12,
     color: '#9ca3af',
   },
-  encouragementCard: {
-    backgroundColor: '#fdf2f8',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    borderRadius: 16,
-    padding: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  encouragementText: {
+  emptyText: {
     fontSize: 14,
-    color: '#831843',
-    marginLeft: 12,
-    flex: 1,
-    lineHeight: 20,
+    color: '#64748b',
+    textAlign: 'center',
   },
-});
-
-const mealTypes = [
-  { key: 'breakfast', label: 'Breakfast', icon: 'sunny' },
-  { key: 'lunch', label: 'Lunch', icon: 'restaurant' },
-  { key: 'dinner', label: 'Dinner', icon: 'moon' },
-  { key: 'snack', label: 'Snack', icon: 'cafe' },
-] as const; 
+}); 
