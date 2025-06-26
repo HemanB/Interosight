@@ -5,7 +5,7 @@ import { ChatState, ChatMessage, PromptOption } from '../core/types/chat.types';
 interface ChatContextType extends ChatState {
   prompts: PromptOption[];
   sendMessage: (content: string) => Promise<void>;
-  selectPrompt: (promptId: string) => void;
+  selectPrompt: (promptId: string) => Promise<void>;
   generatePrompts: () => void;
   endSession: () => void;
   clearMessages: () => void;
@@ -89,8 +89,8 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
         crisisDetected: crisisAssessment.isCrisis,
       }));
 
-      // Generate new prompts after response
-      generatePrompts();
+      // Generate follow-up questions as stone messages
+      generateFollowUpQuestions();
     } catch (error: any) {
       setState(prev => ({
         ...prev,
@@ -100,16 +100,52 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     }
   };
 
-  const selectPrompt = (promptId: string) => {
-    setPrompts(prev => 
-      prev.map(prompt => ({
-        ...prompt,
-        selected: prompt.id === promptId,
-      }))
-    );
+  const selectPrompt = async (promptId: string) => {
+    const selectedPrompt = prompts.find(p => p.id === promptId);
+    if (!selectedPrompt) return;
+
+    if (selectedPrompt.text === 'End reflection') {
+      endSession();
+      return;
+    }
+
+    // Add the prompt as a stone message
+    const promptMessage: ChatMessage = {
+      id: Date.now().toString(),
+      content: selectedPrompt.text,
+      isUser: false,
+      timestamp: new Date(),
+      sessionId: state.currentSession || '',
+    };
+
+    setState(prev => ({
+      ...prev,
+      messages: [...prev.messages, promptMessage],
+      loading: true,
+    }));
+
+    try {
+      // Generate a response to the prompt
+      const response = await chatService.sendMessage(selectedPrompt.text);
+      
+      setState(prev => ({
+        ...prev,
+        messages: [...prev.messages, response],
+        loading: false,
+      }));
+
+      // Generate new follow-up questions
+      generateFollowUpQuestions();
+    } catch (error: any) {
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error: error.message,
+      }));
+    }
   };
 
-  const generatePrompts = () => {
+  const generateFollowUpQuestions = () => {
     const mockPrompts: PromptOption[] = [
       {
         id: '1',
@@ -133,6 +169,10 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
       },
     ];
     setPrompts(mockPrompts);
+  };
+
+  const generatePrompts = () => {
+    generateFollowUpQuestions();
   };
 
   const endSession = () => {
