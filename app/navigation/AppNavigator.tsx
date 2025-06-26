@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from '../screens/HomeScreen';
-import ReflectScreen from '../screens/ReflectScreen';
+import { RPGChatScreen } from '../screens/RPGChatScreen';
 import MealsScreen from '../screens/MealsScreen';
 import TriggersScreen from '../screens/TriggersScreen';
 import CommunityScreen from '../screens/CommunityScreen';
@@ -22,8 +22,8 @@ export default function AppNavigator() {
 
             if (route.name === 'Home') {
               iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'Reflect') {
-              iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+            } else if (route.name === 'Wisdom') {
+              iconName = focused ? 'diamond' : 'diamond-outline';
             } else if (route.name === 'Meals') {
               iconName = focused ? 'restaurant' : 'restaurant-outline';
             } else if (route.name === 'Triggers') {
@@ -61,9 +61,9 @@ export default function AppNavigator() {
           options={{ title: 'Home' }}
         />
         <Tab.Screen 
-          name="Reflect" 
-          component={ReflectScreen}
-          options={{ title: 'Reflect' }}
+          name="Wisdom" 
+          component={RPGChatScreen}
+          options={{ title: 'Wisdom Stone' }}
         />
         <Tab.Screen 
           name="Meals" 
