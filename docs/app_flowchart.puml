@@ -15,69 +15,99 @@ start
 :Show Mascot Animation\n(Loading Screen);
 note right: Similar to Duolingo\nMascot with engaging animations\nwhile app loads in background
 
+' Authentication Flow
+partition "Authentication" {
+  if (User logged in?) then (no)
+    :Show Login Screen;
+    note right: Features:\n- Clean, minimalist design\n- Pixel art RPG elements\n- Mascot welcome animation\n- Email/password validation
+    :User enters credentials;
+    :Validate with Firebase Auth;
+    if (Valid credentials?) then (no)
+      :Show error message;
+      :Return to login;
+    else (yes)
+      :Navigate to Home;
+    endif
+  else (yes)
+    :Navigate to Home;
+  endif
+}
+
 ' Home Screen
 :Enter Home Screen;
-note right: Features:\n- Mascot with minimal animations\n- Streak indicator\n- XP bar\n- To-do list with XP rewards\n- 6 bottom tabs visible
+note right: Features:\n- Mascot with responsive animations\n- Streak counter with encouraging messages\n- XP progress bar (gamification)\n- Daily goals with XP rewards\n- Quick action buttons\n- Progress summary
 
 ' Tab Navigation
 partition "Bottom Tab Navigation" {
   :Home Tab (Leftmost);
   :Reflect Tab (LLM Chat);
-  :Meal Logging Tab;
-  :Triggers/Patterns Tab;
-  :Community Tab;
-  :Settings/Help Tab;
+  :Logging Tab (Meals + Behaviors);
+  :Crisis Tab (Emergency Tools);
+  :Settings Tab (Rightmost);
 }
 
 ' Reflect Screen Flow
 partition "Reflect Screen (LLM Chat)" {
   :User taps Reflect Tab;
   :Show Chat Interface;
-  note right: Features:\n- Intuitive chat UI\n- Mascot with empathetic animations\n- Emotional engagement design
-  :User types message;
-  :Send to LLM;
+  note right: Features:\n- RPG-style chat UI\n- Mascot with empathetic animations\n- Typewriter text effect\n- Crisis keyword detection\n- Pre-written prompt buttons
+  :User types message or selects prompt;
+  :Send to Hugging Face LLM;
   :Mascot animations during processing;
-  note right: Animations:\n- Nodding head\n- Adjusting glasses\n- Empathetic gestures
-  :Display LLM response;
-  :Continue conversation;
-}
-
-' Meal Logging Flow
-partition "Meal Logging Tab" {
-  :User taps Meal Tab;
-  :Show meal logging interface;
-  note right: Features:\n- Text description input\n- Meal type toggles (breakfast, lunch, dinner, snack)\n- Image upload capability
-  :User selects meal type;
-  :User enters description;
-  :User optionally adds image;
-  :Save meal log;
-}
-
-' Triggers/Patterns Flow
-partition "Triggers & Behavioral Patterns" {
-  :User taps Triggers Tab;
-  :Show logging interface;
-  note right: Features:\n- Trigger logging\n- Crisis tools\n- DBT/emotional regulation\n- Emergency contacts
-  :User logs trigger/pattern;
-  
-  if (Crisis situation?) then (yes)
-    :Show Crisis Tools;
-    :DBT/Emotional Regulation Tools;
-    :Emergency Contact Options;
-    note right: Pre-made messages:\n"Hey, I'm struggling with XYZ,\nwould appreciate a check-in"
-    
-    if (Risk escalation needed?) then (yes)
-      :Show Risk Escalation Tool;
-      :One-tap access to\nSuicide/Mental Health Hotline;
-      :Easy call initiation;
-    else (no)
-      :Continue with crisis tools;
-    endif
-    
-    :Post-crisis reflection;
-    :Adaptive crisis tool selection;
+  note right: Animations:\n- Nodding head\n- Adjusting glasses\n- Empathetic gestures\n- Processing indicators
+  :Display LLM response with typewriter effect;
+  if (Crisis keywords detected?) then (yes)
+    :Show gentle crisis assessment;
+    :Provide crisis resources;
+    :Encourage professional help;
   else (no)
-    :Continue with regular logging;
+    :Continue conversation;
+  endif
+}
+
+' Combined Logging Flow
+partition "Logging Tab (Meals + Behaviors)" {
+  :User taps Logging Tab;
+  :Show combined logging interface;
+  note right: Features:\n- Two tabs: "Meals" and "Behaviors"\n- Large, easy-to-use input areas\n- Pixel art icons for categories\n- Non-judgmental language\n- Encouraging feedback
+  
+  partition "Meal Logging" {
+    :User selects "Meals" tab;
+    :Choose meal type\n(breakfast, lunch, dinner, snack);
+    :Enter meal description;
+    :Select mood (optional);
+    :Save meal log;
+    :Show encouraging feedback;
+    :Display recent meals list;
+  }
+  
+  partition "Behavior Logging" {
+    :User selects "Behaviors" tab;
+    :Choose behavior type\n(trigger, pattern, coping);
+    :Set severity level (1-10);
+    :Enter behavior description;
+    :Add context (optional);
+    :Save behavior log;
+    :Show supportive feedback;
+    :Display recent behaviors list;
+  }
+}
+
+' Crisis Tools Flow
+partition "Crisis Tab (Emergency Tools)" {
+  :User taps Crisis Tab;
+  :Show crisis tools interface;
+  note right: Features:\n- Emergency contact list\n- Crisis hotlines\n- DBT tools\n- Grounding exercises\n- Safety planning\n- Professional resources
+  
+  if (Emergency situation?) then (yes)
+    :Show prominent crisis resources;
+    :One-tap calling options;
+    :DBT technique access;
+    :Grounding exercise guidance;
+  else (no)
+    :Show general crisis tools;
+    :Safety planning options;
+    :Professional resource links;
   endif
 }
 
@@ -85,15 +115,8 @@ partition "Triggers & Behavioral Patterns" {
 partition "Settings Tab" {
   :User taps Settings Tab;
   :Show settings menu;
-  note right: Features:\n- Notification settings\n- Community settings\n- LLM settings\n- Color/theme settings\n- Mascot settings\n- Resources tab\n- Crisis tab
+  note right: Features:\n- Account management\n- Notification preferences\n- Privacy controls\n- Crisis settings\n- App preferences\n- Help & resources\n- Professional treatment info
   :User configures preferences;
-}
-
-' Community Flow
-partition "Community Tab" {
-  :User taps Community Tab;
-  :Show community features;
-  note right: Community features\nto be defined based on\nuser needs and safety
 }
 
 ' Universal Navigation
@@ -104,6 +127,11 @@ note right
   the bottom tab navigation.
   Each tab maintains its state
   and user progress.
+  
+  **Crisis Integration:**
+  Crisis detection and resources
+  are available throughout the app,
+  not just in the Crisis tab.
 end note
 
 ' End
