@@ -14,7 +14,7 @@ The application has a functional chat interface with prompt-driven conversation 
 - Account management with password reset and email verification
 
 ### Chat System (Mock Implementation)
-- Guided, RPG-inspired chat interface with a "Stone of Wisdom" theme
+- Interactive journaling chat interface pending UI-theme integration
 - Conversation is driven by system prompts; user responds directly to each prompt
 - Prompts are presented as selectable options; the system outputs the selected prompt and awaits user input
 - Crisis keyword detection with immediate access to support resources
