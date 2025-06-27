@@ -37,7 +37,6 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   const [prompts, setPrompts] = useState<PromptOption[]>([]);
 
   useEffect(() => {
-    // Initialize session when component mounts
     initializeSession();
   }, []);
 
@@ -89,8 +88,8 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
         crisisDetected: crisisAssessment.isCrisis,
       }));
 
-      // Generate follow-up questions as stone messages
-      generateFollowUpQuestions();
+      // Generate new prompts after response
+      generatePrompts();
     } catch (error: any) {
       setState(prev => ({
         ...prev,
@@ -109,43 +108,11 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
       return;
     }
 
-    // Add the prompt as a stone message
-    const promptMessage: ChatMessage = {
-      id: Date.now().toString(),
-      content: selectedPrompt.text,
-      isUser: false,
-      timestamp: new Date(),
-      sessionId: state.currentSession || '',
-    };
-
-    setState(prev => ({
-      ...prev,
-      messages: [...prev.messages, promptMessage],
-      loading: true,
-    }));
-
-    try {
-      // Generate a response to the prompt
-      const response = await chatService.sendMessage(selectedPrompt.text);
-      
-      setState(prev => ({
-        ...prev,
-        messages: [...prev.messages, response],
-        loading: false,
-      }));
-
-      // Generate new follow-up questions
-      generateFollowUpQuestions();
-    } catch (error: any) {
-      setState(prev => ({
-        ...prev,
-        loading: false,
-        error: error.message,
-      }));
-    }
+    // Send the prompt as a user message
+    await sendMessage(selectedPrompt.text);
   };
 
-  const generateFollowUpQuestions = () => {
+  const generatePrompts = () => {
     const mockPrompts: PromptOption[] = [
       {
         id: '1',
@@ -169,10 +136,6 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
       },
     ];
     setPrompts(mockPrompts);
-  };
-
-  const generatePrompts = () => {
-    generateFollowUpQuestions();
   };
 
   const endSession = () => {
