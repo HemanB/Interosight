@@ -4,7 +4,7 @@ InteroSight is a mobile-first, cross-platform application designed to support ea
 
 ## Current Status
 
-The application has a functional chat interface with prompt-driven conversation flow, but LLM integration is not yet implemented. The chat currently uses mock responses and prompts.
+The application has a functional chat interface with prompt-driven conversation flow and improved session management (v0.2.1). The chat currently uses mock responses and prompts, with LLM integration planned for the next version.
 
 ## Features
 
@@ -96,14 +96,13 @@ The chat system currently uses mock responses. To implement LLM integration:
 - [x] Combined meal and behavior logging
 - [x] Crisis tools and resources
 - [x] Home dashboard and gamification
+- [x] **End reflection functionality fix (v0.2.1)**
 - [ ] **LLM integration (Ollama local or API)**
-- [ ] **End reflection functionality fix**
 - [ ] Polish, accessibility, and clinical review
 - [ ] Expanded analytics and export features
 
 ## Known Issues
 
-- End reflection button is not functional
 - Chat responses are mock data - no actual LLM integration
 - Some UI polish and animations pending
 
