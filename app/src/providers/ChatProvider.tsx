@@ -152,17 +152,18 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   };
 
   const endSession = () => {
-    setState(prev => ({
-      ...prev,
+    // Clear everything
+    setState({
       messages: [],
       currentSession: null,
+      loading: false,
+      error: null,
       crisisDetected: false,
-    }));
+    });
     setPrompts([]);
-    // Generate initial prompts for new session
-    setTimeout(() => {
-      generatePrompts();
-    }, 100);
+    
+    // Initialize new session
+    initializeSession();
   };
 
   const clearMessages = () => {
