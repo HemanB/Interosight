@@ -80,7 +80,7 @@ The chat system currently uses mock responses. To implement LLM integration:
 
 1. **Local Setup (Recommended for development):**
    - Install Ollama: https://ollama.ai/
-   - Pull the model: `ollama pull llama2:3b`
+   - Pull the model: `ollama pull llama-3.2-1b`
    - Start Ollama server: `ollama serve`
    - Update `src/services/chat/llm.service.ts` to connect to local Ollama instance
 
