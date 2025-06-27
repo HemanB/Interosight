@@ -10,7 +10,6 @@ import {
   TextInput,
 } from 'react-native';
 import { useChat } from '../../hooks/useChat';
-import TypewriterText from '../../components/chat/TypewriterText';
 
 const ChatScreen: React.FC = () => {
   const {
@@ -26,9 +25,7 @@ const ChatScreen: React.FC = () => {
   } = useChat();
 
   const scrollViewRef = useRef<ScrollView>(null);
-  const inputRef = useRef<TextInput>(null);
   const [currentInput, setCurrentInput] = useState('');
-  const [showPrompts, setShowPrompts] = useState(false);
 
   useEffect(() => {
     // Generate initial prompts when screen loads
@@ -46,21 +43,10 @@ const ChatScreen: React.FC = () => {
     }
   }, [messages]);
 
-  useEffect(() => {
-    // Show prompts when not loading and we have prompts
-    if (!loading && prompts.length > 0 && messages.length > 0) {
-      setShowPrompts(true);
-    } else {
-      setShowPrompts(false);
-    }
-  }, [loading, prompts, messages]);
-
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
-    
     await sendMessage(content.trim());
     setCurrentInput('');
-    setShowPrompts(false);
   };
 
   const handlePromptSelect = async (promptText: string) => {
@@ -74,11 +60,9 @@ const ChatScreen: React.FC = () => {
         ]
       );
     } else {
-      // Find the prompt by text and select it
       const prompt = prompts.find(p => p.text === promptText);
       if (prompt) {
         await selectPrompt(prompt.id);
-        setShowPrompts(false);
       }
     }
   };
@@ -102,47 +86,33 @@ const ChatScreen: React.FC = () => {
     }
   }, [crisisDetected]);
 
-  const handleKeyPress = (e: any) => {
-    if (e.nativeEvent.key === 'Enter' && !e.nativeEvent.shiftKey) {
-      e.preventDefault();
-      handleSendMessage(currentInput);
-    }
-  };
-
   return (
     <SafeAreaView style={styles.container}>
-      {/* Stone of Wisdom Header */}
+      {/* Simple Header */}
       <View style={styles.header}>
-        <Text style={styles.stoneTitle}>💎 Stone of Wisdom</Text>
-        <Text style={styles.stoneSubtitle}>Your therapeutic companion</Text>
-        {loading && (
-          <View style={styles.glowContainer}>
-            <Text style={styles.glowText}>✨ Glowing...</Text>
-          </View>
-        )}
+        <Text style={styles.title}>Stone of Wisdom</Text>
+        {loading && <Text style={styles.loading}>Thinking...</Text>}
       </View>
 
-      {/* Main Output Area */}
+      {/* Messages */}
       <ScrollView
         ref={scrollViewRef}
-        style={styles.outputContainer}
-        contentContainerStyle={styles.outputContent}
-        showsVerticalScrollIndicator={false}
+        style={styles.messagesContainer}
+        contentContainerStyle={styles.messagesContent}
       >
         {messages.length === 0 ? (
-          <View style={styles.welcomeContainer}>
-            <Text style={styles.welcomeTitle}>Welcome to the Stone of Wisdom</Text>
+          <View style={styles.welcome}>
             <Text style={styles.welcomeText}>
-              I am the Stone of Wisdom, here to guide you on your recovery journey.
-              Share your thoughts, feelings, or experiences, and I will respond with care and understanding.
-            </Text>
-            <Text style={styles.welcomeNote}>
-              Remember: I am here to support you, but I am not a replacement for professional treatment.
+              Welcome! I'm here to support your recovery journey. 
+              Share your thoughts or choose a prompt to begin.
             </Text>
           </View>
         ) : (
           messages.map((message, index) => (
-            <View key={message.id} style={styles.messageContainer}>
+            <View key={message.id} style={[
+              styles.messageContainer,
+              message.isUser ? styles.userMessage : styles.stoneMessage
+            ]}>
               <Text style={[
                 styles.messageText,
                 message.isUser ? styles.userText : styles.stoneText
@@ -152,51 +122,48 @@ const ChatScreen: React.FC = () => {
             </View>
           ))
         )}
-        
-        {loading && (
-          <View style={styles.loadingContainer}>
-            <Text style={styles.loadingText}>Thinking...</Text>
-          </View>
-        )}
 
-        {/* Follow-up Questions */}
-        {showPrompts && prompts.length > 0 && (
+        {/* Prompts */}
+        {prompts.length > 0 && !loading && (
           <View style={styles.promptsContainer}>
-            <Text style={styles.promptsTitle}>Choose your path:</Text>
+            <Text style={styles.promptsTitle}>Choose an option:</Text>
             {prompts.map((prompt) => (
               <TouchableOpacity
                 key={prompt.id}
-                style={styles.promptItem}
+                style={styles.promptButton}
                 onPress={() => handlePromptSelect(prompt.text)}
               >
-                <Text style={styles.promptText}>→ {prompt.text}</Text>
+                <Text style={styles.promptText}>{prompt.text}</Text>
               </TouchableOpacity>
             ))}
           </View>
         )}
+
+        {/* Error Display */}
+        {error && (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>Error: {error}</Text>
+          </View>
+        )}
       </ScrollView>
 
-      {/* Direct Input */}
+      {/* Input */}
       <View style={styles.inputContainer}>
         <TextInput
-          ref={inputRef}
-          style={styles.directInput}
+          style={styles.input}
           value={currentInput}
           onChangeText={setCurrentInput}
-          placeholder="Type your thoughts..."
-          placeholderTextColor="#666666"
+          placeholder="Type your message..."
+          placeholderTextColor="#666"
           multiline
-          maxLength={500}
-          onKeyPress={handleKeyPress}
           editable={!loading}
-          autoFocus={true}
         />
         <TouchableOpacity
           style={[styles.sendButton, (!currentInput.trim() || loading) && styles.sendButtonDisabled]}
           onPress={() => handleSendMessage(currentInput)}
           disabled={!currentInput.trim() || loading}
         >
-          <Text style={styles.sendButtonText}>Enter</Text>
+          <Text style={styles.sendButtonText}>Send</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -206,142 +173,134 @@ const ChatScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#f5f5f5',
   },
   header: {
     padding: 16,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#404040',
+    borderBottomColor: '#ddd',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
-  stoneTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#00ff00',
-    marginBottom: 4,
-  },
-  stoneSubtitle: {
-    fontSize: 14,
-    color: '#888888',
-  },
-  glowContainer: {
-    marginTop: 8,
-    padding: 8,
-    backgroundColor: '#00ff00',
-    borderRadius: 4,
-  },
-  glowText: {
-    color: '#000000',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  outputContainer: {
-    flex: 1,
-    backgroundColor: '#000000',
-  },
-  outputContent: {
-    padding: 16,
-  },
-  welcomeContainer: {
-    padding: 20,
-  },
-  welcomeTitle: {
+  title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#00ff00',
-    marginBottom: 12,
+    color: '#333',
+  },
+  loading: {
+    fontSize: 14,
+    color: '#666',
+    fontStyle: 'italic',
+  },
+  messagesContainer: {
+    flex: 1,
+  },
+  messagesContent: {
+    padding: 16,
+  },
+  welcome: {
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    marginBottom: 16,
   },
   welcomeText: {
     fontSize: 16,
-    color: '#ffffff',
-    lineHeight: 24,
-    marginBottom: 16,
-  },
-  welcomeNote: {
-    fontSize: 14,
-    color: '#ff6b6b',
-    fontStyle: 'italic',
+    color: '#333',
+    textAlign: 'center',
   },
   messageContainer: {
-    marginBottom: 16,
+    marginBottom: 12,
+    padding: 12,
+    borderRadius: 8,
+    maxWidth: '80%',
+  },
+  userMessage: {
+    backgroundColor: '#007AFF',
+    alignSelf: 'flex-end',
+  },
+  stoneMessage: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    alignSelf: 'flex-start',
   },
   messageText: {
     fontSize: 16,
-    lineHeight: 22,
-    fontFamily: 'monospace',
+    lineHeight: 20,
   },
   userText: {
-    color: '#87ceeb', // Light blue for user
+    color: '#fff',
   },
   stoneText: {
-    color: '#ffffff', // White for stone
-  },
-  loadingContainer: {
-    marginBottom: 16,
-  },
-  loadingText: {
-    fontSize: 16,
-    color: '#888888',
-    fontFamily: 'monospace',
+    color: '#333',
   },
   promptsContainer: {
     marginTop: 16,
     padding: 16,
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#fff',
     borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
   promptsTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#00ff00',
+    color: '#333',
     marginBottom: 12,
   },
-  promptItem: {
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginBottom: 4,
-    backgroundColor: '#404040',
-    borderRadius: 4,
+  promptButton: {
+    padding: 12,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 6,
+    marginBottom: 8,
   },
   promptText: {
     fontSize: 14,
-    color: '#ffffff',
+    color: '#333',
+  },
+  errorContainer: {
+    padding: 12,
+    backgroundColor: '#ffebee',
+    borderRadius: 6,
+    marginTop: 8,
+  },
+  errorText: {
+    color: '#c62828',
+    fontSize: 14,
   },
   inputContainer: {
-    backgroundColor: '#2d2d2d',
     padding: 16,
+    backgroundColor: '#fff',
     borderTopWidth: 1,
-    borderTopColor: '#404040',
+    borderTopColor: '#ddd',
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
-  directInput: {
+  input: {
     flex: 1,
-    backgroundColor: '#000000',
     borderWidth: 1,
-    borderColor: '#404040',
-    borderRadius: 4,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    borderColor: '#ddd',
+    borderRadius: 6,
+    padding: 12,
     fontSize: 16,
-    color: '#87ceeb',
-    fontFamily: 'monospace',
     maxHeight: 100,
+    marginRight: 8,
   },
   sendButton: {
-    backgroundColor: '#00ff00',
-    borderRadius: 4,
+    backgroundColor: '#007AFF',
     paddingHorizontal: 16,
-    paddingVertical: 8,
-    marginLeft: 8,
+    paddingVertical: 12,
+    borderRadius: 6,
   },
   sendButtonDisabled: {
-    backgroundColor: '#404040',
+    backgroundColor: '#ccc',
   },
   sendButtonText: {
-    color: '#000000',
-    fontSize: 14,
+    color: '#fff',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
