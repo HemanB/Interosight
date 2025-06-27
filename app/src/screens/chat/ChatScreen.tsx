@@ -86,6 +86,9 @@ const ChatScreen: React.FC = () => {
     }
   }, [crisisDetected]);
 
+  // Only show prompts when not loading and we have prompts
+  const shouldShowPrompts = !loading && prompts.length > 0;
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Simple Header */}
@@ -123,8 +126,8 @@ const ChatScreen: React.FC = () => {
           ))
         )}
 
-        {/* Prompts */}
-        {prompts.length > 0 && !loading && (
+        {/* Prompts - only show when not loading */}
+        {shouldShowPrompts && (
           <View style={styles.promptsContainer}>
             <Text style={styles.promptsTitle}>Choose an option:</Text>
             {prompts.map((prompt) => (

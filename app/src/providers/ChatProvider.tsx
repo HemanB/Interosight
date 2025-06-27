@@ -108,8 +108,43 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
       return;
     }
 
-    // Send the prompt as a user message
-    await sendMessage(selectedPrompt.text);
+    // Clear current prompts
+    setPrompts([]);
+
+    // Add the prompt as a STONE message (not user message)
+    const promptMessage: ChatMessage = {
+      id: Date.now().toString(),
+      content: selectedPrompt.text,
+      isUser: false, // This is the key change - it's a stone message
+      timestamp: new Date(),
+      sessionId: state.currentSession || '',
+    };
+
+    setState(prev => ({
+      ...prev,
+      messages: [...prev.messages, promptMessage],
+      loading: true,
+    }));
+
+    try {
+      // Generate a response to the prompt
+      const response = await chatService.sendMessage(selectedPrompt.text);
+      
+      setState(prev => ({
+        ...prev,
+        messages: [...prev.messages, response],
+        loading: false,
+      }));
+
+      // Generate new prompts after the stone's response
+      generatePrompts();
+    } catch (error: any) {
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error: error.message,
+      }));
+    }
   };
 
   const generatePrompts = () => {
