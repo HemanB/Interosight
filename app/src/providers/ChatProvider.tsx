@@ -151,7 +151,9 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     setPrompts(mockPrompts);
   };
 
-  const endSession = () => {
+  const endSession = async () => {
+    console.log('End session called');
+    
     // Clear everything
     setState({
       messages: [],
@@ -162,8 +164,17 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     });
     setPrompts([]);
     
+    console.log('State cleared, initializing new session');
+    
     // Initialize new session
-    initializeSession();
+    await initializeSession();
+    
+    console.log('New session initialized, generating prompts');
+    
+    // Generate initial prompts for the new session
+    generatePrompts();
+    
+    console.log('End session complete');
   };
 
   const clearMessages = () => {

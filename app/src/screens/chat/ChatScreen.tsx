@@ -56,7 +56,9 @@ const ChatScreen: React.FC = () => {
         'Are you sure you want to end this reflection session?',
         [
           { text: 'Cancel', style: 'cancel' },
-          { text: 'End Session', style: 'destructive', onPress: endSession },
+          { text: 'End Session', style: 'destructive', onPress: async () => {
+            await endSession();
+          }},
         ]
       );
     } else {
