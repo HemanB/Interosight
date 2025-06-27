@@ -99,11 +99,6 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     const selectedPrompt = prompts.find(p => p.id === promptId);
     if (!selectedPrompt) return;
 
-    if (selectedPrompt.text === 'End reflection') {
-      endSession();
-      return;
-    }
-
     // Clear current prompts
     setPrompts([]);
 
@@ -121,6 +116,15 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
       messages: [...prev.messages, promptMessage],
       // Don't set loading here - wait for user response
     }));
+
+    // If it's "End reflection", end the session after adding the message
+    if (selectedPrompt.text === 'End reflection') {
+      // Add a small delay to show the message before ending
+      setTimeout(() => {
+        endSession();
+      }, 1000);
+      return;
+    }
 
     // Don't generate response here - wait for user to respond to the prompt
   };
@@ -154,27 +158,44 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   const endSession = async () => {
     console.log('End session called');
     
-    // Clear everything
-    setState({
-      messages: [],
-      currentSession: null,
-      loading: false,
-      error: null,
-      crisisDetected: false,
-    });
-    setPrompts([]);
+    // Add a confirmation message before ending
+    const endMessage: ChatMessage = {
+      id: Date.now().toString(),
+      content: "Thank you for this reflection session. Your insights are valuable for your recovery journey. Take care of yourself.",
+      isUser: false, // Stone message
+      timestamp: new Date(),
+      sessionId: state.currentSession || '',
+    };
+
+    setState(prev => ({
+      ...prev,
+      messages: [...prev.messages, endMessage],
+    }));
     
-    console.log('State cleared, initializing new session');
-    
-    // Initialize new session
-    await initializeSession();
-    
-    console.log('New session initialized, generating prompts');
-    
-    // Generate initial prompts for the new session
-    generatePrompts();
-    
-    console.log('End session complete');
+    // Wait a moment for the user to read the message, then clear
+    setTimeout(async () => {
+      // Clear everything
+      setState({
+        messages: [],
+        currentSession: null,
+        loading: false,
+        error: null,
+        crisisDetected: false,
+      });
+      setPrompts([]);
+      
+      console.log('State cleared, initializing new session');
+      
+      // Initialize new session
+      await initializeSession();
+      
+      console.log('New session initialized, generating prompts');
+      
+      // Generate initial prompts for the new session
+      generatePrompts();
+      
+      console.log('End session complete');
+    }, 2000);
   };
 
   const clearMessages = () => {
