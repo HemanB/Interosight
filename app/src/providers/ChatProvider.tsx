@@ -88,7 +88,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
         crisisDetected: crisisAssessment.isCrisis,
       }));
 
-      // Generate new prompts after response
+      // Generate new prompts after stone response
       generatePrompts();
     } catch (error: any) {
       setState(prev => ({
@@ -111,11 +111,11 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     // Clear current prompts
     setPrompts([]);
 
-    // Add the prompt as a STONE message (not user message)
+    // Add the prompt as a STONE message (this is what the stone is asking)
     const promptMessage: ChatMessage = {
       id: Date.now().toString(),
       content: selectedPrompt.text,
-      isUser: false, // This is the key change - it's a stone message
+      isUser: false, // Stone message
       timestamp: new Date(),
       sessionId: state.currentSession || '',
     };
@@ -123,28 +123,10 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     setState(prev => ({
       ...prev,
       messages: [...prev.messages, promptMessage],
-      loading: true,
+      // Don't set loading here - wait for user response
     }));
 
-    try {
-      // Generate a response to the prompt
-      const response = await chatService.sendMessage(selectedPrompt.text);
-      
-      setState(prev => ({
-        ...prev,
-        messages: [...prev.messages, response],
-        loading: false,
-      }));
-
-      // Generate new prompts after the stone's response
-      generatePrompts();
-    } catch (error: any) {
-      setState(prev => ({
-        ...prev,
-        loading: false,
-        error: error.message,
-      }));
-    }
+    // Don't generate response here - wait for user to respond to the prompt
   };
 
   const generatePrompts = () => {
