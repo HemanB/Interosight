@@ -75,20 +75,16 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     }));
 
     try {
-      // Send message and get response
-      const response = await chatService.sendMessage(content);
-      
       // Check for crisis detection
       const crisisAssessment = chatService.detectCrisis(content);
       
       setState(prev => ({
         ...prev,
-        messages: [...prev.messages, response],
         loading: false,
         crisisDetected: crisisAssessment.isCrisis,
       }));
 
-      // Generate new prompts after stone response
+      // Generate new prompts after user message (no stone response)
       generatePrompts();
     } catch (error: any) {
       setState(prev => ({
@@ -163,7 +159,10 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
       crisisDetected: false,
     }));
     setPrompts([]);
-    initializeSession();
+    // Generate initial prompts for new session
+    setTimeout(() => {
+      generatePrompts();
+    }, 100);
   };
 
   const clearMessages = () => {
