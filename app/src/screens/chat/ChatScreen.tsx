@@ -50,22 +50,9 @@ const ChatScreen: React.FC = () => {
   };
 
   const handlePromptSelect = async (promptText: string) => {
-    if (promptText === 'End reflection') {
-      Alert.alert(
-        'End Session',
-        'Are you sure you want to end this reflection session?',
-        [
-          { text: 'Cancel', style: 'cancel' },
-          { text: 'End Session', style: 'destructive', onPress: async () => {
-            await endSession();
-          }},
-        ]
-      );
-    } else {
-      const prompt = prompts.find(p => p.text === promptText);
-      if (prompt) {
-        await selectPrompt(prompt.id);
-      }
+    const prompt = prompts.find(p => p.text === promptText);
+    if (prompt) {
+      await selectPrompt(prompt.id);
     }
   };
 
