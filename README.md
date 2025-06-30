@@ -1,10 +1,20 @@
 # InteroSight
 
-InteroSight is a mobile-first, cross-platform application designed to support eating disorder recovery through structured reflection, meal and behavior logging, and crisis resources. The app is built with Expo, React Native, and Firebase, and is intended for clinical demonstration and early user feedback.
+A compassionate AI companion for eating disorder recovery support, built with React Native and Expo. The app provides a safe, judgment-free space for reflection and emotional support through interactive journaling with support for local Ollama models and mock fallback. The chat system generates real AI responses while maintaining safety protocols for crisis detection.
+
+## Features
+
+- Safe, judgment-free environment for emotional expression and reflection
+- Crisis detection and support with immediate resource access
+- Real AI-powered responses using local Ollama models
+- Dynamic follow-up questions generated based on conversation context
+- Session management for tracking progress over time
+- Cross-platform (iOS, Android, Web) with React Native and Expo
+- Offline-capable with local LLM support
 
 ## Current Status
 
-The application has a functional chat interface with prompt-driven conversation flow and improved session management (v0.2.1). The chat currently uses mock responses and prompts, with LLM integration planned for the next version.
+The application has a functional chat interface with prompt-driven conversation flow and improved session management (v0.2.1). LLM integration is implemented with support for local Ollama models and mock fallback. The chat system generates real AI responses while maintaining safety protocols for crisis detection.
 
 ## Features
 
@@ -13,13 +23,14 @@ The application has a functional chat interface with prompt-driven conversation 
 - Real-time validation and error handling
 - Account management with password reset and email verification
 
-### Chat System (Mock Implementation)
-- Interactive journaling chat interface pending UI-theme integration
+### Chat System (LLM Integration)
+- Real AI-powered responses using local Ollama models
+- Guided, RPG-inspired chat interface with a "Stone of Wisdom" theme
 - Conversation is driven by system prompts; user responds directly to each prompt
-- Prompts are presented as selectable options; the system outputs the selected prompt and awaits user input
 - Crisis keyword detection with immediate access to support resources
+- Conversation history maintained for context-aware responses
+- Fallback to mock responses if LLM service is unavailable
 - Session history accessible via a calendar view
-- **Note: Currently uses mock responses - LLM integration pending**
 
 ### Combined Logging
 - Unified screen for meal and behavior/trigger logging
@@ -44,10 +55,10 @@ The application has a functional chat interface with prompt-driven conversation 
 
 ## Technical Overview
 
-- **Architecture:** Highly modular, siloed codebase for easy feature swapping and maintenance
-- **Stack:** Expo (React Native), Firebase (Auth & Firestore), TypeScript
-- **Testing:** Designed for rapid iteration and frequent testing on web and mobile
-- **Design:** Pixel art RPG theme, mobile-first, accessible, and professional
+- Architecture: Highly modular, siloed codebase for easy feature swapping and maintenance
+- Stack: Expo (React Native), Firebase (Auth & Firestore), TypeScript
+- Testing: Designed for rapid iteration and frequent testing on web and mobile
+- Design: Pixel art RPG theme, mobile-first, accessible, and professional
 
 ## Development Practices
 
@@ -74,20 +85,55 @@ The application has a functional chat interface with prompt-driven conversation 
 
 4. Test on web or mobile using Expo Go
 
-## LLM Integration (Pending)
+## LLM Integration
 
-The chat system currently uses mock responses. To implement LLM integration:
+The chat system supports multiple LLM backends:
 
-1. **Local Setup (Recommended for development):**
-   - Install Ollama: https://ollama.ai/
-   - Pull the model: `ollama pull llama-3.2-1b`
-   - Start Ollama server: `ollama serve`
-   - Update `src/services/chat/llm.service.ts` to connect to local Ollama instance
+### Local Ollama Setup (Recommended)
 
-2. **Alternative APIs (For production):**
-   - OpenAI API integration
-   - Hugging Face API integration
-   - Update system prompts for eating disorder recovery context
+**Quick Setup:**
+```bash
+# Run the automated setup script
+./setup-ollama.sh
+```
+
+**Manual Setup:**
+1. Install Ollama: https://ollama.ai/
+2. Pull a model: `ollama pull llama3.2:1b`
+3. Start Ollama server: `ollama serve`
+4. The app will automatically connect to `http://localhost:11434`
+
+**Available Models:**
+- `llama3.2:1b` (recommended - ~1.3GB)
+- `llama2:3b` (good quality - ~2GB)
+- `llama2:7b` (better quality - ~4GB)
+- `mistral:7b` (good balance - ~4GB)
+
+### Mock Service (Fallback)
+
+If no LLM service is available, the app automatically falls back to mock responses.
+
+### Configuration
+
+The LLM configuration is managed in `app/src/core/config/llm.config.ts`:
+
+```typescript
+// Switch between different backends
+export const llmConfig: LLMConfig = {
+  type: 'ollama', // 'ollama' or 'mock'
+  baseUrl: 'http://localhost:11434',
+  model: 'llama3.2:1b',
+  temperature: 0.7,
+  maxTokens: 500,
+};
+```
+
+### Safety Features
+
+- Crisis Detection: Automatic detection of crisis keywords with immediate support resources
+- Professional Boundaries: Clear disclaimers that the AI is not a replacement for professional treatment
+- Context-Aware Responses: Tailored for eating disorder recovery support
+- Fallback Protection: Always falls back to safe mock responses if LLM fails
 
 ## Roadmap
 
@@ -96,14 +142,13 @@ The chat system currently uses mock responses. To implement LLM integration:
 - [x] Combined meal and behavior logging
 - [x] Crisis tools and resources
 - [x] Home dashboard and gamification
-- [x] **End reflection functionality fix (v0.2.1)**
-- [ ] **LLM integration (Ollama local or API)**
+- [x] End reflection functionality fix (v0.2.1)
+- [x] LLM integration (Ollama local)
 - [ ] Polish, accessibility, and clinical review
 - [ ] Expanded analytics and export features
 
 ## Known Issues
 
-- Chat responses are mock data - no actual LLM integration
 - Some UI polish and animations pending
 
 ## Disclaimer

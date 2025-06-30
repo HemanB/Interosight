@@ -13,6 +13,8 @@ const PromptSelector: React.FC<PromptSelectorProps> = ({
   onSelectPrompt,
   onUsePrompt,
 }) => {
+  console.log('[PROMPT SELECTOR DEBUG] Rendering with prompts:', prompts.map(p => p.text));
+  
   if (prompts.length === 0) return null;
 
   return (
@@ -70,18 +72,21 @@ const styles = StyleSheet.create({
     borderColor: '#e1e8ed',
     borderRadius: 8,
     paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingVertical: 12,
     marginRight: 8,
-    minWidth: 120,
+    minWidth: 150,
+    maxWidth: 200,
+    flexShrink: 0,
   },
   promptButtonSelected: {
     backgroundColor: '#3498db',
     borderColor: '#3498db',
   },
   promptText: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#2c3e50',
     textAlign: 'center',
+    lineHeight: 18,
   },
   promptTextSelected: {
     color: '#ffffff',

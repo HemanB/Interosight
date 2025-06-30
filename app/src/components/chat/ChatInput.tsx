@@ -22,10 +22,17 @@ const ChatInput: React.FC<ChatInputProps> = ({
 }) => {
   const [message, setMessage] = useState('');
 
+  console.log('[CHAT INPUT DEBUG] Rendering with:', { message, loading });
+
   const handleSend = () => {
+    console.log('[CHAT INPUT DEBUG] handleSend called with:', message);
     if (message.trim() && !loading) {
-      onSendMessage(message.trim());
+      const messageToSend = message.trim();
+      onSendMessage(messageToSend);
       setMessage('');
+      console.log('[CHAT INPUT DEBUG] Message sent and cleared:', messageToSend);
+    } else {
+      console.log('[CHAT INPUT DEBUG] Cannot send - empty or loading:', { isEmpty: !message.trim(), loading });
     }
   };
 
@@ -49,7 +56,6 @@ const ChatInput: React.FC<ChatInputProps> = ({
           placeholder={placeholder}
           placeholderTextColor="#7f8c8d"
           multiline
-          maxLength={500}
           onKeyPress={handleKeyPress}
           editable={!loading}
         />

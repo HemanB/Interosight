@@ -1,222 +1,181 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { chatService } from '../services/chat/chat.service';
-import { ChatState, ChatMessage, PromptOption } from '../core/types/chat.types';
+import { v4 as uuidv4 } from 'uuid';
+import { ChatMessage, PromptOption } from '../core/types/chat.types';
+import { createLLMService, defaultLLMConfig } from '../services/chat/llm.service';
 
-interface ChatContextType extends ChatState {
+interface ChatContextType {
+  messages: ChatMessage[];
   prompts: PromptOption[];
   sendMessage: (content: string) => Promise<void>;
   selectPrompt: (promptId: string) => Promise<void>;
-  generatePrompts: () => void;
+  loading: boolean;
   endSession: () => void;
-  clearMessages: () => void;
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
 export const useChat = () => {
   const context = useContext(ChatContext);
-  if (context === undefined) {
-    throw new Error('useChat must be used within a ChatProvider');
-  }
+  if (!context) throw new Error('useChat must be used within a ChatProvider');
   return context;
 };
 
-interface ChatProviderProps {
-  children: React.ReactNode;
-}
+const INITIAL_PROMPT = "What's one thing on your mind today?";
 
-export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
-  const [state, setState] = useState<ChatState>({
-    messages: [],
-    currentSession: null,
-    loading: false,
-    error: null,
-    crisisDetected: false,
-  });
-
+export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [prompts, setPrompts] = useState<PromptOption[]>([]);
+  const [hasUserResponded, setHasUserResponded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string>('');
 
+  // Initialize LLM service
+  const llmService = createLLMService(defaultLLMConfig);
+
+  // On mount: add initial Stone message and create session
   useEffect(() => {
-    initializeSession();
+    console.log('[CHAT DEBUG] ChatProvider initializing...');
+    const newSessionId = uuidv4();
+    setSessionId(newSessionId);
+    
+    setMessages([
+      {
+        id: uuidv4(),
+        content: INITIAL_PROMPT,
+        isUser: false,
+        timestamp: new Date(),
+        sessionId: newSessionId,
+      },
+    ]);
+    setPrompts([]);
+    setHasUserResponded(false);
+    setLoading(false);
+    console.log('[CHAT DEBUG] ChatProvider initialized with initial message');
   }, []);
 
-  const initializeSession = async () => {
+  // Generate follow-up prompts using LLM
+  const generatePrompts = async (messages: ChatMessage[]): Promise<PromptOption[]> => {
+    console.log('[CHAT DEBUG] Generating prompts for messages:', messages.length);
     try {
-      const sessionId = await chatService.createSession();
-      setState(prev => ({
-        ...prev,
-        currentSession: sessionId,
+      const llmPrompts = await llmService.generateFollowUpPrompts(messages);
+      console.log('[CHAT DEBUG] LLM generated prompts:', llmPrompts);
+      
+      // Convert LLM prompts to PromptOption format
+      const promptOptions: PromptOption[] = llmPrompts.map((prompt, index) => ({
+        id: uuidv4(),
+        text: prompt,
+        selected: false,
       }));
-    } catch (error: any) {
-      setState(prev => ({
-        ...prev,
-        error: error.message,
-      }));
+
+      // Add "End reflection" option
+      promptOptions.push({
+        id: uuidv4(),
+        text: 'End reflection',
+        selected: false,
+      });
+
+      console.log('[CHAT DEBUG] Final prompt options:', promptOptions);
+      return promptOptions;
+    } catch (error) {
+      console.error('[CHAT ERROR] Error generating prompts:', error);
+      // Fallback prompts
+      return [
+        { id: uuidv4(), text: 'How does that make you feel?', selected: false },
+        { id: uuidv4(), text: 'What do you wish could be different?', selected: false },
+        { id: uuidv4(), text: 'Is there anything you want to do about it?', selected: false },
+        { id: uuidv4(), text: 'End reflection', selected: false },
+      ];
     }
   };
 
+  // Send user message
   const sendMessage = async (content: string) => {
+    console.log('[CHAT DEBUG] sendMessage called with:', content);
     if (!content.trim()) return;
-
-    // Add user message
-    const userMessage: ChatMessage = {
-      id: Date.now().toString(),
+    
+    const userMsg: ChatMessage = {
+      id: uuidv4(),
       content: content.trim(),
       isUser: true,
       timestamp: new Date(),
-      sessionId: state.currentSession || '',
+      sessionId,
     };
-
-    setState(prev => ({
-      ...prev,
-      messages: [...prev.messages, userMessage],
-      loading: true,
-      error: null,
-    }));
-
+    
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
+    setLoading(true);
+    console.log('[CHAT DEBUG] User message added, loading prompts...');
+    
     try {
-      // Check for crisis detection
-      const crisisAssessment = chatService.detectCrisis(content);
-      
-      setState(prev => ({
-        ...prev,
-        loading: false,
-        crisisDetected: crisisAssessment.isCrisis,
-      }));
-
-      // Generate new prompts after user message (no stone response)
-      generatePrompts();
-    } catch (error: any) {
-      setState(prev => ({
-        ...prev,
-        loading: false,
-        error: error.message,
-      }));
+      if (!hasUserResponded) {
+        setHasUserResponded(true);
+        const llmPrompts = await generatePrompts(newMessages);
+        setPrompts(llmPrompts);
+      } else {
+        // After every user reply (except first), fetch new prompts
+        const llmPrompts = await generatePrompts(newMessages);
+        setPrompts(llmPrompts);
+      }
+    } catch (error) {
+      console.error('[CHAT ERROR] Error in sendMessage:', error);
+      // Set fallback prompts on error
+      setPrompts([
+        { id: uuidv4(), text: 'How does that make you feel?', selected: false },
+        { id: uuidv4(), text: 'What do you wish could be different?', selected: false },
+        { id: uuidv4(), text: 'Is there anything you want to do about it?', selected: false },
+        { id: uuidv4(), text: 'End reflection', selected: false },
+      ]);
+    } finally {
+      setLoading(false);
+      console.log('[CHAT DEBUG] sendMessage completed');
     }
   };
 
+  // Select a prompt
   const selectPrompt = async (promptId: string) => {
-    const selectedPrompt = prompts.find(p => p.id === promptId);
-    if (!selectedPrompt) return;
+    const prompt = prompts.find(p => p.id === promptId);
+    if (!prompt) return;
 
-    // Clear current prompts
-    setPrompts([]);
-
-    // Add the prompt as a STONE message (this is what the stone is asking)
-    const promptMessage: ChatMessage = {
-      id: Date.now().toString(),
-      content: selectedPrompt.text,
-      isUser: false, // Stone message
-      timestamp: new Date(),
-      sessionId: state.currentSession || '',
-    };
-
-    setState(prev => ({
-      ...prev,
-      messages: [...prev.messages, promptMessage],
-      // Don't set loading here - wait for user response
-    }));
-
-    // If it's "End reflection", end the session after adding the message
-    if (selectedPrompt.text === 'End reflection') {
-      // Add a small delay to show the message before ending
-      setTimeout(() => {
-        endSession();
-      }, 1000);
+    // Handle "End reflection"
+    if (prompt.text === 'End reflection') {
+      endSession();
       return;
     }
 
-    // Don't generate response here - wait for user to respond to the prompt
-  };
-
-  const generatePrompts = () => {
-    const mockPrompts: PromptOption[] = [
-      {
-        id: '1',
-        text: 'How are you feeling about your recovery progress?',
-        selected: false,
-      },
-      {
-        id: '2',
-        text: 'What challenges are you facing today?',
-        selected: false,
-      },
-      {
-        id: '3',
-        text: 'Tell me about a positive moment you experienced.',
-        selected: false,
-      },
-      {
-        id: '4',
-        text: 'End reflection',
-        selected: false,
-      },
-    ];
-    setPrompts(mockPrompts);
-  };
-
-  const endSession = async () => {
-    console.log('End session called');
-    
-    // Add a confirmation message before ending
-    const endMessage: ChatMessage = {
-      id: Date.now().toString(),
-      content: "Thank you for this reflection session. Your insights are valuable for your recovery journey. Take care of yourself.",
-      isUser: false, // Stone message
+    const stoneMsg: ChatMessage = {
+      id: uuidv4(),
+      content: prompt.text,
+      isUser: false,
       timestamp: new Date(),
-      sessionId: state.currentSession || '',
+      sessionId,
     };
-
-    setState(prev => ({
-      ...prev,
-      messages: [...prev.messages, endMessage],
-    }));
     
-    // Wait a moment for the user to read the message, then clear
-    setTimeout(async () => {
-      // Clear everything
-      setState({
-        messages: [],
-        currentSession: null,
-        loading: false,
-        error: null,
-        crisisDetected: false,
-      });
-      setPrompts([]);
-      
-      console.log('State cleared, initializing new session');
-      
-      // Initialize new session
-      await initializeSession();
-      
-      console.log('New session initialized, generating prompts');
-      
-      // Generate initial prompts for the new session
-      generatePrompts();
-      
-      console.log('End session complete');
-    }, 2000);
+    setMessages([...messages, stoneMsg]);
+    setPrompts([]);
+    setLoading(false);
   };
 
-  const clearMessages = () => {
-    setState(prev => ({
-      ...prev,
-      messages: [],
-    }));
-  };
-
-  const value: ChatContextType = {
-    ...state,
-    prompts,
-    sendMessage,
-    selectPrompt,
-    generatePrompts,
-    endSession,
-    clearMessages,
+  // End session: reset everything
+  const endSession = () => {
+    const newSessionId = uuidv4();
+    setSessionId(newSessionId);
+    
+    setMessages([
+      {
+        id: uuidv4(),
+        content: INITIAL_PROMPT,
+        isUser: false,
+        timestamp: new Date(),
+        sessionId: newSessionId,
+      },
+    ]);
+    setPrompts([]);
+    setHasUserResponded(false);
+    setLoading(false);
   };
 
   return (
-    <ChatContext.Provider value={value}>
+    <ChatContext.Provider value={{ messages, prompts, sendMessage, selectPrompt, loading, endSession }}>
       {children}
     </ChatContext.Provider>
   );
