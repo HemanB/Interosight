@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from '../screens/home/HomeScreen';
 import ChatScreen from '../screens/chat/ChatScreen';
 import LoggingScreen from '../screens/logging/LoggingScreen';
-import CrisisScreen from '../screens/crisis/CrisisScreen';
+import ResourcesScreen from '../screens/resources/ResourcesScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
 
 const Tab = createBottomTabNavigator();
@@ -24,8 +24,8 @@ export const TabNavigator: React.FC = () => {
             iconName = focused ? 'chatbubble' : 'chatbubble-outline';
           } else if (route.name === 'Log') {
             iconName = focused ? 'list' : 'list-outline';
-          } else if (route.name === 'Crisis') {
-            iconName = focused ? 'shield' : 'shield-outline';
+          } else if (route.name === 'Resources') {
+            iconName = focused ? 'library' : 'library-outline';
           } else if (route.name === 'Settings') {
             iconName = focused ? 'settings' : 'settings-outline';
           } else {
@@ -42,7 +42,7 @@ export const TabNavigator: React.FC = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Reflect" component={ChatScreen} />
       <Tab.Screen name="Log" component={LoggingScreen} />
-      <Tab.Screen name="Crisis" component={CrisisScreen} />
+      <Tab.Screen name="Resources" component={ResourcesScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );
