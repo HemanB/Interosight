@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import EmergencyContactsModal from './EmergencyContactsModal';
+import CrisisHotlinesModal from './CrisisHotlinesModal';
 
 interface ResourceCardProps {
   title: string;
@@ -30,13 +31,14 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ title, description, icon, o
 
 const ResourcesScreen: React.FC = () => {
   const [emergencyContactsVisible, setEmergencyContactsVisible] = useState(false);
+  const [crisisHotlinesVisible, setCrisisHotlinesVisible] = useState(false);
 
   const handleEmergencyContacts = () => {
     setEmergencyContactsVisible(true);
   };
 
   const handleCrisisHotlines = () => {
-    Alert.alert('Crisis Hotlines', 'This will show crisis hotlines with one-tap calling');
+    setCrisisHotlinesVisible(true);
   };
 
   const handleDBTTools = () => {
@@ -173,9 +175,13 @@ const ResourcesScreen: React.FC = () => {
       </View>
     </ScrollView>
 
-      <EmergencyContactsModal
+            <EmergencyContactsModal
         visible={emergencyContactsVisible}
         onClose={() => setEmergencyContactsVisible(false)}
+      />
+      <CrisisHotlinesModal
+        visible={crisisHotlinesVisible}
+        onClose={() => setCrisisHotlinesVisible(false)}
       />
     </>
   );
