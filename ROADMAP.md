@@ -662,4 +662,20 @@ emergencyContacts: {
 - Get dev permission for almost everything you (cursor AI) does. It's very important that you educate the dev with all of your major decisions and why you're doing what you're doing.
 - Focus on simplicity. Anything that can be done with less code and fewer dependencies should be done with less code and fewer dependencies. If there is ever a decision to make, offer a suggestion that follows this framework as an alternative along with the consequences.
 
-This MVP roadmap focuses on creating a compelling, functional prototype that demonstrates the app's therapeutic value and potential for impact in eating disorder recovery support. 
+This MVP roadmap focuses on creating a compelling, functional prototype that demonstrates the app's therapeutic value and potential for impact in eating disorder recovery support.
+
+## Updated Logging System (v0.4.0+)
+
+### Adaptive Logging with LLM Tagging
+- The logging screen will feature a single, unlimited-length text input at the top third of the UI.
+- User input is submitted and sent to the LLM, which tags the entry with one or more of the following: Breakfast, Lunch, Dinner, Snack, Trigger, Binge, Purge, Body Checking, Exercise, Other.
+- Tags are suggested by the LLM but can be manually edited by the user (add/remove tags).
+- All logs are displayed and organized by tag and time, in a comprehensible, user-friendly manner.
+- The system is designed to be extremely intuitive and adaptive, minimizing friction for the user.
+- All log data, along with metadata (timestamp, geolocation, heartrate, etc.), will be stored for future analytics and modeling.
+- In future phases, this data will be used to build a detailed analytics and modeling profile for each user, leveraging ML for insights and recommendations.
+
+### Roadmap Adjustments
+- Replace separate meal/behavior forms with a unified adaptive logging input.
+- Integrate LLM-based tagging and manual tag editing into the logging workflow.
+- Plan for future analytics/modeling phase using collected log data and metadata.
