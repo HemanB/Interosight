@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'rea
 import { Ionicons } from '@expo/vector-icons';
 import EmergencyContactsModal from './EmergencyContactsModal';
 import CrisisHotlinesModal from './CrisisHotlinesModal';
+import SafetyPlanningModal from './SafetyPlanningModal';
 
 interface ResourceCardProps {
   title: string;
@@ -32,6 +33,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ title, description, icon, o
 const ResourcesScreen: React.FC = () => {
   const [emergencyContactsVisible, setEmergencyContactsVisible] = useState(false);
   const [crisisHotlinesVisible, setCrisisHotlinesVisible] = useState(false);
+  const [safetyPlanningVisible, setSafetyPlanningVisible] = useState(false);
 
   const handleEmergencyContacts = () => {
     setEmergencyContactsVisible(true);
@@ -39,6 +41,10 @@ const ResourcesScreen: React.FC = () => {
 
   const handleCrisisHotlines = () => {
     setCrisisHotlinesVisible(true);
+  };
+
+  const handleSafetyPlanning = () => {
+    setSafetyPlanningVisible(true);
   };
 
   const handleDBTTools = () => {
@@ -49,9 +55,7 @@ const ResourcesScreen: React.FC = () => {
     Alert.alert('Grounding Exercises', 'This will open grounding and breathing exercises');
   };
 
-  const handleSafetyPlanning = () => {
-    Alert.alert('Safety Planning', 'This will help create a personalized safety plan');
-  };
+
 
   const handleProfessionalResources = () => {
     Alert.alert('Professional Resources', 'This will show therapist finder and treatment centers');
@@ -182,6 +186,10 @@ const ResourcesScreen: React.FC = () => {
       <CrisisHotlinesModal
         visible={crisisHotlinesVisible}
         onClose={() => setCrisisHotlinesVisible(false)}
+      />
+      <SafetyPlanningModal
+        visible={safetyPlanningVisible}
+        onClose={() => setSafetyPlanningVisible(false)}
       />
     </>
   );

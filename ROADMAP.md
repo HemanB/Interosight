@@ -162,7 +162,7 @@ InteroSight/
 
 ### Core Features (MVP Only)
 1. **Authentication** - Simple email/password with Firebase
-2. **Chat Interface** - RPG-style chat with LLM integration
+2. **Chat Interface** - Chat with LLM integration
 3. **Combined Logging** - Meal logging + Behavior/trigger logging in one screen
 4. **Crisis Tools** - Emergency resources and crisis detection
 5. **Home Dashboard** - Simple overview and navigation
@@ -173,8 +173,8 @@ InteroSight/
 
 #### Login Screen
 **Visual Design**: 
-- Clean, minimalist design with pixel art RPG elements
-- Gently animated landscape scene (hair flowing, grass moving with wind)
+- Clean, minimalist design (UI TBD)
+- Soft, muted, calming
 
 **Functionality**: 
 - Email and password input fields, well integrated into the scene
@@ -431,17 +431,19 @@ InteroSight/
    - Add data persistence with Firestore
    - Implement logging history and statistics
 
-3. **Crisis Tools**
-   - Create emergency contact management
-   - Implement crisis detection system
-   - Add DBT tools and grounding exercises
-   - Create safety planning features
+3. **Resources System** ✅ **COMPLETED**
+   - ✅ Create emergency contact management with call/text/FaceTime
+   - ✅ Implement crisis hotlines with predefined numbers
+   - ✅ Create safety planning with Firestore integration
+   - ✅ Add DBT tools and grounding exercises (placeholders ready)
+   - ✅ Professional UI with summary/edit views
+   - ✅ Complete Firestore integration with user authentication
 
 #### Deliverables:
 - Functional chat with LLM integration
 - Complete meal and behavior logging
-- Crisis detection and support tools
-- Local data persistence working
+- ✅ Complete resources system with crisis support tools
+- ✅ Firestore data persistence working
 
 ### Phase 3: Polish & Design
 **Goal**: Make it look professional and polished for demos
@@ -605,6 +607,20 @@ emergencyContacts: {
     phone: string;
     relationship: string;
     isActive: boolean;
+  }
+}
+
+// Safety Plans
+safetyPlans: {
+  planId: {
+    userId: string;
+    warningSigns: string[];
+    copingStrategies: string[];
+    socialContacts: string[];
+    professionalContacts: string[];
+    safeEnvironments: string[];
+    emergencyPlan: string;
+    updatedAt: timestamp;
   }
 }
 ```
