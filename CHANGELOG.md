@@ -7,6 +7,73 @@
 - **Dynamic Follow-up Questions**: AI-generated contextual prompts based on conversation
 - **Enhanced Chat System**: Real AI responses with crisis detection and safety protocols
 
+## [v0.5.4] - 2024-07-04
+
+### Added
+- **Comprehensive Resources Screen**: Complete resource management system with card-based UI
+  - **Emergency Contacts Modal**: Full contact management with call/text/FaceTime functionality
+  - **Crisis Hotlines Modal**: Predefined crisis support numbers with one-tap calling
+  - **Safety Planning Modal**: Interactive safety plan creation and editing with Firestore integration
+  - **Summary View**: Overview screen showing current safety plan before editing
+
+### Technical Features
+- **Firestore Integration**: Complete data persistence for safety plans and emergency contacts
+- **Modal Architecture**: Reusable modal system for resource management
+- **User Authentication**: Proper user association for all saved data
+- **Error Handling**: Comprehensive error handling with user-friendly messages
+- **Loading States**: Proper loading indicators and empty states
+
+### User Experience Improvements
+- **Two-View Safety Planning**: Summary view for quick review, edit view for detailed planning
+- **Real Communication**: Direct integration with phone/text/FaceTime apps
+- **Professional Design**: Clean, clinical-grade UI suitable for healthcare demos
+- **Accessibility**: Large touch targets and clear visual hierarchy
+- **Responsive Design**: Works seamlessly across web, iOS, and Android
+
+### Resource Categories
+- **Emergency & Crisis**: Emergency contacts, crisis hotlines, safety planning
+- **Therapeutic Tools**: DBT tools, grounding exercises, coping strategies (placeholders)
+- **Professional Support**: Professional resources, support groups (placeholders)
+- **Education & Wellness**: Educational resources, self-care tools (placeholders)
+
+### Safety Features
+- **Crisis Detection**: Automatic crisis keyword detection in chat
+- **Emergency Access**: One-tap access to crisis resources
+- **Professional Boundaries**: Clear disclaimers about app limitations
+- **Data Privacy**: User-specific data storage with proper authentication
+
+## [v0.5.3] - 2024-07-04
+
+### Added
+- **Crisis Hotlines Modal**: Predefined crisis support numbers with call functionality
+  - 8 major crisis hotlines including suicide prevention, eating disorders, and mental health
+  - One-tap calling with confirmation dialogs
+  - Professional appearance with availability information
+  - Educational content about what to expect when calling
+
+## [v0.5.1] - 2024-07-04
+
+### Added
+- **Emergency Contacts Modal**: Full contact management system
+  - Add/remove emergency contacts with edit mode
+  - Call, text, and FaceTime functionality for each contact
+  - Professional UI with color-coded action buttons
+  - Empty state handling and user guidance
+
+## [v0.5.0] - 2024-07-04
+
+### Added
+- **Resources Screen**: Complete redesign of crisis tools into comprehensive resources
+  - Card-based UI with organized resource categories
+  - Professional design suitable for clinical demos
+  - Responsive layout with proper spacing and accessibility
+  - Clear visual hierarchy and intuitive navigation
+
+### Changed
+- **Navigation**: Renamed "Crisis" tab to "Resources" with updated icon
+- **Architecture**: Modular modal system for different resource types
+- **Design**: Modern card-based interface replacing basic placeholder screen
+
 ## [v0.3.0] - 2024-06-26
 
 ### Added

@@ -25,5 +25,10 @@ service cloud.firestore {
     match /emergencyContacts/{contactId} {
       allow read, write: if request.auth != null && resource.data.userId == request.auth.uid;
     }
+    
+    // Safety plans - users can only access their own safety plans
+    match /safetyPlans/{planId} {
+      allow read, write: if request.auth != null && request.auth.uid == planId;
+    }
   }
 } 
