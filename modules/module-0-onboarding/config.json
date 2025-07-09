@@ -1,0 +1,142 @@
+{
+  "id": 0,
+  "title": "Recovery Foundations",
+  "description": "Introduction to eating disorders, basic concepts, and recovery principles. This module establishes the foundation for your recovery journey.",
+  "prerequisites": [],
+  "estimatedDuration": 45,
+  "tags": ["onboarding", "foundations", "education"],
+  "isActive": true,
+  "activities": [
+    {
+      "id": "def-1",
+      "type": "definition-match",
+      "title": "Understanding Eating Disorders",
+      "description": "Match the eating disorder type with its key characteristics",
+      "points": 10,
+      "required": true,
+      "content": {
+        "pairs": [
+          {
+            "term": "Anorexia Nervosa",
+            "definition": "Characterized by restriction of food intake, intense fear of gaining weight, and distorted body image"
+          },
+          {
+            "term": "Bulimia Nervosa",
+            "definition": "Involves cycles of binge eating followed by compensatory behaviors like purging or excessive exercise"
+          },
+          {
+            "term": "Binge Eating Disorder",
+            "definition": "Characterized by recurrent episodes of eating large amounts of food without compensatory behaviors"
+          },
+          {
+            "term": "ARFID",
+            "definition": "Avoidant/Restrictive Food Intake Disorder involves limited food selection not related to body image concerns"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cloze-1",
+      "type": "cloze-text",
+      "title": "Recovery Principles",
+      "description": "Fill in the blanks to learn about key recovery concepts",
+      "points": 8,
+      "required": true,
+      "content": {
+        "text": "Recovery is a journey, not a destination. It involves learning to ___ yourself with kindness, challenging ___ thoughts, and building a ___ relationship with food and your body. Remember that ___ is normal and every step forward, no matter how small, is progress.",
+        "blanks": [
+          "treat",
+          "negative",
+          "healthy",
+          "struggle"
+        ]
+      }
+    },
+    {
+      "id": "quiz-1",
+      "type": "soft-quiz",
+      "title": "Recovery Mindset",
+      "description": "Test your understanding of recovery principles",
+      "points": 12,
+      "required": true,
+      "content": {
+        "questions": [
+          {
+            "question": "What is the most important aspect of recovery?",
+            "options": [
+              "Perfection in following meal plans",
+              "Self-compassion and patience",
+              "Avoiding all triggers completely",
+              "Achieving a specific weight"
+            ],
+            "correctAnswer": 1,
+            "explanation": "Recovery requires self-compassion and patience. Perfection is not the goal - progress is."
+          },
+          {
+            "question": "How should you approach setbacks in recovery?",
+            "options": [
+              "Give up and start over",
+              "Use them as learning opportunities",
+              "Pretend they didn't happen",
+              "Blame yourself for failing"
+            ],
+            "correctAnswer": 1,
+            "explanation": "Setbacks are normal and can be valuable learning opportunities for growth."
+          },
+          {
+            "question": "What role does professional help play in recovery?",
+            "options": [
+              "It's optional and not really necessary",
+              "It's essential for most people's recovery",
+              "It's only for severe cases",
+              "It's a sign of weakness"
+            ],
+            "correctAnswer": 1,
+            "explanation": "Professional help is often essential for recovery and is a sign of strength, not weakness."
+          }
+        ]
+      }
+    }
+  ],
+  "reflectionPrompts": [
+    {
+      "id": "why-im-here",
+      "title": "Why I'm Here",
+      "prompt": "Take a moment to reflect on what brought you to this recovery journey. What are your hopes for recovery? What would you like your relationship with food and your body to look like?",
+      "followUpPrompts": [
+        "What specific challenges do you face in your relationship with food?",
+        "How do you want to feel about yourself when you think about recovery?",
+        "What support do you think you'll need on this journey?",
+        "What are some small steps you can take today toward your recovery goals?"
+      ],
+      "intent": "explore",
+      "tags": ["motivation", "goals", "self-reflection"]
+    },
+    {
+      "id": "understanding-triggers",
+      "title": "Understanding Your Triggers",
+      "prompt": "Think about situations, emotions, or thoughts that tend to trigger difficult feelings about food or your body. What patterns do you notice?",
+      "followUpPrompts": [
+        "When do you feel most vulnerable to disordered thoughts?",
+        "What emotions are most challenging for you to sit with?",
+        "How do you typically respond to these triggers?",
+        "What would be a more helpful way to respond to these triggers?"
+      ],
+      "intent": "explore",
+      "tags": ["triggers", "patterns", "coping"]
+    },
+    {
+      "id": "support-system",
+      "title": "Building Your Support System",
+      "prompt": "Recovery is not a journey you have to take alone. Who are the people in your life who support your recovery? How can you strengthen these relationships?",
+      "followUpPrompts": [
+        "Who do you feel safe talking to about your struggles?",
+        "What kind of support do you find most helpful?",
+        "How can you communicate your needs to your support system?",
+        "Are there professional resources you'd like to explore?"
+      ],
+      "intent": "support",
+      "tags": ["support", "relationships", "communication"]
+    }
+  ]
+} 

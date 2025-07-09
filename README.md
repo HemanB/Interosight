@@ -1,105 +1,135 @@
 # InteroSight
 
-AI-powered mobile health platform for interoceptive awareness and eating disorder recovery, featuring real-time meal tracking, trigger identification, and personalized insights.
-
 ## Overview
 
-InteroSight combines a fine-tuned LLM with a React Native mobile app to deliver evidence-based interventions for eating disorder recovery. The system processes user input and generates motivational interviewing responses that validate emotions while guiding users through underlying psychological patterns.
+InteroSight is a clinical-grade digital platform for eating disorder recovery, centered on a data-driven, adaptive reflection module system. The application leverages user-generated data, semantic modeling, and guided reflection to facilitate self-understanding and longitudinal insight. The core value proposition is not static education, but the facilitation of meaningful, structured self-reflection through adaptive, evidence-informed modules.
 
-## Architecture
+## Core Features
 
-### Mobile App
-- **React Native with Expo** - Cross-platform mobile development
-- **Firebase Backend** - Authentication, Firestore database, real-time features
-- **Bottom Tab Navigation** - Home, Reflect (LLM chat), Meals, Triggers, Community, Settings
-- **Mascot-driven UI** - Engaging interface with therapeutic animations
+### Home - Progress Tracking
+- Progress dashboard visualizing reflective engagement and insight trends
+- Streak and engagement tracking
+- Achievement and milestone recognition
+- Daily goals and progress analytics
 
-### AI Model
-- **Base Model**: Meta-Llama-3.1-8B-Instruct
-- **Fine-tuning**: QLoRA with 4-bit quantization
-- **Training Data**: Reddit posts from eating disorder communities + synthetic MI responses
-- **Multi-label Support**: Handles body image, self-worth, relationships simultaneously
+### Logging - Adaptive Experience Capture
+- Single input for free-form reflection, triggers, and behaviors
+- Full metadata capture (time, location, mood, context, physiological data)
+- Semantic tagging and pattern recognition
+- Historical and calendar-based review
 
-## Key Features
+### Reflective Modules - Adaptive Guided Reflection
+- Data-driven, adaptive module system
+- Each module scaffolds user reflection, not didactic content
+- Prompt flows adapt to user data, history, and semantic context
+- Session management and longitudinal tracking
+- Context-aware, memory-augmented LLM guidance
 
-### Mobile App
-- **Reflect Screen**: LLM-powered therapeutic chat with empathetic mascot
-- **Meal Logging**: Text-based food tracking with optional photos
-- **Trigger Analysis**: Behavioral pattern tracking and crisis tools
-- **Community Support**: Peer interaction and resource sharing
-- **Crisis Safety**: Emergency contacts and mental health hotlines
+### Resources - Regulation and Crisis Tools
+- Evidence-based emotional regulation and grounding tools
+- Crisis resources and emergency contacts
+- Safety planning and professional resource links
 
-### AI Pipeline
-- **Intelligent Filtering**: Relevance scoring for clinically valuable content
-- **Performance Optimized**: 99.6% faster processing (regex vs LLM)
-- **Quality Control**: Automated filtering for inappropriate content
-- **Scalable Processing**: Batch handling for large datasets
+### Settings
+- Account and privacy management
+- Notification and crisis settings
+- App preferences and accessibility options
+- Data export and deletion
 
-## Quick Start
+## Technical Architecture
 
-### Environment Setup
+### Reflective Module Engine
+- Modules are defined as data-driven scaffolds for reflection, not static lessons
+- All module content, prompt flows, and progression are dynamically loaded from configuration
+- User data, semantic embeddings, and memory are injected into all reflective flows
+
+### Data and Memory Layer
+- Persistent user memory with summarized insights and frequent topics
+- All reflection and log entries are embedded and indexed for semantic search and analytics
+- Contextual data is used to adapt prompts and module progression
+
+### Clinical Safety and Privacy
+- Crisis keyword detection and appropriate response
+- Risk assessment using validated proxy measures
+- Secure, privacy-first data handling and user control
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+
+- Expo CLI
+- Firebase project setup
+- iOS Simulator or Android Emulator
+
+### Installation
 ```bash
-conda activate interosight
-pip install -r requirements.txt
-```
+# Clone the repository
+git clone <repository-url>
+cd Interosight
 
-### Data Processing
-```bash
-# Process high-relevance posts
-python -m interosight.data.pipeline --step all --min_relevance_score 0.5 --max_posts 10000
-
-# Check pipeline status
-python -m interosight.data.pipeline --step status
-```
-
-### Model Training
-```bash
-python -m interosight.training.train --config configs/training_config.yaml
-```
-
-### Mobile App Development
-```bash
-cd app
+# Install dependencies
 npm install
-npx expo start
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your Firebase configuration
+
+# Start the development server
+npm start
 ```
 
-## Data Sources
-
-- **Reddit Posts**: Real posts from eating disorder subreddits with topic annotations
-- **Synthetic MI Data**: Generated motivational interviewing responses using Llama 3.1
-- **Reference**: Qiu, Jiaxing. 2025. "Topic Annotations on Reddit Posts from Eating Disorders and Dieting Forums by Human and LLMs." University of Virginia Dataverse.
-
-## Repository Structure
-
-```
-interosight/
-├── data/                   # Data processing pipeline
-├── models/                 # Model definitions and inference
-├── training/               # Training scripts and configs
-├── evaluation/             # Model evaluation and testing
-├── utils/                  # Utility functions
-└── docs/                   # Documentation and flowcharts
-
-app/                        # React Native mobile application
-├── components/             # Reusable UI components
-├── screens/               # Main app screens
-├── navigation/            # React Navigation setup
-├── lib/                   # Firebase and LLM integration
-└── assets/                # Images, fonts, animations
+### Development
+```bash
+npm run ios      # Run on iOS
+npm run android  # Run on Android
+npm run web      # Run on web
 ```
 
-## Technical Notes
+## Project Structure
 
-- **Performance**: Regex-based text cleaning reduces processing time from 117+ hours to 30 minutes
-- **Clinical Focus**: Designed specifically for eating disorder recovery contexts
-- **Safety First**: Built-in crisis tools and emergency escalation procedures
-- **Cross-platform**: Works on iOS, Android, and web
+```
+app/
+  src/
+    components/          # Reusable UI components
+    screens/             # Main app screens
+      Home/              # Progress tracking
+      Logging/           # Adaptive logging
+      LearnReflect/      # Reflective modules
+      Resources/         # Regulation and crisis tools
+      Settings/          # App configuration
+    services/            # Business logic
+      modules/           # Module engine
+      journaling/        # Reflection system
+      embedding/         # Semantic vectors
+      memory/            # User memory
+      risk/              # Clinical assessment
+      progress/          # Analytics
+    navigation/          # App navigation
+    hooks/               # Custom React hooks
+    providers/           # Context providers
+    core/                # Types, interfaces, utils
+    assets/              # Images, fonts, etc.
+  modules/               # Module configurations
+  firebase/              # Firebase setup
+  tests/                 # Test files
+```
 
-## Documentation
+## Contributing
 
-Detailed app flowcharts and screen layouts are available in `docs/`:
-- `app_flowchart.puml` - Complete user journey diagram
-- `screen_flow_diagram.puml` - Detailed UI component layouts
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Describe your feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
 
-View with any PlantUML renderer.
+## Clinical Disclaimer
+
+InteroSight is a digital support tool and is not a substitute for professional medical or psychological treatment. Users are encouraged to consult qualified healthcare providers for diagnosis and treatment of eating disorders. The application includes crisis resources and supports professional engagement.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Support
+
+For support, contact support@interosight.app or consult the documentation in the docs/ directory. 
