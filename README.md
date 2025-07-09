@@ -2,7 +2,7 @@
 
 ## Overview
 
-InteroSight is a clinical-grade digital platform for eating disorder recovery, centered on a data-driven, adaptive reflection module system. The application leverages user-generated data, semantic modeling, and guided reflection to facilitate self-understanding and longitudinal insight. The core value proposition is not static education, but the facilitation of meaningful, structured self-reflection through adaptive, evidence-informed modules.
+InteroSight is a digital platform for eating disorder recovery, centered on a data-driven, adaptive reflection module system. The application leverages user-generated data, semantic modeling, and guided reflection to facilitate self-understanding and longitudinal insight. The core value proposition is not static education, but the facilitation of meaningful, structured self-reflection through adaptive, evidence-informed modules.
 
 ## Core Features
 
@@ -12,18 +12,18 @@ InteroSight is a clinical-grade digital platform for eating disorder recovery, c
 - Achievement and milestone recognition
 - Daily goals and progress analytics
 
-### Logging - Adaptive Experience Capture
-- Single input for free-form reflection, triggers, and behaviors
-- Full metadata capture (time, location, mood, context, physiological data)
-- Semantic tagging and pattern recognition
-- Historical and calendar-based review
-
 ### Reflective Modules - Adaptive Guided Reflection
 - Data-driven, adaptive module system
 - Each module scaffolds user reflection, not didactic content
 - Prompt flows adapt to user data, history, and semantic context
 - Session management and longitudinal tracking
 - Context-aware, memory-augmented LLM guidance
+
+### Logging - Adaptive Experience Capture
+- Single input for free-form reflection, triggers, and behaviors
+- Full metadata capture (time, location, mood, context, physiological data)
+- Semantic tagging and pattern recognition
+- Historical and calendar-based review
 
 ### Resources - Regulation and Crisis Tools
 - Evidence-based emotional regulation and grounding tools
@@ -44,7 +44,7 @@ InteroSight is a clinical-grade digital platform for eating disorder recovery, c
 - User data, semantic embeddings, and memory are injected into all reflective flows
 
 ### Data and Memory Layer
-- Persistent user memory with summarized insights and frequent topics
+- Persistent user memory with summarized insights and frequent/unique topics
 - All reflection and log entries are embedded and indexed for semantic search and analytics
 - Contextual data is used to adapt prompts and module progression
 
@@ -122,7 +122,7 @@ app/
 4. Push to the branch (`git push origin feature/your-feature`)
 5. Open a Pull Request
 
-## Clinical Disclaimer
+## Disclaimer
 
 InteroSight is a digital support tool and is not a substitute for professional medical or psychological treatment. Users are encouraged to consult qualified healthcare providers for diagnosis and treatment of eating disorders. The application includes crisis resources and supports professional engagement.
 
@@ -132,4 +132,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Support
 
-For support, contact support@interosight.app or consult the documentation in the docs/ directory. 
+For support, contact heman.burre@gmail.com or consult the documentation in the docs/ directory. 
