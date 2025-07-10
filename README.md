@@ -15,6 +15,12 @@ InteroSight is an mHealth application for eating disorder recovery, centered on 
 - Integrated analytics insights and data visualization
 - Streak and engagement metrics
 
+### Connect - Clinical and Community Integration
+- Clinician oversight and interaction capabilities
+- Community features for peer support (future development)
+- Professional resource integration
+- Crisis intervention and safety planning
+
 ### Logging - Dynamic Multi-Modal Capture
 - **Freeform Journaling**: Open-ended reflection with semantic tagging
 - **Meal Logging**: Food intake tracking with behavioral context
@@ -28,12 +34,6 @@ InteroSight is an mHealth application for eating disorder recovery, centered on 
 - **Therapeutic Tools**: DBT tools, grounding exercises, coping strategies
 - **Professional Support**: Therapist finder, treatment centers, support groups
 - **Education & Wellness**: Educational resources, self-care tools
-
-### Connect - Clinical and Community Integration
-- Clinician oversight and interaction capabilities
-- Community features for peer support (future development)
-- Professional resource integration
-- Crisis intervention and safety planning
 
 ### Settings - App Configuration
 - Account and privacy management
@@ -101,9 +101,9 @@ app/
     components/          # Reusable UI components
     screens/             # Main app screens
       Home/              # Journey-based progress & analytics
+      Connect/           # Clinical and community features
       Logging/           # Dynamic multi-modal logging
       Resources/         # Regulation and crisis tools
-      Connect/           # Clinical and community features
       Settings/          # App configuration
     services/            # Business logic
       modules/           # Module engine and generation
