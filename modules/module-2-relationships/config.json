@@ -1,0 +1,128 @@
+{
+  "id": 2,
+  "title": "Relationships",
+  "description": "Examine your family, friends, and social connections",
+  "prerequisites": [1],
+  "estimatedDuration": 40,
+  "tags": ["relationships", "family", "friends", "social", "starter"],
+  "isActive": true,
+  "submodules": [
+    {
+      "id": "2.1",
+      "title": "Mapping My Network",
+      "description": "Identify and map your key relationships",
+      "activities": [
+        {
+          "id": "relationship-mapping",
+          "type": "reflection",
+          "title": "Relationship Mapping",
+          "description": "Map out your key relationships and their impact on your recovery",
+          "points": 15,
+          "required": true,
+          "content": {
+            "prompt": "Think about the important relationships in your life - family, friends, romantic partners, mentors, or others. Consider how these relationships support or challenge your recovery journey.",
+            "followUpQuestions": [
+              "Who are the most important people in your life right now?",
+              "Which relationships feel most supportive of your recovery?",
+              "Which relationships feel challenging or unsupportive?",
+              "How do these relationships influence your relationship with food and your body?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "support-system",
+          "title": "My Support System",
+          "prompt": "Reflect on your current support system and how it helps or hinders your recovery.",
+          "followUpPrompts": [
+            "Who do you turn to when you're struggling?",
+            "What kind of support do you find most helpful?",
+            "Are there people you'd like to include in your support system?",
+            "How can you strengthen your existing support relationships?"
+          ],
+          "intent": "explore",
+          "tags": ["support", "relationships", "help-seeking"]
+        }
+      ]
+    },
+    {
+      "id": "2.2",
+      "title": "Communication Patterns",
+      "description": "Explore how you communicate about recovery",
+      "activities": [
+        {
+          "id": "communication-patterns",
+          "type": "reflection",
+          "title": "Communication Patterns",
+          "description": "Reflect on how you communicate about your recovery with others",
+          "points": 12,
+          "required": true,
+          "content": {
+            "prompt": "How do you communicate with others about your recovery journey? Consider what feels comfortable to share, what feels difficult, and how you'd like to improve these conversations.",
+            "followUpQuestions": [
+              "What do you find easy to share with others about your recovery?",
+              "What feels difficult or uncomfortable to discuss?",
+              "How do you respond when others ask about your recovery?",
+              "What would help you feel more comfortable sharing your journey?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "family-dynamics",
+          "title": "Family Dynamics",
+          "prompt": "Consider how your family relationships impact your recovery and well-being.",
+          "followUpPrompts": [
+            "How does your family talk about food, bodies, or health?",
+            "What family patterns might influence your relationship with food?",
+            "How can you navigate family dynamics that feel challenging?",
+            "What would help your family better support your recovery?"
+          ],
+          "intent": "explore",
+          "tags": ["family", "dynamics", "patterns", "support"]
+        }
+      ]
+    },
+    {
+      "id": "2.3",
+      "title": "Setting Boundaries",
+      "description": "Learn to set and maintain healthy boundaries",
+      "activities": [
+        {
+          "id": "boundary-setting",
+          "type": "reflection",
+          "title": "Setting Healthy Boundaries",
+          "description": "Explore how to set and maintain healthy boundaries in relationships",
+          "points": 10,
+          "required": true,
+          "content": {
+            "prompt": "Healthy boundaries are essential for recovery. Reflect on your current boundaries and how you can strengthen them to protect your recovery and well-being.",
+            "followUpQuestions": [
+              "What boundaries do you currently have in place?",
+              "Which relationships need clearer boundaries?",
+              "What would healthy boundaries look like for you?",
+              "How can you communicate your boundaries effectively?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "social-pressures",
+          "title": "Social Pressures and Expectations",
+          "prompt": "Reflect on social pressures and expectations that affect your recovery.",
+          "followUpPrompts": [
+            "What social situations feel most challenging for your recovery?",
+            "How do you handle comments about food, weight, or appearance?",
+            "What social expectations feel difficult to navigate?",
+            "How can you stay true to your recovery in social settings?"
+          ],
+          "intent": "explore",
+          "tags": ["social-pressure", "expectations", "coping", "authenticity"]
+        }
+      ]
+    }
+  ]
+} 

@@ -79,29 +79,29 @@ const HomeScreen: React.FC = () => {
     },
     {
       id: 2,
-      title: "My Journey",
-      description: "Reflect on what brought you here and your recovery path",
-      status: 'locked' as const,
-      progress: 0
-    },
-    {
-      id: 3,
       title: "Relationships",
       description: "Examine your family, friends, and social connections",
       status: 'locked' as const,
       progress: 0
     },
     {
-      id: 4,
+      id: 3,
       title: "Life Fulfillment",
       description: "Assess your overall satisfaction and life balance",
       status: 'locked' as const,
       progress: 0
     },
     {
-      id: 5,
+      id: 4,
       title: "Future Vision",
       description: "Envision your ideal future and recovery goals",
+      status: 'locked' as const,
+      progress: 0
+    },
+    {
+      id: 5,
+      title: "My Journey",
+      description: "Reflect on what brought you here and your recovery path",
       status: 'locked' as const,
       progress: 0
     }
