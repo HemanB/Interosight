@@ -15,7 +15,13 @@ InteroSight is an mHealth application for eating disorder recovery, centered on 
 - Integrated analytics insights and data visualization
 - Streak and engagement metrics
 
-### 2. Logging - Dynamic Multi-Modal Capture
+### 2. Connect - Clinical and Community Integration
+- Clinician oversight and interaction capabilities
+- Community features for peer support (future development)
+- Professional resource integration
+- Crisis intervention and safety planning
+
+### 3. Logging - Dynamic Multi-Modal Capture
 - **Freeform Journaling**: Open-ended reflection with semantic tagging
 - **Meal Logging**: Food intake tracking with behavioral context
 - **Behavior Logging**: Eating disorder behaviors and triggers
@@ -23,17 +29,11 @@ InteroSight is an mHealth application for eating disorder recovery, centered on 
 - **Metadata Capture**: Heart rate, step count, geolocation, temporal data
 - **Pattern Recognition**: Cross-referencing behaviors with physiological data
 
-### 3. Resources - Regulation and Crisis Tools
+### 4. Resources - Regulation and Crisis Tools
 - **Emergency & Crisis**: Emergency contacts, crisis hotlines, safety planning
 - **Therapeutic Tools**: DBT tools, grounding exercises, coping strategies
 - **Professional Support**: Therapist finder, treatment centers, support groups
 - **Education & Wellness**: Educational resources, self-care tools
-
-### 4. Connect - Clinical and Community Integration
-- Clinician oversight and interaction capabilities
-- Community features for peer support (future development)
-- Professional resource integration
-- Crisis intervention and safety planning
 
 ### 5. Settings - App Configuration
 - Account and privacy management
@@ -64,7 +64,7 @@ InteroSight is an mHealth application for eating disorder recovery, centered on 
 ## Development Phases
 
 ### Phase 1: Foundation
-- Set up new 5-tab navigation structure (Home, Logging, Resources, Connect, Settings)
+- Set up new 5-tab navigation structure (Home, Connect, Logging, Resources, Settings)
 - Implement basic Home screen with Duolingo-style pathway wireframe
 - Create 5 structured starter modules with interactive journaling
 - Implement semantic analysis for engagement quality assessment
