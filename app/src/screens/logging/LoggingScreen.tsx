@@ -392,7 +392,7 @@ const LoggingScreen: React.FC = () => {
             );
           })}
         </ScrollView>
-        <Text style={styles.calendarHint}>Tap a day to view logs for that day</Text>
+        <Text style={styles.calendarHint}>Tap on calendar to view logs for a given day</Text>
         {selectedCalendarCell && (
           <View style={styles.selectedDayLogsSection}>
             <Text style={styles.sectionTitle}>
