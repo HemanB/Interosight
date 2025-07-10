@@ -2,16 +2,17 @@
 
 ## Project Direction
 
-InteroSight is a clinical-grade digital platform for eating disorder recovery, centered on a data-driven, adaptive reflection module system. The application leverages user-generated data, semantic modeling, and guided reflection to facilitate self-understanding and longitudinal insight. The core value proposition is not static education, but the facilitation of meaningful, structured self-reflection through adaptive, evidence-informed modules that evolve based on user data and engagement patterns.
+InteroSight is an mHealth application for eating disorder recovery, centered on a data-driven, adaptive reflection module system. The application leverages user-generated data, semantic modeling, and guided reflection to facilitate self-understanding and longitudinal insight. The core value proposition is not static education, but the facilitation of meaningful, structured self-reflection through adaptive, evidence-informed modules that evolve based on user data and engagement patterns.
 
 ## Product Architecture
 
-### 1. Home - Journey-Based Progress Tracking
+### 1. Home - Journey-Based Progress & Analytics
 - Duolingo-style pathway interface showing reflective modules as a journey
 - 5 structured starter modules exploring user identity, relationships, and life fulfillment
 - Dynamic module generation based on user data and previous responses
 - Interactive journaling with semantic analysis for engagement quality
 - Progress visualization and achievement tracking
+- Integrated analytics insights and data visualization
 - Streak and engagement metrics
 
 ### 2. Logging - Dynamic Multi-Modal Capture
@@ -22,12 +23,11 @@ InteroSight is a clinical-grade digital platform for eating disorder recovery, c
 - **Metadata Capture**: Heart rate, step count, geolocation, temporal data
 - **Pattern Recognition**: Cross-referencing behaviors with physiological data
 
-### 3. Analytics - Rich Data Visualization
-- Interactive graphs and charts leveraging all available data
-- Behavioral pattern analysis and correlation discovery
-- Physiological data integration and trend analysis
-- User-friendly insights for self-reflection and awareness
-- Longitudinal progress tracking and milestone visualization
+### 3. Resources - Regulation and Crisis Tools
+- **Emergency & Crisis**: Emergency contacts, crisis hotlines, safety planning
+- **Therapeutic Tools**: DBT tools, grounding exercises, coping strategies
+- **Professional Support**: Therapist finder, treatment centers, support groups
+- **Education & Wellness**: Educational resources, self-care tools
 
 ### 4. Connect - Clinical and Community Integration
 - Clinician oversight and interaction capabilities
@@ -63,32 +63,32 @@ InteroSight is a clinical-grade digital platform for eating disorder recovery, c
 
 ## Development Phases
 
-### Phase 1: Foundation (v0.1.0 - v0.2.0)
-- Set up new 5-tab navigation structure (Home, Logging, Analytics, Connect, Settings)
+### Phase 1: Foundation
+- Set up new 5-tab navigation structure (Home, Logging, Resources, Connect, Settings)
 - Implement basic Home screen with Duolingo-style pathway wireframe
 - Create 5 structured starter modules with interactive journaling
 - Implement semantic analysis for engagement quality assessment
 - Set up basic logging system with freeform journaling
-- Create Analytics wireframe
+- Integrate analytics insights into Home screen
 - Set up Connect tab wireframe for future development
 - Implement basic Settings functionality
 
-### Phase 2: Core Features (v0.3.0 - v0.5.0)
+### Phase 2: Core Features
 - Expand logging system with meal and behavior logging
 - Implement dynamic tagging system using contextual analysis
 - Add metadata capture (heart rate, step count, geolocation)
 - Create pattern recognition system for cross-modal data correlation
-- Build rich analytics platform with interactive visualizations
+- Build rich analytics platform with interactive visualizations in Home
 - Implement dynamic module generation based on user themes
 - Add physiological data integration and trend analysis
 - Create crisis detection and response system
 
-### Phase 3: Advanced Features (v0.6.0 - v1.0.0)
+### Phase 3: Advanced Features
 - Implement advanced risk assessment and pattern recognition
 - Add clinician oversight capabilities in Connect tab
 - Build professional reporting tools
 - Create community features for peer support
-- Implement advanced analytics and insights
+- Implement advanced analytics and insights in Home
 - Add longitudinal progress tracking and milestone visualization
 
 ## Success Metrics
@@ -100,6 +100,7 @@ InteroSight is a clinical-grade digital platform for eating disorder recovery, c
 - Semantic analysis engagement scores
 
 ### Clinical Outcomes
+- Eating Disorder Assessments like the EDE-Q 
 - Risk score trends and crisis intervention effectiveness
 - User-reported insight and qualitative growth
 - Professional treatment engagement

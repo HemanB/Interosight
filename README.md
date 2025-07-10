@@ -6,12 +6,13 @@ InteroSight is an mHealth application for eating disorder recovery, centered on 
 
 ## Core Features
 
-### Home - Journey-Based Progress Tracking
+### Home - Journey-Based Progress & Analytics
 - Duolingo-style pathway interface showing reflective modules as a journey
 - 5 structured starter modules exploring user identity, relationships, and life fulfillment
 - Dynamic module generation based on user data and previous responses
 - Interactive journaling with semantic analysis for engagement quality
 - Progress visualization and achievement tracking
+- Integrated analytics insights and data visualization
 - Streak and engagement metrics
 
 ### Logging - Dynamic Multi-Modal Capture
@@ -22,12 +23,11 @@ InteroSight is an mHealth application for eating disorder recovery, centered on 
 - **Metadata Capture**: Heart rate, step count, geolocation, temporal data
 - **Pattern Recognition**: Cross-referencing behaviors with physiological data
 
-### Analytics - Rich Data Visualization
-- Interactive graphs and charts leveraging all available data
-- Behavioral pattern analysis and correlation discovery
-- Physiological data integration and trend analysis
-- User-friendly insights for self-reflection and awareness
-- Longitudinal progress tracking and milestone visualization
+### Resources - Regulation and Crisis Tools
+- **Emergency & Crisis**: Emergency contacts, crisis hotlines, safety planning
+- **Therapeutic Tools**: DBT tools, grounding exercises, coping strategies
+- **Professional Support**: Therapist finder, treatment centers, support groups
+- **Education & Wellness**: Educational resources, self-care tools
 
 ### Connect - Clinical and Community Integration
 - Clinician oversight and interaction capabilities
@@ -100,9 +100,9 @@ app/
   src/
     components/          # Reusable UI components
     screens/             # Main app screens
-      Home/              # Journey-based progress tracking
+      Home/              # Journey-based progress & analytics
       Logging/           # Dynamic multi-modal logging
-      Analytics/         # Rich data visualization
+      Resources/         # Regulation and crisis tools
       Connect/           # Clinical and community features
       Settings/          # App configuration
     services/            # Business logic
