@@ -2,56 +2,64 @@
 
 ## Overview
 
-InteroSight is a digital platform for eating disorder recovery, centered on a data-driven, adaptive reflection module system. The application leverages user-generated data, semantic modeling, and guided reflection to facilitate self-understanding and longitudinal insight. The core value proposition is not static education, but the facilitation of meaningful, structured self-reflection through adaptive, evidence-informed modules.
+InteroSight is an mHealth application for eating disorder recovery, centered on a data-driven, adaptive reflection module system. The application leverages user-generated data, semantic modeling, and guided reflection to facilitate self-understanding and longitudinal insight. The core value proposition is not static education, but the facilitation of meaningful, structured self-reflection through adaptive, evidence-informed modules that evolve based on user data and engagement patterns.
 
 ## Core Features
 
-### Home - Progress Tracking
-- Progress dashboard visualizing reflective engagement and insight trends
-- Streak and engagement tracking
-- Achievement and milestone recognition
-- Daily goals and progress analytics
+### Home - Journey-Based Progress Tracking
+- Duolingo-style pathway interface showing reflective modules as a journey
+- 5 structured starter modules exploring user identity, relationships, and life fulfillment
+- Dynamic module generation based on user data and previous responses
+- Interactive journaling with semantic analysis for engagement quality
+- Progress visualization and achievement tracking
+- Streak and engagement metrics
 
-### Reflective Modules - Adaptive Guided Reflection
-- Data-driven, adaptive module system
-- Each module scaffolds user reflection, not didactic content
-- Prompt flows adapt to user data, history, and semantic context
-- Session management and longitudinal tracking
-- Context-aware, memory-augmented LLM guidance
+### Logging - Dynamic Multi-Modal Capture
+- **Freeform Journaling**: Open-ended reflection with semantic tagging
+- **Meal Logging**: Food intake tracking with behavioral context
+- **Behavior Logging**: Eating disorder behaviors and triggers
+- **Dynamic Tagging**: Automatic categorization using contextual analysis
+- **Metadata Capture**: Heart rate, step count, geolocation, temporal data
+- **Pattern Recognition**: Cross-referencing behaviors with physiological data
 
-### Logging - Adaptive Experience Capture
-- Single input for free-form reflection, triggers, and behaviors
-- Full metadata capture (time, location, mood, context, physiological data)
-- Semantic tagging and pattern recognition
-- Historical and calendar-based review
+### Analytics - Rich Data Visualization
+- Interactive graphs and charts leveraging all available data
+- Behavioral pattern analysis and correlation discovery
+- Physiological data integration and trend analysis
+- User-friendly insights for self-reflection and awareness
+- Longitudinal progress tracking and milestone visualization
 
-### Resources - Regulation and Crisis Tools
-- Evidence-based emotional regulation and grounding tools
-- Crisis resources and emergency contacts
-- Safety planning and professional resource links
+### Connect - Clinical and Community Integration
+- Clinician oversight and interaction capabilities
+- Community features for peer support (future development)
+- Professional resource integration
+- Crisis intervention and safety planning
 
-### Settings
+### Settings - App Configuration
 - Account and privacy management
-- Notification and crisis settings
-- App preferences and accessibility options
-- Data export and deletion
+- Notification preferences and crisis settings
+- App accessibility and customization options
+- Data export and deletion controls
 
 ## Technical Architecture
 
 ### Reflective Module Engine
-- Modules are defined as data-driven scaffolds for reflection, not static lessons
-- All module content, prompt flows, and progression are dynamically loaded from configuration
-- User data, semantic embeddings, and memory are injected into all reflective flows
+- **Starter Modules**: 5 formulaic, structured modules exploring user identity and relationships
+- **Dynamic Generation**: AI-powered module creation based on user data and themes
+- **Engagement Quality**: Semantic analysis to ensure thoughtful responses
+- **Adaptive Progression**: Module flows that adapt to user history and context
 
 ### Data and Memory Layer
-- Persistent user memory with summarized insights and frequent/unique topics
-- All reflection and log entries are embedded and indexed for semantic search and analytics
-- Contextual data is used to adapt prompts and module progression
+- Persistent user memory with summarized insights and frequent topics
+- All reflection and log entries are embedded and indexed for semantic search
+- Cross-modal data correlation (behavioral + physiological + contextual)
+- Contextual data injection into all reflective flows
 
 ### Clinical Safety and Privacy
 - Crisis keyword detection and appropriate response
 - Risk assessment using validated proxy measures
 - Secure, privacy-first data handling and user control
+- Professional oversight integration capabilities
 
 ## Getting Started
 
@@ -92,24 +100,24 @@ app/
   src/
     components/          # Reusable UI components
     screens/             # Main app screens
-      Home/              # Progress tracking
-      Logging/           # Adaptive logging
-      LearnReflect/      # Reflective modules
-      Resources/         # Regulation and crisis tools
+      Home/              # Journey-based progress tracking
+      Logging/           # Dynamic multi-modal logging
+      Analytics/         # Rich data visualization
+      Connect/           # Clinical and community features
       Settings/          # App configuration
     services/            # Business logic
-      modules/           # Module engine
-      journaling/        # Reflection system
-      embedding/         # Semantic vectors
-      memory/            # User memory
+      modules/           # Module engine and generation
+      journaling/        # Reflection and logging system
+      embedding/         # Semantic vectors and analysis
+      memory/            # User memory and insights
       risk/              # Clinical assessment
-      progress/          # Analytics
+      analytics/         # Data visualization and insights
     navigation/          # App navigation
     hooks/               # Custom React hooks
     providers/           # Context providers
     core/                # Types, interfaces, utils
     assets/              # Images, fonts, etc.
-  modules/               # Module configurations
+  modules/               # Module configurations and themes
   firebase/              # Firebase setup
   tests/                 # Test files
 ```
