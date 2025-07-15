@@ -163,29 +163,6 @@ const HomeScreen: React.FC = () => {
           ))}
         </View>
 
-        {/* Quick Actions */}
-        <View style={styles.quickActionsSection}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
-          <View style={styles.quickActionsGrid}>
-            <TouchableOpacity style={styles.quickActionCard}>
-              <Ionicons name="journal" size={24} color="#007AFF" />
-              <Text style={styles.quickActionText}>Daily Log</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.quickActionCard}>
-              <Ionicons name="analytics" size={24} color="#34C759" />
-              <Text style={styles.quickActionText}>Insights</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.quickActionCard}>
-              <Ionicons name="library" size={24} color="#FF9500" />
-              <Text style={styles.quickActionText}>Resources</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.quickActionCard}>
-              <Ionicons name="people" size={24} color="#AF52DE" />
-              <Text style={styles.quickActionText}>Connect</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
         {/* Coming Soon */}
         <View style={styles.comingSoonSection}>
           <Text style={styles.sectionTitle}>Coming Soon</Text>

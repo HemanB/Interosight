@@ -27,12 +27,6 @@ const ConnectScreen: React.FC = () => {
             <Text style={styles.featureText}>• Crisis intervention and safety planning</Text>
           </View>
           
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Safety & Support</Text>
-            <Text style={styles.sectionText}>
-              Emergency resources and crisis support are available in the Settings tab.
-            </Text>
-          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
