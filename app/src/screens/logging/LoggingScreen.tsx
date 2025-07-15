@@ -46,7 +46,7 @@ const initialLogs: LogEntry[] = [
   { id: '1', text: 'Coffee and bagel', tags: ['Breakfast'], date: new Date().toDateString(), originalSection: 'meal' },
   { id: '2', text: 'Ran 5km', tags: ['Exercise'], date: new Date().toDateString(), originalSection: 'behavior' },
   { id: '3', text: 'Lunch: salad and chicken', tags: ['Lunch'], date: new Date().toDateString(), originalSection: 'meal' },
-  { id: '4', text: 'Felt urge to purge after seeing Jess\'s ig post', tags: ['Purge', 'Trigger'], date: new Date().toDateString(), originalSection: 'behavior' },
+  { id: '4', text: 'Purged my lunch', tags: ['Purge'], date: new Date().toDateString(), originalSection: 'behavior' },
   { id: '5', text: 'Dinner: pasta', tags: ['Dinner'], date: new Date().toDateString(), originalSection: 'meal' },
   { id: '6', text: 'Body checking in mirror', tags: ['Body Checking'], date: new Date().toDateString(), originalSection: 'behavior' },
 ];
