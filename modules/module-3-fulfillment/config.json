@@ -1,0 +1,128 @@
+{
+  "id": 3,
+  "title": "Life Fulfillment",
+  "description": "Assess your overall satisfaction and life balance",
+  "prerequisites": [1, 2],
+  "estimatedDuration": 35,
+  "tags": ["fulfillment", "satisfaction", "balance", "life-quality", "starter"],
+  "isActive": true,
+  "submodules": [
+    {
+      "id": "3.1",
+      "title": "Life Domains",
+      "description": "Evaluate different areas of your life",
+      "activities": [
+        {
+          "id": "life-domains",
+          "type": "reflection",
+          "title": "Life Domains Assessment",
+          "description": "Evaluate different areas of your life and their current state",
+          "points": 15,
+          "required": true,
+          "content": {
+            "prompt": "Consider the different domains of your life - physical health, emotional well-being, relationships, work/school, hobbies, spirituality, etc. How satisfied are you with each area?",
+            "followUpQuestions": [
+              "Which life domains feel most fulfilling to you right now?",
+              "Which areas feel most challenging or unsatisfying?",
+              "How does your relationship with food affect these different areas?",
+              "What would help you feel more balanced across all life domains?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "current-satisfaction",
+          "title": "Current Life Satisfaction",
+          "prompt": "Reflect on your overall satisfaction with life right now.",
+          "followUpPrompts": [
+            "On a scale of 1-10, how satisfied are you with your life overall?",
+            "What contributes to your current level of satisfaction?",
+            "What would need to change to increase your satisfaction?",
+            "How does your relationship with food impact your life satisfaction?"
+          ],
+          "intent": "explore",
+          "tags": ["satisfaction", "assessment", "current-state"]
+        }
+      ]
+    },
+    {
+      "id": "3.2",
+      "title": "Joy Activities",
+      "description": "Discover what brings you genuine joy",
+      "activities": [
+        {
+          "id": "joy-activities",
+          "type": "reflection",
+          "title": "Activities That Bring Joy",
+          "description": "Identify activities and experiences that bring you genuine joy and fulfillment",
+          "points": 12,
+          "required": true,
+          "content": {
+            "prompt": "Think about activities, experiences, or moments that bring you genuine joy, satisfaction, or a sense of fulfillment. These might be hobbies, time with loved ones, creative pursuits, or simple pleasures.",
+            "followUpQuestions": [
+              "What activities make you lose track of time?",
+              "When do you feel most alive and engaged?",
+              "What brings you a sense of accomplishment or pride?",
+              "How can you incorporate more of these activities into your life?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "balance-priorities",
+          "title": "Balancing Priorities",
+          "prompt": "Consider how you balance different priorities and commitments in your life.",
+          "followUpPrompts": [
+            "What are your top priorities right now?",
+            "How do you currently spend your time and energy?",
+            "What feels out of balance in your life?",
+            "How can you better align your time with your priorities?"
+          ],
+          "intent": "explore",
+          "tags": ["balance", "priorities", "time-management", "alignment"]
+        }
+      ]
+    },
+    {
+      "id": "3.3",
+      "title": "Meaning & Purpose",
+      "description": "Explore what gives your life meaning",
+      "activities": [
+        {
+          "id": "meaning-purpose",
+          "type": "reflection",
+          "title": "Meaning and Purpose",
+          "description": "Explore what gives your life meaning and purpose beyond food and body",
+          "points": 10,
+          "required": true,
+          "content": {
+            "prompt": "What gives your life meaning and purpose? Consider your values, goals, contributions to others, and what you want your life to be about beyond your relationship with food and your body.",
+            "followUpQuestions": [
+              "What feels most meaningful to you in life?",
+              "What do you want to contribute to the world?",
+              "What goals or dreams feel important to you?",
+              "How does recovery support your ability to pursue meaning and purpose?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "future-fulfillment",
+          "title": "Envisioning Future Fulfillment",
+          "prompt": "Imagine what a fulfilling life would look like for you in the future.",
+          "followUpPrompts": [
+            "What would a fulfilling life look like to you?",
+            "What experiences do you want to have?",
+            "What relationships do you want to cultivate?",
+            "How does recovery fit into your vision of a fulfilling life?"
+          ],
+          "intent": "envision",
+          "tags": ["future", "vision", "fulfillment", "aspirations"]
+        }
+      ]
+    }
+  ]
+} 

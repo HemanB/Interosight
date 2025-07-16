@@ -1,0 +1,103 @@
+{
+  "id": 5,
+  "title": "Future Vision",
+  "description": "Envision your ideal future and recovery goals",
+  "prerequisites": [1, 2, 3, 4],
+  "estimatedDuration": 40,
+  "tags": ["future", "vision", "goals", "aspirations", "starter"],
+  "isActive": true,
+  "activities": [
+    {
+      "id": "ideal-future",
+      "type": "reflection",
+      "title": "My Ideal Future",
+      "description": "Envision your ideal future life and what it would look like",
+      "points": 15,
+      "required": true,
+      "content": {
+        "prompt": "Imagine your ideal future - 1 year, 5 years, or 10 years from now. What would your life look like? Consider all aspects: relationships, career, health, hobbies, living situation, and how you'd feel about yourself.",
+        "followUpQuestions": [
+          "What would your ideal day look like in the future?",
+          "What relationships would you have cultivated?",
+          "What would you be doing for work or personal fulfillment?",
+          "How would you feel about yourself and your body?"
+        ]
+      }
+    },
+    {
+      "id": "recovery-milestones",
+      "type": "reflection",
+      "title": "Recovery Milestones",
+      "description": "Set specific milestones and goals for your recovery journey",
+      "points": 12,
+      "required": true,
+      "content": {
+        "prompt": "What specific milestones would you like to reach in your recovery? Consider both short-term goals (next few months) and long-term aspirations (next year or beyond).",
+        "followUpQuestions": [
+          "What are your most important short-term recovery goals?",
+          "What would be meaningful long-term recovery achievements?",
+          "How will you know when you've reached these milestones?",
+          "What support will you need to achieve these goals?"
+        ]
+      }
+    },
+    {
+      "id": "action-planning",
+      "type": "reflection",
+      "title": "Action Planning",
+      "description": "Create concrete action steps to move toward your future vision",
+      "points": 10,
+      "required": true,
+      "content": {
+        "prompt": "Now that you have a vision for your future, what concrete steps can you take to move toward that vision? Consider both recovery-specific actions and general life goals.",
+        "followUpQuestions": [
+          "What is one small step you can take this week?",
+          "What resources or support do you need to pursue your goals?",
+          "What might get in the way of achieving your vision?",
+          "How will you stay motivated when progress feels slow?"
+        ]
+      }
+    }
+  ],
+  "reflectionPrompts": [
+    {
+      "id": "future-self",
+      "title": "My Future Self",
+      "prompt": "Imagine your future self - who you want to become through this recovery journey.",
+      "followUpPrompts": [
+        "What qualities would your future self have?",
+        "How would your future self think and feel differently?",
+        "What would your future self be proud of?",
+        "What advice would your future self give to you today?"
+      ],
+      "intent": "envision",
+      "tags": ["future-self", "growth", "transformation", "aspirations"]
+    },
+    {
+      "id": "legacy-impact",
+      "title": "Legacy and Impact",
+      "prompt": "Consider the impact you want to have on others and the world.",
+      "followUpPrompts": [
+        "How do you want to be remembered by others?",
+        "What positive impact do you want to have on the world?",
+        "How might your recovery journey help others?",
+        "What would make you feel like your life has been meaningful?"
+      ],
+      "intent": "explore",
+      "tags": ["legacy", "impact", "meaning", "contribution"]
+    },
+    {
+      "id": "commitment-renewal",
+      "title": "Renewing My Commitment",
+      "prompt": "Reflect on your commitment to recovery and your future vision.",
+      "followUpPrompts": [
+        "What are you most committed to in your recovery?",
+        "What would help you stay committed when things get difficult?",
+        "How can you remind yourself of your future vision?",
+        "What would you say to yourself on a hard day?"
+      ],
+      "intent": "commit",
+      "tags": ["commitment", "motivation", "perseverance", "self-support"]
+    }
+  ]
+} 

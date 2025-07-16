@@ -4,8 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 // Import screens
 import HomeScreen from '../screens/home/HomeScreen';
+import ConnectScreen from '../screens/connect/ConnectScreen';
 import LoggingScreen from '../screens/logging/LoggingScreen';
-import LearnReflectScreen from '../screens/learn-reflect/LearnReflectScreen';
 import ResourcesScreen from '../screens/resources/ResourcesScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
 
@@ -20,10 +20,10 @@ export const TabNavigator: React.FC = () => {
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Connect') {
+            iconName = focused ? 'people' : 'people-outline';
           } else if (route.name === 'Logging') {
             iconName = focused ? 'list' : 'list-outline';
-          } else if (route.name === 'Learn/Reflect') {
-            iconName = focused ? 'school' : 'school-outline';
           } else if (route.name === 'Resources') {
             iconName = focused ? 'library' : 'library-outline';
           } else if (route.name === 'Settings') {
@@ -57,14 +57,14 @@ export const TabNavigator: React.FC = () => {
         options={{ tabBarLabel: 'Home' }}
       />
       <Tab.Screen 
+        name="Connect" 
+        component={ConnectScreen}
+        options={{ tabBarLabel: 'Connect' }}
+      />
+      <Tab.Screen 
         name="Logging" 
         component={LoggingScreen}
         options={{ tabBarLabel: 'Logging' }}
-      />
-      <Tab.Screen 
-        name="Learn/Reflect" 
-        component={LearnReflectScreen}
-        options={{ tabBarLabel: 'Learn' }}
       />
       <Tab.Screen 
         name="Resources" 

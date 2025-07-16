@@ -45,8 +45,8 @@ const ChatScreen: React.FC = () => {
       >
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Stone of Wisdom</Text>
-          <Text style={styles.headerSubtitle}>Reflect & Connect</Text>
+          <Text style={styles.headerTitle}>Reflect</Text>
+          <Text style={styles.headerSubtitle}>Interactive Journaling AI</Text>
         </View>
 
         {/* Messages */}
