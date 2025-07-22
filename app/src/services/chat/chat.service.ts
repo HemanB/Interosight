@@ -1,5 +1,5 @@
 import { ChatService } from '../../core/interfaces/chat.interface';
-import { ChatMessage, CrisisAssessment } from '../../core/types/chat.types';
+import { ChatMessage } from '../../core/types/chat.types';
 import { createLLMService, LLMService } from './llm.service';
 import { getLLMConfig } from '../../core/config/llm.config';
 
