@@ -1,0 +1,128 @@
+{
+  "id": 1,
+  "title": "Who Am I?",
+  "description": "Explore your identity, values, and what makes you unique",
+  "prerequisites": [],
+  "estimatedDuration": 30,
+  "tags": ["identity", "values", "self-discovery", "starter"],
+  "isActive": true,
+  "submodules": [
+    {
+      "id": "1.1",
+      "title": "Core Values",
+      "description": "Discover and reflect on your core values",
+      "activities": [
+        {
+          "id": "values-exploration",
+          "type": "reflection",
+          "title": "Core Values Discovery",
+          "description": "Identify and reflect on your core personal values",
+          "points": 15,
+          "required": true,
+          "content": {
+            "prompt": "Think about what truly matters to you in life. What values guide your decisions and actions? Consider values like honesty, compassion, creativity, independence, family, growth, or others that resonate with you.",
+            "followUpQuestions": [
+              "Which 3-5 values feel most important to you right now?",
+              "How do these values show up in your daily life?",
+              "Are there values you'd like to strengthen or develop?",
+              "How do your values relate to your recovery journey?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "values-in-action",
+          "title": "Values in Daily Life",
+          "prompt": "Reflect on how your core values show up in your everyday life and decisions.",
+          "followUpPrompts": [
+            "When do you feel most aligned with your values?",
+            "Are there situations where you struggle to live according to your values?",
+            "How do your values influence your relationship with food and your body?",
+            "What would it look like to honor your values more fully in your recovery?"
+          ],
+          "intent": "explore",
+          "tags": ["values", "daily-life", "alignment"]
+        }
+      ]
+    },
+    {
+      "id": "1.2",
+      "title": "Identity Aspects",
+      "description": "Explore the different parts that make up who you are",
+      "activities": [
+        {
+          "id": "identity-aspects",
+          "type": "reflection",
+          "title": "Multiple Aspects of Identity",
+          "description": "Explore the different parts that make up who you are",
+          "points": 12,
+          "required": true,
+          "content": {
+            "prompt": "You are more than your relationship with food or your body. Take time to reflect on the different aspects of your identity - your roles, interests, personality traits, and experiences.",
+            "followUpQuestions": [
+              "What roles do you play in your life (student, friend, sibling, etc.)?",
+              "What are your interests, hobbies, or passions?",
+              "What personality traits do you appreciate about yourself?",
+              "What experiences have shaped who you are today?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "self-perception",
+          "title": "How I See Myself",
+          "prompt": "Take a moment to reflect on how you currently see yourself. What aspects of your identity feel most authentic and true to who you are?",
+          "followUpPrompts": [
+            "What parts of yourself do you feel most connected to?",
+            "Are there aspects of your identity that feel hidden or underdeveloped?",
+            "How has your self-perception changed over time?",
+            "What would you like to understand better about yourself?"
+          ],
+          "intent": "explore",
+          "tags": ["self-perception", "authenticity", "growth"]
+        }
+      ]
+    },
+    {
+      "id": "1.3",
+      "title": "Personal Strengths",
+      "description": "Identify and celebrate your personal strengths",
+      "activities": [
+        {
+          "id": "strengths-inventory",
+          "type": "reflection",
+          "title": "Personal Strengths",
+          "description": "Identify and celebrate your personal strengths",
+          "points": 10,
+          "required": true,
+          "content": {
+            "prompt": "Everyone has unique strengths and qualities. Reflect on what you do well, what comes naturally to you, and what others appreciate about you.",
+            "followUpQuestions": [
+              "What are 3-5 strengths you recognize in yourself?",
+              "How do these strengths help you in challenging situations?",
+              "What strengths have helped you in your recovery so far?",
+              "How can you use your strengths to support your continued growth?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "unique-qualities",
+          "title": "What Makes Me Unique",
+          "prompt": "Celebrate the qualities that make you uniquely you. What sets you apart from others?",
+          "followUpPrompts": [
+            "What unique perspectives or experiences do you bring?",
+            "What do others often notice or appreciate about you?",
+            "What makes you feel most like yourself?",
+            "How can you honor and express your uniqueness more fully?"
+          ],
+          "intent": "celebrate",
+          "tags": ["uniqueness", "self-expression", "celebration"]
+        }
+      ]
+    }
+  ]
+} 

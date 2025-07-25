@@ -1,0 +1,128 @@
+{
+  "id": 5,
+  "title": "My Journey",
+  "description": "Reflect on what brought you here and your recovery path",
+  "prerequisites": [1, 2, 3, 4],
+  "estimatedDuration": 35,
+  "tags": ["journey", "recovery", "self-reflection", "starter"],
+  "isActive": true,
+  "submodules": [
+    {
+      "id": "5.1",
+      "title": "Recovery Story",
+      "description": "Reflect on your personal recovery journey",
+      "activities": [
+        {
+          "id": "recovery-story",
+          "type": "reflection",
+          "title": "My Recovery Story",
+          "description": "Reflect on your personal journey with eating disorders and recovery",
+          "points": 15,
+          "required": true,
+          "content": {
+            "prompt": "Every recovery journey is unique. Take time to reflect on your personal story - what led you to seek recovery, what challenges you've faced, and what progress you've made.",
+            "followUpQuestions": [
+              "What first made you aware that you needed help?",
+              "What have been the biggest challenges in your recovery so far?",
+              "What moments of progress or growth stand out to you?",
+              "What keeps you motivated to continue on this path?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "recovery-meaning",
+          "title": "What Recovery Means to Me",
+          "prompt": "Reflect on what recovery means to you personally. How do you define recovery?",
+          "followUpPrompts": [
+            "What aspects of recovery feel most important to you?",
+            "How has your understanding of recovery evolved over time?",
+            "What does recovery look like in your daily life?",
+            "What would recovery feel like emotionally and physically?"
+          ],
+          "intent": "explore",
+          "tags": ["recovery-definition", "personal-meaning", "evolution"]
+        }
+      ]
+    },
+    {
+      "id": "5.2",
+      "title": "Turning Points",
+      "description": "Identify key moments that shaped your journey",
+      "activities": [
+        {
+          "id": "turning-points",
+          "type": "reflection",
+          "title": "Key Turning Points",
+          "description": "Identify significant moments that shaped your recovery journey",
+          "points": 12,
+          "required": true,
+          "content": {
+            "prompt": "Think about the key moments, decisions, or realizations that have been turning points in your recovery journey. These might be moments of insight, decisions to seek help, or experiences that changed your perspective.",
+            "followUpQuestions": [
+              "What was the first turning point that led you toward recovery?",
+              "What moments of insight have been most meaningful to you?",
+              "What decisions do you feel proud of making?",
+              "How have these turning points changed your perspective?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "challenges-lessons",
+          "title": "Challenges and Lessons",
+          "prompt": "Reflect on the challenges you've faced and what you've learned from them.",
+          "followUpPrompts": [
+            "What has been your biggest challenge in recovery?",
+            "What have you learned about yourself through these challenges?",
+            "What coping strategies have been most helpful?",
+            "How have these challenges made you stronger?"
+          ],
+          "intent": "explore",
+          "tags": ["challenges", "learning", "growth", "resilience"]
+        }
+      ]
+    },
+    {
+      "id": "5.3",
+      "title": "Recovery Goals",
+      "description": "Clarify your goals and vision for recovery",
+      "activities": [
+        {
+          "id": "recovery-goals",
+          "type": "reflection",
+          "title": "Recovery Goals and Vision",
+          "description": "Clarify your goals and vision for recovery",
+          "points": 10,
+          "required": true,
+          "content": {
+            "prompt": "What does recovery mean to you? What are your goals and hopes for your recovery journey? Consider both short-term and long-term aspirations.",
+            "followUpQuestions": [
+              "What does a recovered life look like to you?",
+              "What are your most important recovery goals right now?",
+              "What would you like to be able to do that feels difficult now?",
+              "How will you know you're making progress toward your goals?"
+            ]
+          }
+        }
+      ],
+      "reflectionPrompts": [
+        {
+          "id": "progress-celebration",
+          "title": "Celebrating Progress",
+          "prompt": "Take time to recognize and celebrate the progress you've made, no matter how small.",
+          "followUpPrompts": [
+            "What progress are you most proud of?",
+            "What small victories have you experienced?",
+            "How have you grown as a person through this journey?",
+            "What would you tell your past self about how far you've come?"
+          ],
+          "intent": "celebrate",
+          "tags": ["progress", "celebration", "growth", "self-compassion"]
+        }
+      ]
+    }
+  ]
+} 

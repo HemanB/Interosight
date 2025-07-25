@@ -1,13 +1,5 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-
-# Data
-data/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Env
-.env
+docs/PROJECT_HOLY_GRAIL.md 
+reddit_collector/database/
+reddit_collector/.env
+reddit_eda/.env
+reddit_eda/database/
