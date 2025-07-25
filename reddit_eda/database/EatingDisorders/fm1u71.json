@@ -1,0 +1,44 @@
+{
+  "id": "fm1u71",
+  "subreddit": "EatingDisorders",
+  "author": "EDPostRequests",
+  "created_utc": 1584735125.0,
+  "title": "Eating Disorder Discord server is live!",
+  "selftext": "Hello friends,\n\n\n\nThe Eating Disorder discord server is live. At least 10 of you people wanted the Discord server and since I'm excited to create one too I went ahead and made one.\n\nHow will we moderate Discord?\n\n* There's an automatic check for numbers in combination with trigger words. Things such as \"I lost 5 KG\", \"I ate 400 calories\" will AUTOMATICALLY be removed once posted. \n* You, the people using the server, have the ability to remove comments in case they DO NOT automatically get removed by the bot. Simply add a reaction and if the threshold is reached then the message will be removed. (Currently it's set to 3 reactions).\n* Some other handy commands that you can check out on the server\n\nI've listened to the feedback from the survey ([this one](https://forms.gle/nTBEG7Xvbd6C73ZG9)) and currently there's NO option for voice chat as it is in fact very hard to moderate.\n\nSecondly, I've only set up some basic channels and ideas. All the rest should be community driven. \n\nLastly for those who want to join to talk:\n\n#[CLICK ME](https://discord.gg/ShRD55t)\n\nPlease give feedback to /u/Ghordrin if you want to add/change things.\n\nThanks!",
+  "url": "https://www.reddit.com/r/EatingDisorders/comments/fm1u71/eating_disorder_discord_server_is_live/",
+  "score": 57,
+  "num_comments": 3,
+  "comments": [
+    {
+      "id": "fnrg0zs",
+      "author": "Pastel-CrabMeat",
+      "body": "my devices wont let me in :(",
+      "created_utc": 1587187845.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "hwivwe8",
+      "author": "Queen-Clio",
+      "body": "Is this server still active? I tried to join but the landing channel wouldn't load and had an error.",
+      "created_utc": 1644598154.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "fo6k7j9",
+      "author": "EDPostRequests",
+      "body": "Hi, can you PM /u/Ghordrin to see if we can resolve this issue? Everything should be working.",
+      "created_utc": 1587560849.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "fnrg0zs",
+          "author": "Pastel-CrabMeat",
+          "body": "my devices wont let me in :(",
+          "created_utc": 1587187845.0
+        }
+      ]
+    }
+  ]
+}

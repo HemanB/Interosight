@@ -1,0 +1,1340 @@
+{
+  "id": "jvqpox",
+  "subreddit": "ARFID",
+  "author": "Unclesmekky",
+  "created_utc": 1605608600.0,
+  "title": "Making an ARFID app",
+  "selftext": "I\u2019m designing an app that would allow fellow ARFID sufferers to add in all the things they are willing to eat and it would try set a random meal plan for each week using those ingredients and also try recommend new meals using those ingredients just an idea but I\u2019d love to know what you guys think ?\n\nEDIT: if you have any features of ideas you would like implemented in the app comment them and well look into it",
+  "url": "https://www.reddit.com/r/ARFID/comments/jvqpox/making_an_arfid_app/",
+  "score": 229,
+  "num_comments": 92,
+  "comments": [
+    {
+      "id": "gcm9jq4",
+      "author": "kfilks",
+      "body": "Sounds pretty cool- would be awesome if there was a way to get recommendations of other safe foods that people who eat similarly to me so I could think about maybe trying them",
+      "created_utc": 1605627570.0,
+      "score": 32,
+      "context": []
+    },
+    {
+      "id": "gcmjv2b",
+      "author": "honeyorsalt",
+      "body": "i know we do this sometimes on the sub but having a comprehensive list of food *descriptions* might be helpful, i've seen lots of people say that having clear expectations about the texture/taste beforehand helps them with trying new foods.        \nmaybe make it a community feature where everyone can add their own descriptions?",
+      "created_utc": 1605632452.0,
+      "score": 21,
+      "context": []
+    },
+    {
+      "id": "gcmdksh",
+      "author": "Lauramae0892",
+      "body": "This sounds so great!! What a cool idea. Maybe you could add an option for it to help you with food bridging to gain new safe foods? For example blueberry poptarts -> blueberry muffins -> fresh blueberries",
+      "created_utc": 1605629528.0,
+      "score": 14,
+      "context": []
+    },
+    {
+      "id": "gclk40b",
+      "author": "None",
+      "body": "Sounds beyond amazing, thankyou",
+      "created_utc": 1605609315.0,
+      "score": 28,
+      "context": []
+    },
+    {
+      "id": "gclmq25",
+      "author": "None",
+      "body": "Sign me up for the beta!",
+      "created_utc": 1605612104.0,
+      "score": 10,
+      "context": []
+    },
+    {
+      "id": "gcmeqbm",
+      "author": "ExpiredKebab",
+      "body": "This app will change my whole life bro \ud83d\ude2d",
+      "created_utc": 1605630067.0,
+      "score": 9,
+      "context": []
+    },
+    {
+      "id": "gcmojwc",
+      "author": "PrimPup",
+      "body": "My therapist would love to use this with me, we\u2019ve been making spreadsheets",
+      "created_utc": 1605634598.0,
+      "score": 8,
+      "context": []
+    },
+    {
+      "id": "gcloftq",
+      "author": "5minutecall",
+      "body": "This sounds so good! Would love to beta test if you need volunteers! \ud83d\ude01",
+      "created_utc": 1605613787.0,
+      "score": 6,
+      "context": []
+    },
+    {
+      "id": "gcmtxjb",
+      "author": "Squedder",
+      "body": "Maybe a way to add recipes on how to make certain healthy foods crunchy?",
+      "created_utc": 1605637045.0,
+      "score": 6,
+      "context": []
+    },
+    {
+      "id": "gcnhbxd",
+      "author": "RainSmile",
+      "body": "I am not certain I would use an app like this unless it focused 90% on the mental health aspect of it. \nIt would be more beneficial as a robo-counselor specific to ARFID with actual roadmaps and many customizations. \nYou might do better not only interviewing people with ARFID but get interviews with qualified individuals who treat ARFID so you know how to structure the suggestions based on whether users are open to new experiences. They should take a short quiz to determine where they are on the OCEAN acronym scale. \nFor instance, I am open to new experiences (60%) but highly neurotic (100%) so my impulses are pretty unpredictable and based on my mood I may be wildly receptive to a new food one day and go back to only eating one thing for a whole week. Anticipating this type of behavior would be extremely useful in an app. \nAdding some kind of mood tracker (how you feel while consuming the food) would be beneficial I think. \n\nA lot of the struggle with ARFID is in the fear/aversion mindset. \nOur mental relationship with food can be just as strong as the association with the flavors and textures. Texture and gag reflex is sometimes the only factor with certain aversions to foods even if they taste good in the mouth. Lol \n\nFor instance, I can\u2019t eat most savory sandwiches without potato chips or toasted bread. \nI absolutely hate anything remotely mushy or slimy. Even crunchy veggies are difficult because they make the bread soggy. \n\nFor me I find myself fighting to finish food as quickly as possible so I don\u2019t run the risk of anything getting soggy or flavors mixing too much. \n\nYou might add tips like \u201cPut the cheese on the interior of each slice of bread so there is a barrier between the lettuce and the bread. \nThis will limit the water content from the lettuce seeping into the bread.\u201d\n\nCooking instructions and recipes that are texture-integrity and mental health focused. \n\n- Not everyone understands just how bad and mushy overcooking pasta affects the texture, for instance. \n\nThe mental health side could look like:\n\u201cConsume in a well lit area with someone you love.\u201d\n\nYou could also add in quick buttons that allow you to select certain common activities people with ARFID engage in. \n\nMine would be snacking at 1am on the only things I will eat (usually crunchy cereals and cookies with yogurt) instead of eating the new meals I prepared to be eaten at 6-7pm. \n\nI sometimes forget to eat in general and so the mental health aspect should come into play with a notification like \u201cYou have late-night snacked 7 days in a row this week (marked \u201cstop doing\u201d) would you like to set a reminder to increase snacking during daylight hours?\u201d\n\nYou might want to look at an app called Daylio. \nIt\u2019s a mood tracking app/journaling app that uses activity buttons which makes it extremely quick to use. \n\nI think that marrying some aspects from that app (ease of use, ability to create category files and its cute UI) would be great. \n\nIt HAS TO HAVE DARK MODE and don\u2019t use cheesy looking old emojis anywhere or cell shaded images. Use crisp and clean simple vector designs for the graphics. \n\nIt should be fun and something a kid could use but also aesthetically pleasing to adults. \n\nToo many diet type apps use the most boring or unreadable blog article fonts and blindingly white backgrounds and too many menus of unclear categories and data isn\u2019t easily found within those menus. \n\nI have ADHD and the only app I have used for 3 months in a row every day is Daylio, which is why I suggest modeling it after that app. \n\nI also believe that you should keep the community NOT ON THE APP but instead make a Subreddit and Discord. Having a social media aspect will just bog it down imo.  \nIf I wanted to use this to connect with people then I would be looking to Reddit or a separate forum anyway. \n\nThe current idea would work best having a narrow focus within the app but then develop a strong social media and website community just outside of it. The app could link to the website and community forums for contact quite easily without bogging down the official app with that stuff. Plus then you\u2019d be running a niche blog for ARFID on a separate website which will be profitable. The Reddit or web forum could serve as the hub for suggestions. \n\nAdd a customer service phone number. \nIf I can\u2019t speak to a real person when I\u2019m having issues with my account, it\u2019s over. \nLook up User Experience. It\u2019s separate from Customer Service (but under that umbrella) and it\u2019s extremely important).",
+      "created_utc": 1605647773.0,
+      "score": 6,
+      "context": []
+    },
+    {
+      "id": "gcnur8k",
+      "author": "candlerrr",
+      "body": "I work for a software startup and would love to beta test if you need it! Some things I would recommend: \n- If you create a community in the app, make sure it is pretty limited. You may end up with a harmful environment of people who come to get better but then are triggered. I\u2019ve experienced a few online communities for eating disorders that are not monitored and it gets messy. \n- I\u2019ve used \u201cMy Fitness Pal\u201d for a while and loved the fact that there were common food items with the nutritional value added. Made it easy to search and count calories. Not sure how possible this would be to implement since I believe the data on that app comes from its large user base. \n- A recipe forum would be AMAZING. A place to share favorites and tasty food combos. The ability to bookmark them would be cool. \n- One thing that may help people is if you could rate food items as \u201cwill eat\u201d, \u201cwilling to try\u201d, and \u201ccannot eat\u201d. It could match safe foods with other food items they\u2019re willing to try that go well together. \n- The ability to enter your age, weight, height, etc to calculate a healthy daily calorie/nutrient recommendation. \n- maybe a daily diary to log how you feel, progress you\u2019ve made, etc (should stay private) \n\nSuper excited for this and I wish you luck on your creation!",
+      "created_utc": 1605654398.0,
+      "score": 6,
+      "context": []
+    },
+    {
+      "id": "gcmo9d4",
+      "author": "None",
+      "body": "Maybe you could have something to do with prices? Like if people have a really tight budget maybe say roughly what things they could buy",
+      "created_utc": 1605634460.0,
+      "score": 5,
+      "context": []
+    },
+    {
+      "id": "gclu9tm",
+      "author": "lil_jabroni",
+      "body": "i\u2019d love this!",
+      "created_utc": 1605618633.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "gcm9i8p",
+      "author": "None",
+      "body": "let us know when you do it!!",
+      "created_utc": 1605627549.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "gcmdxsw",
+      "author": "jkjwysa",
+      "body": "this sounds freaking awesome! would love to test!! thank you in advance, what a cool idea \ud83d\udc95",
+      "created_utc": 1605629698.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "gcmkw8x",
+      "author": "r1ddl3d",
+      "body": "This sounds incredibly helpful! If you need another beta tester sign me up please!",
+      "created_utc": 1605632929.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "gcmdmok",
+      "author": "Myodokaii",
+      "body": "I'd love to beta test this app! Thank you for doing this.",
+      "created_utc": 1605629553.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "gcmia5r",
+      "author": "joan-117",
+      "body": "This sounds awesome! It would be great to have an option for tracking nutritional value.",
+      "created_utc": 1605631722.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "gcmlacv",
+      "author": "WhalienAzul",
+      "body": "That would be amazing! I'd love to have something like that.",
+      "created_utc": 1605633107.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "gcn1eho",
+      "author": "None",
+      "body": "You could have a goal tab that a user could customize to their own liking such as eating 3 meals per day, adding x number of new foods in x amount of time, ect. just a spot where they can also track their progress as well as keep up with a meal plan.",
+      "created_utc": 1605640466.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "gcnht4y",
+      "author": "None",
+      "body": "[deleted]",
+      "created_utc": 1605647993.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "gcqdarf",
+      "author": "None",
+      "body": "Great idea! The only thing I'd be careful about is calories. I know for majority with ARFID (myself included) it might not bother someone to see the calories and have an idea of foods that are similar in calories/macro nutrients. However, there are individuals with ARFID who also have other eating disorders - it's not uncommon that ARFID can overlap with other EDs. It's also not uncommon for ARFID to eventually lead to other more well known eating disorders ( and a behavior can be calorie counting). So maybe just something to be mindful of!  \n\n\nAlso, putting allergen warnings would be helpful if you're coming up with recipes! There's some with ARFID who fear negative consequences such as allergic reactions so being able to know what allergens are in the food and how they can modify it and eventually work their way up to the actual food.  \n\n\nMaybe adding an option to create your own hierarchy of fear foods with a rating of like 1-5 or something like that. Having a visual of fear foods to then check off these foods as you expose yourself to them, or a way to visually see the food and a recipe in which the fear food can be added.",
+      "created_utc": 1605717250.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "gdn5fi2",
+      "author": "charltonjohn",
+      "body": "Chicken McNuggets and Velveeta Mac and Cheese. That's it for me.",
+      "created_utc": 1606380465.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "gcmskme",
+      "author": "FiguringItOut--",
+      "body": "This sounds awesome!! I was thinking about this just last month. It would be a great way to help people explore what other foods might work for them!",
+      "created_utc": 1605636425.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcmw5bb",
+      "author": "AshleyVakarian",
+      "body": "This sounds absolutely incredible!!!",
+      "created_utc": 1605638060.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcmyl22",
+      "author": "DifferentIsPossble",
+      "body": "Oh my god. That sounds stellar. Thank you, thank you, thank you!",
+      "created_utc": 1605639173.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcn6kbu",
+      "author": "iamthequeenbee",
+      "body": "This is an AMAZING idea!! I'd love to use it when available!!",
+      "created_utc": 1605642841.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcn9dzh",
+      "author": "im_a_duck__quack",
+      "body": "\ud83e\udd29\ud83e\udd29\ud83e\udd29this is such a brilliant idea, like it would honestly be a major help on days when you don't know what to make anymore. And a community page part of it would be super cool too, just a place where we can exchange recipes or provide tips on how to make a certain recipe taste a little better or have a certain texture.",
+      "created_utc": 1605644138.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcnara6",
+      "author": "kissmyastro95",
+      "body": "This is amazing! Please add me to the beta list! \ud83e\udd29",
+      "created_utc": 1605644757.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcncrze",
+      "author": "SmellMyMangoes",
+      "body": "I love the idea of this! You could also do recommendations of foods that are similar to your safe foods or foods that you have in common with others, then you could see what else they eat that you might like!",
+      "created_utc": 1605645676.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcng43m",
+      "author": "Ze_Labyrinth",
+      "body": "This is such a great idea!",
+      "created_utc": 1605647219.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcnixni",
+      "author": "TemperanceL",
+      "body": "I mean, I don't know if it'd be too much or not, but some guides or links to ressources that would help make trying new stuff more tolerable. Like I've read around that usually baking vegetables in the oven and using spices help, but I know nothing about how to do all that well and how to mix things together to make trying them easier, so some way to help with that would be neat;\n\nLove the idea in general though!",
+      "created_utc": 1605648521.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcophsk",
+      "author": "Mr_Lune",
+      "body": "Could I suggest a scale system of how safe a food is and maybe a way to encourage new foods so when we get more comfortable with a food we can put it higher on the scale.  I hope that makes sense",
+      "created_utc": 1605671772.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcpsvfu",
+      "author": "Papercloudempath",
+      "body": "Yes yes yes yes yes yes yes!! I love this idea so so much!!!! Would it be able to calculate a persons nutritional intake too based on the foods we can eat? Just so that we can see if we\u2019re having any deficiencies :) \n\nAlso, based on the foods we can eat, would it be able to recommend the best nutritional plan using those foods?\n\nWould it be like an exposure therapy app??\n\nSorry for all of the questions I\u2019m just really excited :3",
+      "created_utc": 1605706318.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcrmxyq",
+      "author": "None",
+      "body": "This sounds amazing \u2764\ufe0f",
+      "created_utc": 1605738881.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gf0ou00",
+      "author": "Ram-brose",
+      "body": "Yes yes yes!!!",
+      "created_utc": 1607398852.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gj9ywn3",
+      "author": "87oldben",
+      "body": "Just come on about to ask a very similar question,\nMy daughter has recently heen diagnosed and was looking to make a app to keep track of foods etc.\n\nI've got a tiny bit of experience using react & react-native.\n\nWhat stack are you using ? \nWould you need any help with your app or website? \nAre you still working on it?",
+      "created_utc": 1610661302.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gq76h9v",
+      "author": "J2MES",
+      "body": "Any update on this? I need something like this in my life rn\n\nAlso is there a windows version you could make or would it only be on the phone",
+      "created_utc": 1615201871.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "gcm9ugm",
+      "author": "Unclesmekky",
+      "body": "Kinda like a sub I like that idea you could follow foods and it shows you others who follow that food and users could put their recommendations to what they like",
+      "created_utc": 1605627717.0,
+      "score": 21,
+      "context": [
+        {
+          "id": "gcm9jq4",
+          "author": "kfilks",
+          "body": "Sounds pretty cool- would be awesome if there was a way to get recommendations of other safe foods that people who eat similarly to me so I could think about maybe trying them",
+          "created_utc": 1605627570.0
+        }
+      ]
+    },
+    {
+      "id": "gcmlt3m",
+      "author": "Unclesmekky",
+      "body": "Ohhh that\u2019s a GREAT idea I might see if I can find official discriptopns (if that even exsists)\n\nExcuse my spelling mucho dyslexic here",
+      "created_utc": 1605633344.0,
+      "score": 13,
+      "context": [
+        {
+          "id": "gcmjv2b",
+          "author": "honeyorsalt",
+          "body": "i know we do this sometimes on the sub but having a comprehensive list of food *descriptions* might be helpful, i've seen lots of people say that having clear expectations about the texture/taste beforehand helps them with trying new foods.        \nmaybe make it a community feature where everyone can add their own descriptions?",
+          "created_utc": 1605632452.0
+        }
+      ]
+    },
+    {
+      "id": "gclk59k",
+      "author": "Unclesmekky",
+      "body": "Was thinking I could add a bit that has recommendations for sauces and extra things to add",
+      "created_utc": 1605609352.0,
+      "score": 14,
+      "context": [
+        {
+          "id": "gclk40b",
+          "author": "None",
+          "body": "Sounds beyond amazing, thankyou",
+          "created_utc": 1605609315.0
+        }
+      ]
+    },
+    {
+      "id": "gcmesex",
+      "author": "Unclesmekky",
+      "body": "Fitting username g well sort you out so your not eating that anymore",
+      "created_utc": 1605630094.0,
+      "score": 7,
+      "context": [
+        {
+          "id": "gcmeqbm",
+          "author": "ExpiredKebab",
+          "body": "This app will change my whole life bro \ud83d\ude2d",
+          "created_utc": 1605630067.0
+        }
+      ]
+    },
+    {
+      "id": "gclunf0",
+      "author": "Unclesmekky",
+      "body": "Yeah sure I was thinking this would be free anyway so I\u2019ll message you when it\u2019s done",
+      "created_utc": 1605618904.0,
+      "score": 7,
+      "context": [
+        {
+          "id": "gcloftq",
+          "author": "5minutecall",
+          "body": "This sounds so good! Would love to beta test if you need volunteers! \ud83d\ude01",
+          "created_utc": 1605613787.0
+        }
+      ]
+    },
+    {
+      "id": "gcmxdc9",
+      "author": "Unclesmekky",
+      "body": "Dyu mind me asking why I\u2019ve heard that word being used quite a lot on this sub (I only came across this disorder not to long ago) is crunchy a texture that is people in this sub tend to like or ?",
+      "created_utc": 1605638621.0,
+      "score": 6,
+      "context": [
+        {
+          "id": "gcmtxjb",
+          "author": "Squedder",
+          "body": "Maybe a way to add recipes on how to make certain healthy foods crunchy?",
+          "created_utc": 1605637045.0
+        }
+      ]
+    },
+    {
+      "id": "gcnzo8s",
+      "author": "RealLivePersonInNC",
+      "body": "FYI my daughter is at the beginning of an ARFID study (run by a University) and she\u2019s being asked to say what foods she has tried that are crunchy, salty, sweet, chewy, or sour. So those might be categories to think about.",
+      "created_utc": 1605657045.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "gcmtxjb",
+          "author": "Squedder",
+          "body": "Maybe a way to add recipes on how to make certain healthy foods crunchy?",
+          "created_utc": 1605637045.0
+        }
+      ]
+    },
+    {
+      "id": "gcuaemi",
+      "author": "None",
+      "body": "[removed]",
+      "created_utc": 1605802713.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcnur8k",
+          "author": "candlerrr",
+          "body": "I work for a software startup and would love to beta test if you need it! Some things I would recommend: \n- If you create a community in the app, make sure it is pretty limited. You may end up with a harmful environment of people who come to get better but then are triggered. I\u2019ve experienced a few online communities for eating disorders that are not monitored and it gets messy. \n- I\u2019ve used \u201cMy Fitness Pal\u201d for a while and loved the fact that there were common food items with the nutritional value added. Made it easy to search and count calories. Not sure how possible this would be to implement since I believe the data on that app comes from its large user base. \n- A recipe forum would be AMAZING. A place to share favorites and tasty food combos. The ability to bookmark them would be cool. \n- One thing that may help people is if you could rate food items as \u201cwill eat\u201d, \u201cwilling to try\u201d, and \u201ccannot eat\u201d. It could match safe foods with other food items they\u2019re willing to try that go well together. \n- The ability to enter your age, weight, height, etc to calculate a healthy daily calorie/nutrient recommendation. \n- maybe a daily diary to log how you feel, progress you\u2019ve made, etc (should stay private) \n\nSuper excited for this and I wish you luck on your creation!",
+          "created_utc": 1605654398.0
+        }
+      ]
+    },
+    {
+      "id": "gcmoe2v",
+      "author": "Unclesmekky",
+      "body": "Great idea I\u2019ll write this down I\u2019d have to do research for other countries I\u2019m based in uk so  users could help with future verification from us",
+      "created_utc": 1605634522.0,
+      "score": 3,
+      "context": [
+        {
+          "id": "gcmo9d4",
+          "author": "None",
+          "body": "Maybe you could have something to do with prices? Like if people have a really tight budget maybe say roughly what things they could buy",
+          "created_utc": 1605634460.0
+        }
+      ]
+    },
+    {
+      "id": "gcluljz",
+      "author": "Unclesmekky",
+      "body": "Is ur name a iasip reference ?",
+      "created_utc": 1605618867.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "gclu9tm",
+          "author": "lil_jabroni",
+          "body": "i\u2019d love this!",
+          "created_utc": 1605618633.0
+        }
+      ]
+    },
+    {
+      "id": "gcuavy8",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1605802942.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcm9i8p",
+          "author": "None",
+          "body": "let us know when you do it!!",
+          "created_utc": 1605627549.0
+        }
+      ]
+    },
+    {
+      "id": "gcuamfl",
+      "author": "None",
+      "body": "[removed]",
+      "created_utc": 1605802815.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcmdxsw",
+          "author": "jkjwysa",
+          "body": "this sounds freaking awesome! would love to test!! thank you in advance, what a cool idea \ud83d\udc95",
+          "created_utc": 1605629698.0
+        }
+      ]
+    },
+    {
+      "id": "gcmkz5s",
+      "author": "Unclesmekky",
+      "body": "No problem bud I\u2019m gonna do another post when it\u2019s ready to get emails to sign up keep an eye out gg",
+      "created_utc": 1605632966.0,
+      "score": 5,
+      "context": [
+        {
+          "id": "gcmkw8x",
+          "author": "r1ddl3d",
+          "body": "This sounds incredibly helpful! If you need another beta tester sign me up please!",
+          "created_utc": 1605632929.0
+        }
+      ]
+    },
+    {
+      "id": "gd7sbmz",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1606052421.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcmdmok",
+          "author": "Myodokaii",
+          "body": "I'd love to beta test this app! Thank you for doing this.",
+          "created_utc": 1605629553.0
+        }
+      ]
+    },
+    {
+      "id": "gcmskrc",
+      "author": "kwaqiswhack",
+      "body": "Agreed!! I would love a program that I could input my meals for the day (pancakes breakfast, ensure lunch, chicken dinner - or whatever) and have it calculate nutritional value and let me know what I have covered and where I might still be lacking. BONUS POINTS if it generated suggestions for what I\u2019m missing (Vitamin C deficiency - drink one glass of OJ to satisfy)",
+      "created_utc": 1605636427.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "gcmia5r",
+          "author": "joan-117",
+          "body": "This sounds awesome! It would be great to have an option for tracking nutritional value.",
+          "created_utc": 1605631722.0
+        }
+      ]
+    },
+    {
+      "id": "gcnw0un",
+      "author": "None",
+      "body": "Maybe an option to share with other apps",
+      "created_utc": 1605655074.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcmia5r",
+          "author": "joan-117",
+          "body": "This sounds awesome! It would be great to have an option for tracking nutritional value.",
+          "created_utc": 1605631722.0
+        }
+      ]
+    },
+    {
+      "id": "gcpdapz",
+      "author": "Unclesmekky",
+      "body": "Message me your ideas",
+      "created_utc": 1605691848.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcnht4y",
+          "author": "None",
+          "body": "[deleted]",
+          "created_utc": 1605647993.0
+        }
+      ]
+    },
+    {
+      "id": "gcuau09",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1605802916.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcnht4y",
+          "author": "None",
+          "body": "[deleted]",
+          "created_utc": 1605647993.0
+        }
+      ]
+    },
+    {
+      "id": "gcqde53",
+      "author": "Unclesmekky",
+      "body": "I figure everything could be optional",
+      "created_utc": 1605717295.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcqdarf",
+          "author": "None",
+          "body": "Great idea! The only thing I'd be careful about is calories. I know for majority with ARFID (myself included) it might not bother someone to see the calories and have an idea of foods that are similar in calories/macro nutrients. However, there are individuals with ARFID who also have other eating disorders - it's not uncommon that ARFID can overlap with other EDs. It's also not uncommon for ARFID to eventually lead to other more well known eating disorders ( and a behavior can be calorie counting). So maybe just something to be mindful of!  \n\n\nAlso, putting allergen warnings would be helpful if you're coming up with recipes! There's some with ARFID who fear negative consequences such as allergic reactions so being able to know what allergens are in the food and how they can modify it and eventually work their way up to the actual food.  \n\n\nMaybe adding an option to create your own hierarchy of fear foods with a rating of like 1-5 or something like that. Having a visual of fear foods to then check off these foods as you expose yourself to them, or a way to visually see the food and a recipe in which the fear food can be added.",
+          "created_utc": 1605717250.0
+        }
+      ]
+    },
+    {
+      "id": "gcubbdx",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1605803145.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcmskme",
+          "author": "FiguringItOut--",
+          "body": "This sounds awesome!! I was thinking about this just last month. It would be a great way to help people explore what other foods might work for them!",
+          "created_utc": 1605636425.0
+        }
+      ]
+    },
+    {
+      "id": "gcub7fq",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1605803094.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcmw5bb",
+          "author": "AshleyVakarian",
+          "body": "This sounds absolutely incredible!!!",
+          "created_utc": 1605638060.0
+        }
+      ]
+    },
+    {
+      "id": "gcuakix",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1605802790.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcn9dzh",
+          "author": "im_a_duck__quack",
+          "body": "\ud83e\udd29\ud83e\udd29\ud83e\udd29this is such a brilliant idea, like it would honestly be a major help on days when you don't know what to make anymore. And a community page part of it would be super cool too, just a place where we can exchange recipes or provide tips on how to make a certain recipe taste a little better or have a certain texture.",
+          "created_utc": 1605644138.0
+        }
+      ]
+    },
+    {
+      "id": "gcuaob6",
+      "author": "None",
+      "body": "[removed]",
+      "created_utc": 1605802840.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "gcnara6",
+          "author": "kissmyastro95",
+          "body": "This is amazing! Please add me to the beta list! \ud83e\udd29",
+          "created_utc": 1605644757.0
+        }
+      ]
+    },
+    {
+      "id": "gcpdbkd",
+      "author": "Unclesmekky",
+      "body": "We already had this idea I think it would be super useful great suggestion",
+      "created_utc": 1605691875.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcncrze",
+          "author": "SmellMyMangoes",
+          "body": "I love the idea of this! You could also do recommendations of foods that are similar to your safe foods or foods that you have in common with others, then you could see what else they eat that you might like!",
+          "created_utc": 1605645676.0
+        }
+      ]
+    },
+    {
+      "id": "gcpda1t",
+      "author": "Unclesmekky",
+      "body": "Yeah what I want to do is users follow the foods they like and with that info we would try recommend foods that tend to go with each other",
+      "created_utc": 1605691827.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcophsk",
+          "author": "Mr_Lune",
+          "body": "Could I suggest a scale system of how safe a food is and maybe a way to encourage new foods so when we get more comfortable with a food we can put it higher on the scale.  I hope that makes sense",
+          "created_utc": 1605671772.0
+        }
+      ]
+    },
+    {
+      "id": "gcuas4q",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1605802891.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcrmxyq",
+          "author": "None",
+          "body": "This sounds amazing \u2764\ufe0f",
+          "created_utc": 1605738881.0
+        }
+      ]
+    },
+    {
+      "id": "gdfw88i",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1606225577.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcrmxyq",
+          "author": "None",
+          "body": "This sounds amazing \u2764\ufe0f",
+          "created_utc": 1605738881.0
+        }
+      ]
+    },
+    {
+      "id": "gclkxf8",
+      "author": "None",
+      "body": "That\u2019s a great idea! Could help a lot of people (me included)",
+      "created_utc": 1605610194.0,
+      "score": 6,
+      "context": [
+        {
+          "id": "gclk40b",
+          "author": "None",
+          "body": "Sounds beyond amazing, thankyou",
+          "created_utc": 1605609315.0
+        },
+        {
+          "id": "gclk59k",
+          "author": "Unclesmekky",
+          "body": "Was thinking I could add a bit that has recommendations for sauces and extra things to add",
+          "created_utc": 1605609352.0
+        }
+      ]
+    },
+    {
+      "id": "gcmevsp",
+      "author": "ExpiredKebab",
+      "body": "Hahaha \ud83d\ude02",
+      "created_utc": 1605630138.0,
+      "score": 3,
+      "context": [
+        {
+          "id": "gcmeqbm",
+          "author": "ExpiredKebab",
+          "body": "This app will change my whole life bro \ud83d\ude2d",
+          "created_utc": 1605630067.0
+        },
+        {
+          "id": "gcmesex",
+          "author": "Unclesmekky",
+          "body": "Fitting username g well sort you out so your not eating that anymore",
+          "created_utc": 1605630094.0
+        }
+      ]
+    },
+    {
+      "id": "gcmzx6j",
+      "author": "Squedder",
+      "body": "Yeah most people wat crunchy food only (or mostly) just like me. But there are also people who hate crunchy food and only enjoy soft mushy foods (the minority tho). But it would be nice if you could include something like that for both crunchy and mushy preferring people :)\n\nIf you have any questions don't be afraid to ask!",
+      "created_utc": 1605639784.0,
+      "score": 6,
+      "context": [
+        {
+          "id": "gcmtxjb",
+          "author": "Squedder",
+          "body": "Maybe a way to add recipes on how to make certain healthy foods crunchy?",
+          "created_utc": 1605637045.0
+        },
+        {
+          "id": "gcmxdc9",
+          "author": "Unclesmekky",
+          "body": "Dyu mind me asking why I\u2019ve heard that word being used quite a lot on this sub (I only came across this disorder not to long ago) is crunchy a texture that is people in this sub tend to like or ?",
+          "created_utc": 1605638621.0
+        }
+      ]
+    },
+    {
+      "id": "gcmzgzk",
+      "author": "MrVonic",
+      "body": "Crunchy textures are my safe texture and I think that's true for a lot of people with ARFID. I know that if a food is crunchy then there's a good chance I can tolerate it",
+      "created_utc": 1605639577.0,
+      "score": 4,
+      "context": [
+        {
+          "id": "gcmtxjb",
+          "author": "Squedder",
+          "body": "Maybe a way to add recipes on how to make certain healthy foods crunchy?",
+          "created_utc": 1605637045.0
+        },
+        {
+          "id": "gcmxdc9",
+          "author": "Unclesmekky",
+          "body": "Dyu mind me asking why I\u2019ve heard that word being used quite a lot on this sub (I only came across this disorder not to long ago) is crunchy a texture that is people in this sub tend to like or ?",
+          "created_utc": 1605638621.0
+        }
+      ]
+    },
+    {
+      "id": "gcuafht",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcuaemi&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605802724.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcnur8k",
+          "author": "candlerrr",
+          "body": "I work for a software startup and would love to beta test if you need it! Some things I would recommend: \n- If you create a community in the app, make sure it is pretty limited. You may end up with a harmful environment of people who come to get better but then are triggered. I\u2019ve experienced a few online communities for eating disorders that are not monitored and it gets messy. \n- I\u2019ve used \u201cMy Fitness Pal\u201d for a while and loved the fact that there were common food items with the nutritional value added. Made it easy to search and count calories. Not sure how possible this would be to implement since I believe the data on that app comes from its large user base. \n- A recipe forum would be AMAZING. A place to share favorites and tasty food combos. The ability to bookmark them would be cool. \n- One thing that may help people is if you could rate food items as \u201cwill eat\u201d, \u201cwilling to try\u201d, and \u201ccannot eat\u201d. It could match safe foods with other food items they\u2019re willing to try that go well together. \n- The ability to enter your age, weight, height, etc to calculate a healthy daily calorie/nutrient recommendation. \n- maybe a daily diary to log how you feel, progress you\u2019ve made, etc (should stay private) \n\nSuper excited for this and I wish you luck on your creation!",
+          "created_utc": 1605654398.0
+        },
+        {
+          "id": "gcuaemi",
+          "author": "None",
+          "body": "[removed]",
+          "created_utc": 1605802713.0
+        }
+      ]
+    },
+    {
+      "id": "gcma0bi",
+      "author": "lil_jabroni",
+      "body": "indeed it is :-)",
+      "created_utc": 1605627798.0,
+      "score": 3,
+      "context": [
+        {
+          "id": "gclu9tm",
+          "author": "lil_jabroni",
+          "body": "i\u2019d love this!",
+          "created_utc": 1605618633.0
+        },
+        {
+          "id": "gcluljz",
+          "author": "Unclesmekky",
+          "body": "Is ur name a iasip reference ?",
+          "created_utc": 1605618867.0
+        }
+      ]
+    },
+    {
+      "id": "gcuawwi",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcuavy8&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605802954.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcm9i8p",
+          "author": "None",
+          "body": "let us know when you do it!!",
+          "created_utc": 1605627549.0
+        },
+        {
+          "id": "gcuavy8",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605802942.0
+        }
+      ]
+    },
+    {
+      "id": "gcuanda",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcuamfl&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605802828.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcmdxsw",
+          "author": "jkjwysa",
+          "body": "this sounds freaking awesome! would love to test!! thank you in advance, what a cool idea \ud83d\udc95",
+          "created_utc": 1605629698.0
+        },
+        {
+          "id": "gcuamfl",
+          "author": "None",
+          "body": "[removed]",
+          "created_utc": 1605802815.0
+        }
+      ]
+    },
+    {
+      "id": "gcuav78",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcuau09&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605802932.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcnht4y",
+          "author": "None",
+          "body": "[deleted]",
+          "created_utc": 1605647993.0
+        },
+        {
+          "id": "gcuau09",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605802916.0
+        }
+      ]
+    },
+    {
+      "id": "gcqe0ng",
+      "author": "None",
+      "body": "For sure. But again, even having the option might be problematic for some. That's why apps like myfitness pal can be so detrimental to eating disorder recovery. So just something to consider, that's all!",
+      "created_utc": 1605717591.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcqdarf",
+          "author": "None",
+          "body": "Great idea! The only thing I'd be careful about is calories. I know for majority with ARFID (myself included) it might not bother someone to see the calories and have an idea of foods that are similar in calories/macro nutrients. However, there are individuals with ARFID who also have other eating disorders - it's not uncommon that ARFID can overlap with other EDs. It's also not uncommon for ARFID to eventually lead to other more well known eating disorders ( and a behavior can be calorie counting). So maybe just something to be mindful of!  \n\n\nAlso, putting allergen warnings would be helpful if you're coming up with recipes! There's some with ARFID who fear negative consequences such as allergic reactions so being able to know what allergens are in the food and how they can modify it and eventually work their way up to the actual food.  \n\n\nMaybe adding an option to create your own hierarchy of fear foods with a rating of like 1-5 or something like that. Having a visual of fear foods to then check off these foods as you expose yourself to them, or a way to visually see the food and a recipe in which the fear food can be added.",
+          "created_utc": 1605717250.0
+        },
+        {
+          "id": "gcqde53",
+          "author": "Unclesmekky",
+          "body": "I figure everything could be optional",
+          "created_utc": 1605717295.0
+        }
+      ]
+    },
+    {
+      "id": "gcuaik0",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1605802764.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcqdarf",
+          "author": "None",
+          "body": "Great idea! The only thing I'd be careful about is calories. I know for majority with ARFID (myself included) it might not bother someone to see the calories and have an idea of foods that are similar in calories/macro nutrients. However, there are individuals with ARFID who also have other eating disorders - it's not uncommon that ARFID can overlap with other EDs. It's also not uncommon for ARFID to eventually lead to other more well known eating disorders ( and a behavior can be calorie counting). So maybe just something to be mindful of!  \n\n\nAlso, putting allergen warnings would be helpful if you're coming up with recipes! There's some with ARFID who fear negative consequences such as allergic reactions so being able to know what allergens are in the food and how they can modify it and eventually work their way up to the actual food.  \n\n\nMaybe adding an option to create your own hierarchy of fear foods with a rating of like 1-5 or something like that. Having a visual of fear foods to then check off these foods as you expose yourself to them, or a way to visually see the food and a recipe in which the fear food can be added.",
+          "created_utc": 1605717250.0
+        },
+        {
+          "id": "gcqde53",
+          "author": "Unclesmekky",
+          "body": "I figure everything could be optional",
+          "created_utc": 1605717295.0
+        }
+      ]
+    },
+    {
+      "id": "gcub1q6",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1605803018.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcqdarf",
+          "author": "None",
+          "body": "Great idea! The only thing I'd be careful about is calories. I know for majority with ARFID (myself included) it might not bother someone to see the calories and have an idea of foods that are similar in calories/macro nutrients. However, there are individuals with ARFID who also have other eating disorders - it's not uncommon that ARFID can overlap with other EDs. It's also not uncommon for ARFID to eventually lead to other more well known eating disorders ( and a behavior can be calorie counting). So maybe just something to be mindful of!  \n\n\nAlso, putting allergen warnings would be helpful if you're coming up with recipes! There's some with ARFID who fear negative consequences such as allergic reactions so being able to know what allergens are in the food and how they can modify it and eventually work their way up to the actual food.  \n\n\nMaybe adding an option to create your own hierarchy of fear foods with a rating of like 1-5 or something like that. Having a visual of fear foods to then check off these foods as you expose yourself to them, or a way to visually see the food and a recipe in which the fear food can be added.",
+          "created_utc": 1605717250.0
+        },
+        {
+          "id": "gcqde53",
+          "author": "Unclesmekky",
+          "body": "I figure everything could be optional",
+          "created_utc": 1605717295.0
+        }
+      ]
+    },
+    {
+      "id": "gcubc7y",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcubbdx&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605803156.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcmskme",
+          "author": "FiguringItOut--",
+          "body": "This sounds awesome!! I was thinking about this just last month. It would be a great way to help people explore what other foods might work for them!",
+          "created_utc": 1605636425.0
+        },
+        {
+          "id": "gcubbdx",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605803145.0
+        }
+      ]
+    },
+    {
+      "id": "gcub8hg",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcub7fq&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605803108.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcmw5bb",
+          "author": "AshleyVakarian",
+          "body": "This sounds absolutely incredible!!!",
+          "created_utc": 1605638060.0
+        },
+        {
+          "id": "gcub7fq",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605803094.0
+        }
+      ]
+    },
+    {
+      "id": "gcualo1",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcuakix&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605802805.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcn9dzh",
+          "author": "im_a_duck__quack",
+          "body": "\ud83e\udd29\ud83e\udd29\ud83e\udd29this is such a brilliant idea, like it would honestly be a major help on days when you don't know what to make anymore. And a community page part of it would be super cool too, just a place where we can exchange recipes or provide tips on how to make a certain recipe taste a little better or have a certain texture.",
+          "created_utc": 1605644138.0
+        },
+        {
+          "id": "gcuakix",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605802790.0
+        }
+      ]
+    },
+    {
+      "id": "gcub5ic",
+      "author": "StellarTechInc",
+      "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+      "created_utc": 1605803069.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcncrze",
+          "author": "SmellMyMangoes",
+          "body": "I love the idea of this! You could also do recommendations of foods that are similar to your safe foods or foods that you have in common with others, then you could see what else they eat that you might like!",
+          "created_utc": 1605645676.0
+        },
+        {
+          "id": "gcpdbkd",
+          "author": "Unclesmekky",
+          "body": "We already had this idea I think it would be super useful great suggestion",
+          "created_utc": 1605691875.0
+        }
+      ]
+    },
+    {
+      "id": "gcuaszp",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcuas4q&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605802903.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcrmxyq",
+          "author": "None",
+          "body": "This sounds amazing \u2764\ufe0f",
+          "created_utc": 1605738881.0
+        },
+        {
+          "id": "gcuas4q",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605802891.0
+        }
+      ]
+    },
+    {
+      "id": "gclkyik",
+      "author": "Unclesmekky",
+      "body": "Great I\u2019ll send you the beta when it\u2019s ready",
+      "created_utc": 1605610226.0,
+      "score": 6,
+      "context": [
+        {
+          "id": "gclk40b",
+          "author": "None",
+          "body": "Sounds beyond amazing, thankyou",
+          "created_utc": 1605609315.0
+        },
+        {
+          "id": "gclk59k",
+          "author": "Unclesmekky",
+          "body": "Was thinking I could add a bit that has recommendations for sauces and extra things to add",
+          "created_utc": 1605609352.0
+        },
+        {
+          "id": "gclkxf8",
+          "author": "None",
+          "body": "That\u2019s a great idea! Could help a lot of people (me included)",
+          "created_utc": 1605610194.0
+        }
+      ]
+    },
+    {
+      "id": "gcn09fh",
+      "author": "Unclesmekky",
+      "body": "Ok so ideally you would want to set your preference of overall texture ?",
+      "created_utc": 1605639944.0,
+      "score": 7,
+      "context": [
+        {
+          "id": "gcmtxjb",
+          "author": "Squedder",
+          "body": "Maybe a way to add recipes on how to make certain healthy foods crunchy?",
+          "created_utc": 1605637045.0
+        },
+        {
+          "id": "gcmxdc9",
+          "author": "Unclesmekky",
+          "body": "Dyu mind me asking why I\u2019ve heard that word being used quite a lot on this sub (I only came across this disorder not to long ago) is crunchy a texture that is people in this sub tend to like or ?",
+          "created_utc": 1605638621.0
+        },
+        {
+          "id": "gcmzx6j",
+          "author": "Squedder",
+          "body": "Yeah most people wat crunchy food only (or mostly) just like me. But there are also people who hate crunchy food and only enjoy soft mushy foods (the minority tho). But it would be nice if you could include something like that for both crunchy and mushy preferring people :)\n\nIf you have any questions don't be afraid to ask!",
+          "created_utc": 1605639784.0
+        }
+      ]
+    },
+    {
+      "id": "gcuajlf",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcuaik0&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605802778.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcqdarf",
+          "author": "None",
+          "body": "Great idea! The only thing I'd be careful about is calories. I know for majority with ARFID (myself included) it might not bother someone to see the calories and have an idea of foods that are similar in calories/macro nutrients. However, there are individuals with ARFID who also have other eating disorders - it's not uncommon that ARFID can overlap with other EDs. It's also not uncommon for ARFID to eventually lead to other more well known eating disorders ( and a behavior can be calorie counting). So maybe just something to be mindful of!  \n\n\nAlso, putting allergen warnings would be helpful if you're coming up with recipes! There's some with ARFID who fear negative consequences such as allergic reactions so being able to know what allergens are in the food and how they can modify it and eventually work their way up to the actual food.  \n\n\nMaybe adding an option to create your own hierarchy of fear foods with a rating of like 1-5 or something like that. Having a visual of fear foods to then check off these foods as you expose yourself to them, or a way to visually see the food and a recipe in which the fear food can be added.",
+          "created_utc": 1605717250.0
+        },
+        {
+          "id": "gcqde53",
+          "author": "Unclesmekky",
+          "body": "I figure everything could be optional",
+          "created_utc": 1605717295.0
+        },
+        {
+          "id": "gcuaik0",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605802764.0
+        }
+      ]
+    },
+    {
+      "id": "gcub2pm",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcub1q6&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605803031.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcqdarf",
+          "author": "None",
+          "body": "Great idea! The only thing I'd be careful about is calories. I know for majority with ARFID (myself included) it might not bother someone to see the calories and have an idea of foods that are similar in calories/macro nutrients. However, there are individuals with ARFID who also have other eating disorders - it's not uncommon that ARFID can overlap with other EDs. It's also not uncommon for ARFID to eventually lead to other more well known eating disorders ( and a behavior can be calorie counting). So maybe just something to be mindful of!  \n\n\nAlso, putting allergen warnings would be helpful if you're coming up with recipes! There's some with ARFID who fear negative consequences such as allergic reactions so being able to know what allergens are in the food and how they can modify it and eventually work their way up to the actual food.  \n\n\nMaybe adding an option to create your own hierarchy of fear foods with a rating of like 1-5 or something like that. Having a visual of fear foods to then check off these foods as you expose yourself to them, or a way to visually see the food and a recipe in which the fear food can be added.",
+          "created_utc": 1605717250.0
+        },
+        {
+          "id": "gcqde53",
+          "author": "Unclesmekky",
+          "body": "I figure everything could be optional",
+          "created_utc": 1605717295.0
+        },
+        {
+          "id": "gcub1q6",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605803018.0
+        }
+      ]
+    },
+    {
+      "id": "gcub88q",
+      "author": "Unclesmekky",
+      "body": "Why don\u2019t you make a post like I did then it will get to more people instead of posting the same thing on everyone\u2019s comments",
+      "created_utc": 1605803105.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcncrze",
+          "author": "SmellMyMangoes",
+          "body": "I love the idea of this! You could also do recommendations of foods that are similar to your safe foods or foods that you have in common with others, then you could see what else they eat that you might like!",
+          "created_utc": 1605645676.0
+        },
+        {
+          "id": "gcpdbkd",
+          "author": "Unclesmekky",
+          "body": "We already had this idea I think it would be super useful great suggestion",
+          "created_utc": 1605691875.0
+        },
+        {
+          "id": "gcub5ic",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605803069.0
+        }
+      ]
+    },
+    {
+      "id": "gcub6gw",
+      "author": "LinkifyBot",
+      "body": "**I found links in your comment that were not hyperlinked:**\n\n* [www.get-embrace.com](https://www.get-embrace.com)\n\n*I did the honors for you.*\n\n***\n\n^[delete](https://www.reddit.com/message/compose?to=%2Fu%2FLinkifyBot&subject=delete%20gcub5ic&message=Click%20the%20send%20button%20to%20delete%20the%20false%20positive.) ^| ^[information](https://np.reddit.com/u/LinkifyBot/comments/gkkf7p) ^| ^<3",
+      "created_utc": 1605803081.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "gcncrze",
+          "author": "SmellMyMangoes",
+          "body": "I love the idea of this! You could also do recommendations of foods that are similar to your safe foods or foods that you have in common with others, then you could see what else they eat that you might like!",
+          "created_utc": 1605645676.0
+        },
+        {
+          "id": "gcpdbkd",
+          "author": "Unclesmekky",
+          "body": "We already had this idea I think it would be super useful great suggestion",
+          "created_utc": 1605691875.0
+        },
+        {
+          "id": "gcub5ic",
+          "author": "StellarTechInc",
+          "body": "Hello friend! I'm using the app Embrace to talk through my problems with real people who've gone through the same problems. It's helped me clear my head and get support! Only if it suits you, check us out!  We've got an iOS and Android app @ www.get-embrace.com. Peace and Love!",
+          "created_utc": 1605803069.0
+        }
+      ]
+    },
+    {
+      "id": "gcn5p2y",
+      "author": "Squedder",
+      "body": "I think that would be a really nice addition to an app! Also because some people (like me) can really feel grossed out from seeing mushy foods.",
+      "created_utc": 1605642448.0,
+      "score": 4,
+      "context": [
+        {
+          "id": "gcmtxjb",
+          "author": "Squedder",
+          "body": "Maybe a way to add recipes on how to make certain healthy foods crunchy?",
+          "created_utc": 1605637045.0
+        },
+        {
+          "id": "gcmxdc9",
+          "author": "Unclesmekky",
+          "body": "Dyu mind me asking why I\u2019ve heard that word being used quite a lot on this sub (I only came across this disorder not to long ago) is crunchy a texture that is people in this sub tend to like or ?",
+          "created_utc": 1605638621.0
+        },
+        {
+          "id": "gcmzx6j",
+          "author": "Squedder",
+          "body": "Yeah most people wat crunchy food only (or mostly) just like me. But there are also people who hate crunchy food and only enjoy soft mushy foods (the minority tho). But it would be nice if you could include something like that for both crunchy and mushy preferring people :)\n\nIf you have any questions don't be afraid to ask!",
+          "created_utc": 1605639784.0
+        },
+        {
+          "id": "gcn09fh",
+          "author": "Unclesmekky",
+          "body": "Ok so ideally you would want to set your preference of overall texture ?",
+          "created_utc": 1605639944.0
+        }
+      ]
+    },
+    {
+      "id": "gcntkwx",
+      "author": "Squedder",
+      "body": "Also what might be a really cool addition, is that you could select the vitamins you want to consume. Or just to see what vitamins are in the food",
+      "created_utc": 1605653781.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "gcmtxjb",
+          "author": "Squedder",
+          "body": "Maybe a way to add recipes on how to make certain healthy foods crunchy?",
+          "created_utc": 1605637045.0
+        },
+        {
+          "id": "gcmxdc9",
+          "author": "Unclesmekky",
+          "body": "Dyu mind me asking why I\u2019ve heard that word being used quite a lot on this sub (I only came across this disorder not to long ago) is crunchy a texture that is people in this sub tend to like or ?",
+          "created_utc": 1605638621.0
+        },
+        {
+          "id": "gcmzx6j",
+          "author": "Squedder",
+          "body": "Yeah most people wat crunchy food only (or mostly) just like me. But there are also people who hate crunchy food and only enjoy soft mushy foods (the minority tho). But it would be nice if you could include something like that for both crunchy and mushy preferring people :)\n\nIf you have any questions don't be afraid to ask!",
+          "created_utc": 1605639784.0
+        },
+        {
+          "id": "gcn09fh",
+          "author": "Unclesmekky",
+          "body": "Ok so ideally you would want to set your preference of overall texture ?",
+          "created_utc": 1605639944.0
+        }
+      ]
+    },
+    {
+      "id": "ghejavf",
+      "author": "TooManyNoodleZ",
+      "body": "People who suffer from ARFID have a wide variety of reasons as to why they discriminate certain foods.  Sometimes it's observable (color, texture, flavor [soure, spicy, etc.]), sometimes it's deeply personal and therefor not.  For example, I avoid sausage unless it's cut into tiny pieces and served as a topping on pizza because I'm afraid to choke (it's not sexual... I choked multiple times on breakfast sausage at mom and pop restaurants).  It's probably best if you let the userbase add their own tags.  Maybe an algorithm can let other people see a tag after it shows up x amount of times.  In the meantime, the users who put the tag can refer to it when using a search function.\n\nAlso, do you use github?  As a programmer that doesn't  know much about apps, I might learn from what you're doing.",
+      "created_utc": 1609258949.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "gcmtxjb",
+          "author": "Squedder",
+          "body": "Maybe a way to add recipes on how to make certain healthy foods crunchy?",
+          "created_utc": 1605637045.0
+        },
+        {
+          "id": "gcmxdc9",
+          "author": "Unclesmekky",
+          "body": "Dyu mind me asking why I\u2019ve heard that word being used quite a lot on this sub (I only came across this disorder not to long ago) is crunchy a texture that is people in this sub tend to like or ?",
+          "created_utc": 1605638621.0
+        },
+        {
+          "id": "gcmzx6j",
+          "author": "Squedder",
+          "body": "Yeah most people wat crunchy food only (or mostly) just like me. But there are also people who hate crunchy food and only enjoy soft mushy foods (the minority tho). But it would be nice if you could include something like that for both crunchy and mushy preferring people :)\n\nIf you have any questions don't be afraid to ask!",
+          "created_utc": 1605639784.0
+        },
+        {
+          "id": "gcn09fh",
+          "author": "Unclesmekky",
+          "body": "Ok so ideally you would want to set your preference of overall texture ?",
+          "created_utc": 1605639944.0
+        }
+      ]
+    }
+  ]
+}

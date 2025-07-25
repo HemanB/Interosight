@@ -1,0 +1,698 @@
+{
+  "id": "1ljichv",
+  "subreddit": "ARFID",
+  "author": "d5vis",
+  "created_utc": 1750788400.0,
+  "title": "i made an ARFID cooking app!",
+  "selftext": "hi! i've been working on a free community ARFID cookbook site/app called \"[anyone can cook](https://anyonecancook.app)\" where you can add your preferences, post & bookmark recipes, tag them with foods/textures, and filter recommendations based on what you can eat, and i wanted to share it!\n\ni've been studying computer science and have had ARFID for as long as i can remember, and wanted to build a little side project that i thought might be useful for some of us. i wanted something to help me keep track of what i can eat, and especially the recipes i can cook, but i thought it might be cool if we could all build a cookbook together!\n\nif you're open to trying it out or adding some recipes, here's the link:\n\n[anyonecancook.app](https://anyonecancook.app)\n\nit's very simple right now, and i want to be as inclusive as possible, so if you have any ideas or suggestions please let me know or send me a DM!\n\nhttps://preview.redd.it/6wprk1y91x8f1.png?width=1340&format=png&auto=webp&s=7e359b3304dd8d3e9f07ec4157fdd5609429a4d1\n\n>!\u200b!<",
+  "url": "https://www.reddit.com/r/ARFID/comments/1ljichv/i_made_an_arfid_cooking_app/",
+  "score": 286,
+  "num_comments": 63,
+  "comments": [
+    {
+      "id": "mzkazyl",
+      "author": "PhazonOmega",
+      "body": "WONDERFUL!!!!!",
+      "created_utc": 1750791805.0,
+      "score": 18,
+      "context": []
+    },
+    {
+      "id": "mzkq9u4",
+      "author": "Malicious2mech",
+      "body": "BLESS YOUR SOUL??",
+      "created_utc": 1750796415.0,
+      "score": 13,
+      "context": []
+    },
+    {
+      "id": "mzk26z4",
+      "author": "Exuberant343",
+      "body": "Might be totally besides the point, but I\u2019m not receiving a verification email, been about 5 minutes now",
+      "created_utc": 1750789296.0,
+      "score": 11,
+      "context": []
+    },
+    {
+      "id": "mzlu067",
+      "author": "Brainlesskiddo",
+      "body": "I love the idea, I'm definitely gonna share some recipes and hope that others will as well so people can find out what to do with their save foods or increase the palette of foods to try.\nThe layout looks really nice so far\n\nOnce the amount of recipes is big enough it would be cool to have different categories (drinks, meals, snacks, dessert), to look for other recipes.\nI don't know if it's possible already but maybe a way to edit the recipe in hindsight/add a better picture for the creator. And Maybe a comment section where people can add advice or ways to modify the recipes.\nThese are just a few ideas to make the website more accessible, though I know nothing about making websites xD",
+      "created_utc": 1750808575.0,
+      "score": 10,
+      "context": []
+    },
+    {
+      "id": "mzrzr7x",
+      "author": "leodai_",
+      "body": "I posted a few recipes and sent some suggestions through the app but I don't think I ever expressed how much I love this concept. It has incredible potential, so thank you so so much for taking the initiative! I'll try to keep contributing with other recipes whenever I see an opportunity.",
+      "created_utc": 1750888948.0,
+      "score": 11,
+      "context": []
+    },
+    {
+      "id": "mzkktin",
+      "author": "ageckonamedelaine",
+      "body": "Nice job it looks great!",
+      "created_utc": 1750794724.0,
+      "score": 9,
+      "context": []
+    },
+    {
+      "id": "mzm1pkb",
+      "author": "Roselyn-Q",
+      "body": "Downloaded!!! So excited to see how you use this tool to better our community and advocate for ARFID!! \ud83e\udd79\u2764\ufe0f",
+      "created_utc": 1750811205.0,
+      "score": 5,
+      "context": []
+    },
+    {
+      "id": "mzm987i",
+      "author": "xstarryeyedfox323",
+      "body": "Joined! Thank you so much for your hard work and for sharing with us. :)",
+      "created_utc": 1750813811.0,
+      "score": 4,
+      "context": []
+    },
+    {
+      "id": "mznpoqd",
+      "author": "SituationSad4304",
+      "body": "I love this idea. Let me know if I can help it along in any way",
+      "created_utc": 1750836099.0,
+      "score": 6,
+      "context": []
+    },
+    {
+      "id": "mzo3emu",
+      "author": "SonisVastara",
+      "body": "do you plan on making it into an app? this is amazing!",
+      "created_utc": 1750844277.0,
+      "score": 5,
+      "context": []
+    },
+    {
+      "id": "mzqygfa",
+      "author": "ScratchWarm9035",
+      "body": "I signed up and already enjoy what I see. Thanks.",
+      "created_utc": 1750878120.0,
+      "score": 5,
+      "context": []
+    },
+    {
+      "id": "mzr88mn",
+      "author": "Antique_Ad4322",
+      "body": "You\u2019re so awesome!!",
+      "created_utc": 1750880942.0,
+      "score": 4,
+      "context": []
+    },
+    {
+      "id": "mzra4sr",
+      "author": "dangrdan",
+      "body": "This is neat! Thank you!",
+      "created_utc": 1750881484.0,
+      "score": 5,
+      "context": []
+    },
+    {
+      "id": "mztidah",
+      "author": "kitkatbar27",
+      "body": "this is so awesome!!!!!!",
+      "created_utc": 1750907493.0,
+      "score": 4,
+      "context": []
+    },
+    {
+      "id": "mzo8fl6",
+      "author": "Original_Cable6719",
+      "body": "\ud83d\udc95\ud83c\udf55\ud83c\udf54\ud83c\udf40",
+      "created_utc": 1750847030.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mzocszw",
+      "author": "Squishgrimmy",
+      "body": "IM GONNA TRY THIS",
+      "created_utc": 1750849205.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mzp8qvr",
+      "author": "yourbadvalentine",
+      "body": "this is awesome",
+      "created_utc": 1750860902.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mzq1ig5",
+      "author": "minimaia3",
+      "body": "is there a way to see every recipe?\ni\u2019m only able to see like 4-5 based on what i like and im not really sure what im looking for so idk what i would search",
+      "created_utc": 1750869008.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mztr4je",
+      "author": "Imaginary_Taste9766",
+      "body": "WOW this is the best thing I\u2019ve ever seen. Great work!!!",
+      "created_utc": 1750911064.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mzut1b7",
+      "author": "m1cjwz",
+      "body": "omg i love you!!",
+      "created_utc": 1750931471.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mzzsr4p",
+      "author": "LetterheadLumpy5995",
+      "body": "Shared with my dietitian",
+      "created_utc": 1750989949.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "n174op2",
+      "author": "uusavaruus",
+      "body": "Thanks! \ud83e\udde1 I'm in a difficult spot w my neurodivergent teen, and just seeing their likes & dislikes clearly listed (something they haven't been able to do before) gave me some hope to keep looking for dishes they may be able to eat.",
+      "created_utc": 1751577308.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mzuf4zh",
+      "author": "CompetitiveBit7225",
+      "body": "DUDE THIS IS SO COOL!",
+      "created_utc": 1750923255.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "mzx3o7p",
+      "author": "Royal_Addendum1612",
+      "body": "This. Is. So. Fcking. Cool. Do you have an app on the App Store?",
+      "created_utc": 1750959215.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n027dr1",
+      "author": "thelesbiannextdoor",
+      "body": "omg this is awesome i'll go check it out!!",
+      "created_utc": 1751030571.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n04die9",
+      "author": "Ornery-Raspberry-509",
+      "body": "THANK YOU \ud83d\ude4f\ud83d\ude4f\ud83d\ude4f\ud83e\udd79\ud83e\udd79\ud83e\udd79",
+      "created_utc": 1751053145.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n0e13w3",
+      "author": "Still_Positive_8853",
+      "body": "this is go great it makes me so happy that people are making stuff like this! makes me feel so understood",
+      "created_utc": 1751195006.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n0iu57n",
+      "author": "thirty2junimos",
+      "body": "man, i've needed something like this. i don't have many recipes recommended based on my preferences, but there are clearly things i forgot as well as preferences that don't always apply (e.g. i love korean beef, but generally hate ground beef).\n\nsome recipe ideas you could add:\n- quesadillas (cheese for peak food ease)\n- rice balls\n- english muffin pizzas (or just add a note that says you can use english muffins instead of making the bread)\n- rice pudding (i used to like it, but i'm not sure how i feel about it now)\n- french toast\n- salad rolls \n- kettle corn \n- chicken noodle soup\n- chicken and dumpling soup\n- cheesy cauliflower\n- a simple pad thai\n- butter chicken\n- choco chip cookies\n- peanut butter and banana smoothie\n\ni hope those recipes sound appealing to people. i have the problem where i fall on the opposite end of some sort of spectrum, so some safe foods (ex. chicken tenders) are actually the bane of my existence.\n\ni'm not sure if you're in any need or if i have any skill to offer you but i'd be happy to help keep this project going in any way possible.",
+      "created_utc": 1751256470.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n1h19x2",
+      "author": "Dreamyluigi_82",
+      "body": "OH MY GOSH I NEED THIS!!",
+      "created_utc": 1751724903.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n1i1dlq",
+      "author": "d5vis",
+      "body": "over 235 users and 46 recipes have been added in just the past week! i've been adding all of your suggestions too, glad this has been helpful for so many people",
+      "created_utc": 1751736408.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n1kpa3r",
+      "author": "Key-March-5228",
+      "body": "sending this to my mom",
+      "created_utc": 1751770595.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n1yrn7u",
+      "author": "livwritesfics",
+      "body": "This actually looks so cool! Like what?!?! Thanks person on reddit!",
+      "created_utc": 1751972718.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n2hsgga",
+      "author": "debtinmydebitcard",
+      "body": "The only issue I've had is that certain recipes for some foods appear when I've explicitly disliked them in my preferences. There should be a community feature to add tags to recipes because often the recipe creator does not specify texture/food, and just like \"high sodium\" for example",
+      "created_utc": 1752208212.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n2uvrx0",
+      "author": "AdministrativePie906",
+      "body": "I love youu \ud83e\ude77\u2728\ufe0f",
+      "created_utc": 1752388394.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n2zdp22",
+      "author": "freakingsuperheroes",
+      "body": "whoa this is so cool!! thank you!!",
+      "created_utc": 1752448245.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n3gvu3y",
+      "author": "NpcSim",
+      "body": "Logged into Reddit just to thank you so so much. I literally cried tears of happiness and relief. Thank you so much \ud83d\ude2d this is perfect!",
+      "created_utc": 1752683322.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n3ijth9",
+      "author": "Ilikedollsnamedisa",
+      "body": "bless your heart!!! this is amazing. exactly what i\u2019ve been looking for. \n\njust a suggestion: i would love if you could implement the option for browsing healthier/low cal meals since my safe foods tend to be on the other end of the spectrum \ud83d\ude2d",
+      "created_utc": 1752699854.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n49x34y",
+      "author": "GIRONA1",
+      "body": "Hey! Just posted there. Wonderful site. You could also market it towards others with intolerances or disorders like celiac disease. Add a \"gluten free\" lactose free\", \"nut free\", etc. Would make life better. Keep the good work.",
+      "created_utc": 1753065947.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n4awi5u",
+      "author": "l0sermaenad",
+      "body": "oh my god i'm a little late to the party but just earlier today i was telling my dad i wished there was a cookbook for arfid. thank u so much.",
+      "created_utc": 1753082890.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n4ix5vx",
+      "author": "Cyber-Gon",
+      "body": "what's the difference between \"restrictions\" and \"dislikes?\"",
+      "created_utc": 1753192240.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "n19i4fa",
+      "author": "probablyasleep1",
+      "body": "i got the email but says not uploaded by server and i can\u2019t activate my account \ud83d\ude2d",
+      "created_utc": 1751610345.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "mzxv8k3",
+      "author": "charleychalk17",
+      "body": "HONESTLY?? I sure hope this blows up, even if it\u2019s not people with an eating disorder. OP deserves the world for this \ud83d\ude29",
+      "created_utc": 1750967046.0,
+      "score": 6,
+      "context": [
+        {
+          "id": "mzkq9u4",
+          "author": "Malicious2mech",
+          "body": "BLESS YOUR SOUL??",
+          "created_utc": 1750796415.0
+        }
+      ]
+    },
+    {
+      "id": "mzk2vji",
+      "author": "d5vis",
+      "body": "odd, could've gone to spam maybe? check if you just received anything",
+      "created_utc": 1750789489.0,
+      "score": 8,
+      "context": [
+        {
+          "id": "mzk26z4",
+          "author": "Exuberant343",
+          "body": "Might be totally besides the point, but I\u2019m not receiving a verification email, been about 5 minutes now",
+          "created_utc": 1750789296.0
+        }
+      ]
+    },
+    {
+      "id": "mzlw72m",
+      "author": "d5vis",
+      "body": "yay thank you! i'd love to add more filters and categories to the recipes once more are posted. you can edit recipes on your profile but i forgot to add an edit button to the actual recipe page oops good catch",
+      "created_utc": 1750809295.0,
+      "score": 7,
+      "context": [
+        {
+          "id": "mzlu067",
+          "author": "Brainlesskiddo",
+          "body": "I love the idea, I'm definitely gonna share some recipes and hope that others will as well so people can find out what to do with their save foods or increase the palette of foods to try.\nThe layout looks really nice so far\n\nOnce the amount of recipes is big enough it would be cool to have different categories (drinks, meals, snacks, dessert), to look for other recipes.\nI don't know if it's possible already but maybe a way to edit the recipe in hindsight/add a better picture for the creator. And Maybe a comment section where people can add advice or ways to modify the recipes.\nThese are just a few ideas to make the website more accessible, though I know nothing about making websites xD",
+          "created_utc": 1750808575.0
+        }
+      ]
+    },
+    {
+      "id": "mzw2jwl",
+      "author": "d5vis",
+      "body": "yay i'm glad! i appreciate the suggestions too, i'll be pushing an update soon to add more foods and textures",
+      "created_utc": 1750948845.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "mzrzr7x",
+          "author": "leodai_",
+          "body": "I posted a few recipes and sent some suggestions through the app but I don't think I ever expressed how much I love this concept. It has incredible potential, so thank you so so much for taking the initiative! I'll try to keep contributing with other recipes whenever I see an opportunity.",
+          "created_utc": 1750888948.0
+        }
+      ]
+    },
+    {
+      "id": "mzps2ir",
+      "author": "d5vis",
+      "body": "if i have the time and enough people use it i want to! for now though, it's setup where you can add it to your homscreen if you'd like",
+      "created_utc": 1750866378.0,
+      "score": 4,
+      "context": [
+        {
+          "id": "mzo3emu",
+          "author": "SonisVastara",
+          "body": "do you plan on making it into an app? this is amazing!",
+          "created_utc": 1750844277.0
+        }
+      ]
+    },
+    {
+      "id": "mztifqn",
+      "author": "kitkatbar27",
+      "body": "my only suggestion would be to add tofu to preferences option :-)",
+      "created_utc": 1750907520.0,
+      "score": 3,
+      "context": [
+        {
+          "id": "mztidah",
+          "author": "kitkatbar27",
+          "body": "this is so awesome!!!!!!",
+          "created_utc": 1750907493.0
+        }
+      ]
+    },
+    {
+      "id": "mzq3z0o",
+      "author": "d5vis",
+      "body": "you should be able to check whether or not you want to use your preferences on the recipe list, though there are only 12 recipes posted total so far",
+      "created_utc": 1750869696.0,
+      "score": 3,
+      "context": [
+        {
+          "id": "mzq1ig5",
+          "author": "minimaia3",
+          "body": "is there a way to see every recipe?\ni\u2019m only able to see like 4-5 based on what i like and im not really sure what im looking for so idk what i would search",
+          "created_utc": 1750869008.0
+        }
+      ]
+    },
+    {
+      "id": "n2h1g98",
+      "author": "None",
+      "body": "[removed]",
+      "created_utc": 1752197812.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "n174op2",
+          "author": "uusavaruus",
+          "body": "Thanks! \ud83e\udde1 I'm in a difficult spot w my neurodivergent teen, and just seeing their likes & dislikes clearly listed (something they haven't been able to do before) gave me some hope to keep looking for dishes they may be able to eat.",
+          "created_utc": 1751577308.0
+        }
+      ]
+    },
+    {
+      "id": "n007b94",
+      "author": "d5vis",
+      "body": "not currently, but there's an install link in the footer to show you how to add it to your home screen! it's setup to support that for now\n\nedit: there are yearly fees to post on the app store, and i want to keep it free, so that's the main reason i'm hesitant on it for now",
+      "created_utc": 1750995623.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "mzx3o7p",
+          "author": "Royal_Addendum1612",
+          "body": "This. Is. So. Fcking. Cool. Do you have an app on the App Store?",
+          "created_utc": 1750959215.0
+        }
+      ]
+    },
+    {
+      "id": "n0l35gn",
+      "author": "d5vis",
+      "body": "if you have any recipes, please add them! i'm probably just planning on adding a few features here and there, but for the most part it's a community effort for expanding the options",
+      "created_utc": 1751294766.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "n0iu57n",
+          "author": "thirty2junimos",
+          "body": "man, i've needed something like this. i don't have many recipes recommended based on my preferences, but there are clearly things i forgot as well as preferences that don't always apply (e.g. i love korean beef, but generally hate ground beef).\n\nsome recipe ideas you could add:\n- quesadillas (cheese for peak food ease)\n- rice balls\n- english muffin pizzas (or just add a note that says you can use english muffins instead of making the bread)\n- rice pudding (i used to like it, but i'm not sure how i feel about it now)\n- french toast\n- salad rolls \n- kettle corn \n- chicken noodle soup\n- chicken and dumpling soup\n- cheesy cauliflower\n- a simple pad thai\n- butter chicken\n- choco chip cookies\n- peanut butter and banana smoothie\n\ni hope those recipes sound appealing to people. i have the problem where i fall on the opposite end of some sort of spectrum, so some safe foods (ex. chicken tenders) are actually the bane of my existence.\n\ni'm not sure if you're in any need or if i have any skill to offer you but i'd be happy to help keep this project going in any way possible.",
+          "created_utc": 1751256470.0
+        }
+      ]
+    },
+    {
+      "id": "n2ob9ej",
+      "author": "d5vis",
+      "body": "i've noticed this also, i like the idea of community tags. the other plans i have are a block button for recipes that might pop up but don't work for you, and comments on recipes",
+      "created_utc": 1752293810.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "n2hsgga",
+          "author": "debtinmydebitcard",
+          "body": "The only issue I've had is that certain recipes for some foods appear when I've explicitly disliked them in my preferences. There should be a community feature to add tags to recipes because often the recipe creator does not specify texture/food, and just like \"high sodium\" for example",
+          "created_utc": 1752208212.0
+        }
+      ]
+    },
+    {
+      "id": "n3kqiiq",
+      "author": "d5vis",
+      "body": "yay! i probably want to stay away from calorie counts, but i think adding low cal/high cal as a kind of tag is a really great idea! added to my todos",
+      "created_utc": 1752727263.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "n3ijth9",
+          "author": "Ilikedollsnamedisa",
+          "body": "bless your heart!!! this is amazing. exactly what i\u2019ve been looking for. \n\njust a suggestion: i would love if you could implement the option for browsing healthier/low cal meals since my safe foods tend to be on the other end of the spectrum \ud83d\ude2d",
+          "created_utc": 1752699854.0
+        }
+      ]
+    },
+    {
+      "id": "n4e0p7a",
+      "author": "d5vis",
+      "body": "totally, it technically could be used that way already, i'll try and rename a few of the labels (i.e. allergies -> restrictions) to be more inclusive, thanks!!",
+      "created_utc": 1753123644.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "n49x34y",
+          "author": "GIRONA1",
+          "body": "Hey! Just posted there. Wonderful site. You could also market it towards others with intolerances or disorders like celiac disease. Add a \"gluten free\" lactose free\", \"nut free\", etc. Would make life better. Keep the good work.",
+          "created_utc": 1753065947.0
+        }
+      ]
+    },
+    {
+      "id": "n4izmda",
+      "author": "d5vis",
+      "body": "restrictions are supposed to be things like allergies or dietary restrictions (i.e. for people who may not eat pork customarily, etc.) to block recommendations entirely for safety. right now they function the same though, but if there were a feature to start recommending new foods to try, it should be physically safer to use dislikes vs. am allergy",
+      "created_utc": 1753192981.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "n4ix5vx",
+          "author": "Cyber-Gon",
+          "body": "what's the difference between \"restrictions\" and \"dislikes?\"",
+          "created_utc": 1753192240.0
+        }
+      ]
+    },
+    {
+      "id": "mzy2ri9",
+      "author": "Malicious2mech",
+      "body": "i know right ?!!! it's so so fantastic",
+      "created_utc": 1750969330.0,
+      "score": 4,
+      "context": [
+        {
+          "id": "mzkq9u4",
+          "author": "Malicious2mech",
+          "body": "BLESS YOUR SOUL??",
+          "created_utc": 1750796415.0
+        },
+        {
+          "id": "mzxv8k3",
+          "author": "charleychalk17",
+          "body": "HONESTLY?? I sure hope this blows up, even if it\u2019s not people with an eating disorder. OP deserves the world for this \ud83d\ude29",
+          "created_utc": 1750967046.0
+        }
+      ]
+    },
+    {
+      "id": "mzk38la",
+      "author": "Exuberant343",
+      "body": "Got an email regarding confirmation the very same instant I requested a \u201dforgot password\u201d thingy. I click the link in that email and I\u2019m logged in. But if I try to log in normally it still says email not confirmed",
+      "created_utc": 1750789590.0,
+      "score": 6,
+      "context": [
+        {
+          "id": "mzk26z4",
+          "author": "Exuberant343",
+          "body": "Might be totally besides the point, but I\u2019m not receiving a verification email, been about 5 minutes now",
+          "created_utc": 1750789296.0
+        },
+        {
+          "id": "mzk2vji",
+          "author": "d5vis",
+          "body": "odd, could've gone to spam maybe? check if you just received anything",
+          "created_utc": 1750789489.0
+        }
+      ]
+    },
+    {
+      "id": "mzk3jbt",
+      "author": "Exuberant343",
+      "body": "Update, after a password reset it\u2019s somehow confirmed now, all good.",
+      "created_utc": 1750789674.0,
+      "score": 3,
+      "context": [
+        {
+          "id": "mzk26z4",
+          "author": "Exuberant343",
+          "body": "Might be totally besides the point, but I\u2019m not receiving a verification email, been about 5 minutes now",
+          "created_utc": 1750789296.0
+        },
+        {
+          "id": "mzk2vji",
+          "author": "d5vis",
+          "body": "odd, could've gone to spam maybe? check if you just received anything",
+          "created_utc": 1750789489.0
+        }
+      ]
+    },
+    {
+      "id": "n024w3w",
+      "author": "d5vis",
+      "body": "added tofu! (+ a bunch more)",
+      "created_utc": 1751029740.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "mztidah",
+          "author": "kitkatbar27",
+          "body": "this is so awesome!!!!!!",
+          "created_utc": 1750907493.0
+        },
+        {
+          "id": "mztifqn",
+          "author": "kitkatbar27",
+          "body": "my only suggestion would be to add tofu to preferences option :-)",
+          "created_utc": 1750907520.0
+        }
+      ]
+    },
+    {
+      "id": "mzq4cc0",
+      "author": "minimaia3",
+      "body": "ah okay that makes more sense thanks so much this is a great idea",
+      "created_utc": 1750869799.0,
+      "score": 3,
+      "context": [
+        {
+          "id": "mzq1ig5",
+          "author": "minimaia3",
+          "body": "is there a way to see every recipe?\ni\u2019m only able to see like 4-5 based on what i like and im not really sure what im looking for so idk what i would search",
+          "created_utc": 1750869008.0
+        },
+        {
+          "id": "mzq3z0o",
+          "author": "d5vis",
+          "body": "you should be able to check whether or not you want to use your preferences on the recipe list, though there are only 12 recipes posted total so far",
+          "created_utc": 1750869696.0
+        }
+      ]
+    },
+    {
+      "id": "n36zekt",
+      "author": "leodai_",
+      "body": "Bait. Just don't interact",
+      "created_utc": 1752547140.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "n174op2",
+          "author": "uusavaruus",
+          "body": "Thanks! \ud83e\udde1 I'm in a difficult spot w my neurodivergent teen, and just seeing their likes & dislikes clearly listed (something they haven't been able to do before) gave me some hope to keep looking for dishes they may be able to eat.",
+          "created_utc": 1751577308.0
+        },
+        {
+          "id": "n2h1g98",
+          "author": "None",
+          "body": "[removed]",
+          "created_utc": 1752197812.0
+        }
+      ]
+    },
+    {
+      "id": "n0mjsnr",
+      "author": "thirty2junimos",
+      "body": "ohhhh i see i see, i'll figure out how to do that.",
+      "created_utc": 1751309772.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "n0iu57n",
+          "author": "thirty2junimos",
+          "body": "man, i've needed something like this. i don't have many recipes recommended based on my preferences, but there are clearly things i forgot as well as preferences that don't always apply (e.g. i love korean beef, but generally hate ground beef).\n\nsome recipe ideas you could add:\n- quesadillas (cheese for peak food ease)\n- rice balls\n- english muffin pizzas (or just add a note that says you can use english muffins instead of making the bread)\n- rice pudding (i used to like it, but i'm not sure how i feel about it now)\n- french toast\n- salad rolls \n- kettle corn \n- chicken noodle soup\n- chicken and dumpling soup\n- cheesy cauliflower\n- a simple pad thai\n- butter chicken\n- choco chip cookies\n- peanut butter and banana smoothie\n\ni hope those recipes sound appealing to people. i have the problem where i fall on the opposite end of some sort of spectrum, so some safe foods (ex. chicken tenders) are actually the bane of my existence.\n\ni'm not sure if you're in any need or if i have any skill to offer you but i'd be happy to help keep this project going in any way possible.",
+          "created_utc": 1751256470.0
+        },
+        {
+          "id": "n0l35gn",
+          "author": "d5vis",
+          "body": "if you have any recipes, please add them! i'm probably just planning on adding a few features here and there, but for the most part it's a community effort for expanding the options",
+          "created_utc": 1751294766.0
+        }
+      ]
+    }
+  ]
+}

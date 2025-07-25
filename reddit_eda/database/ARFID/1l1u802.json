@@ -1,0 +1,343 @@
+{
+  "id": "1l1u802",
+  "subreddit": "ARFID",
+  "author": "AffectionateBike8793",
+  "created_utc": 1748899581.0,
+  "title": "An application to log your food, from the father of a child with ARFID",
+  "selftext": "Hello!\n\nI am a software engineer and the father of a seven-year-old girl who has been diagnosed with ARFID. Like many families, we struggled for several years until we understood and accepted the condition.\n\nSince last year my daughter and I have kept a paper food diary, giving star ratings to new foods to make it a bit of a game.\n\nI\u2019m now building an online version so families can track foods, share progress with relatives, teachers, or clinicians, and keep everything in one place. A live demo is available (details in the first comment).\n\nI know similar apps exist, but I wanted to create something tailored to our experience. I\u2019d love your feedback. If it sounds useful, I\u2019ll keep refining it.\n\nThank you! \ud83e\udd1e",
+  "url": "https://www.reddit.com/r/ARFID/comments/1l1u802/an_application_to_log_your_food_from_the_father/",
+  "score": 120,
+  "num_comments": 29,
+  "comments": [
+    {
+      "id": "mvnyg94",
+      "author": "AffectionateBike8793",
+      "body": "Website:\u00a0[https://www.arfidnotes.com](https://www.arfidnotes.com/)\n\nRead-only sharing page example:\u00a0[https://www.arfidnotes.com/shared/demo123share](https://www.arfidnotes.com/shared/demo123share)\n\nIf you are interested I can share the demo account credentials over PM. I'll be resetting the demo time to time. And let's hope people do not keep turning off the sharing :)",
+      "created_utc": 1748901146.0,
+      "score": 29,
+      "context": []
+    },
+    {
+      "id": "mvo0mjh",
+      "author": "Sweet-MamaRoRo",
+      "body": "I think also a way to log things like texture, smell, taste etc will help with discovering patterns. In  feeding therepy we rate foods out of 10, talk about the texture, temperature, smell, color, appearance, and last of all taste. So not just yes and no, but more nuanced discussion and documentation. I would like if it would do a yes no maybe would try again as the final question. Something that gives you the ick would be a no, something you really like would be a yes and stuff you are more neutral about would be the maybe. Idk I just encourage everything to be more neutral and positive around food.",
+      "created_utc": 1748901822.0,
+      "score": 21,
+      "context": []
+    },
+    {
+      "id": "mvntk57",
+      "author": "AffectionateBike8793",
+      "body": "Website: [https://www.arfidnotes.com](https://www.arfidnotes.com)\n\nDemo login: \\`demo@arfidnotes.com / demopassword123\\`\n\nRead-only sharing page example: [https://www.arfidnotes.com/shared/demo123share](https://www.arfidnotes.com/shared/demo123share)\n\nI'll be resetting the demo time to time. And let's hope people do not keep turning off the sharing :)",
+      "created_utc": 1748899664.0,
+      "score": 11,
+      "context": []
+    },
+    {
+      "id": "mvokral",
+      "author": "Ok-Marsupial-9897",
+      "body": "This is very exciting and I'll be checking it out. When trying new food, I find myself not only wanting to track how much I enjoyed the food but how effective or successful the attempt was. I find myself wondering \"was that difficult or did I actually not like it\". I want to track both nutritional information as well as emotional",
+      "created_utc": 1748908460.0,
+      "score": 8,
+      "context": []
+    },
+    {
+      "id": "mvsel2k",
+      "author": "Snow1918",
+      "body": "The website is pretty good but I would recommend potentially also aiming to have it be set to individuals with ARFID rather than just Parents of a child with ARFID. The how they're doing tag feels a bit like the website is meant only for those who care for someone with ARFID.  \n\nAs a graphic designer I love the overall organization of the elements and the design is simple but elegant. \n\nI would maybe tweak the colors on the words challenging and restricted to be more balanced again the orange background and move the position of the Mobile recent food logs labeling because it is kind of squished. \n\nI think this will be an awesome tool for ARFID people and families \u2728",
+      "created_utc": 1748965629.0,
+      "score": 5,
+      "context": []
+    },
+    {
+      "id": "mvnwltc",
+      "author": "ArtPenPalThrowaway",
+      "body": "Would [Mist](https://www.getmistapp.com/) be good for your purposes?",
+      "created_utc": 1748900588.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mvoumba",
+      "author": "feythedamnelf",
+      "body": "This is so exciting. I'll be sure to check it after work",
+      "created_utc": 1748911963.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mvxu1s4",
+      "author": "pusstsd",
+      "body": "God bless you for taking the time to understand and support your daughter and her health. I can't imagine how far along I'd be if my parents had done the same. Thank you",
+      "created_utc": 1749039748.0,
+      "score": 3,
+      "context": []
+    },
+    {
+      "id": "mvq9p2w",
+      "author": "ageckonamedelaine",
+      "body": "That sounds very cool and useful! Been looking for something like that for a while and will check it out",
+      "created_utc": 1748934037.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "mvqzkj3",
+      "author": "None",
+      "body": "[deleted]",
+      "created_utc": 1748948777.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "mvs8fty",
+      "author": "WindermerePeaks1",
+      "body": "hi! i am not as smart as you but i made something that i use that people here have liked and thought maybe you could use it as inspiration because id really like to use your website i would just change some things. here\u2019s the food sheet i was working on: https://docs.google.com/spreadsheets/d/1c_ZXgTRM6Hule9CFVLdg9ZV--K7_kGJ7i93et9Zs13c/copy",
+      "created_utc": 1748963925.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "mvst9kv",
+      "author": "shelllllo",
+      "body": "I love it! 3 family members with arfid. Could totally use something like this.",
+      "created_utc": 1748969740.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "mvvzsdp",
+      "author": "Jelby",
+      "body": "Ok so my son will need to indicate that he touched it, smelled it, licked it, and so on in a progression, and it would help if he got badges for progressing along that continuum to gamify it.",
+      "created_utc": 1749006483.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "mw8g5im",
+      "author": "NeuroSpicyMeowMeow",
+      "body": "this is so cute!\n\nmy (diagnosed) OCD would really like you to standardize capitalization of the acronym ARFID across the product, but ... do you. <3",
+      "created_utc": 1749170161.0,
+      "score": 2,
+      "context": []
+    },
+    {
+      "id": "mvs0c1b",
+      "author": "pumpkindoo",
+      "body": "Helpful hints from a food therapist would be nice, like food chaining, divided food trays, etc.  If you try different techniques, you can log it beside the food",
+      "created_utc": 1748961637.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "mvub6u7",
+      "author": "Substantial_Chest395",
+      "body": "What a cute Dad!",
+      "created_utc": 1748985669.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "mzakjwa",
+      "author": "existentialcrisesyay",
+      "body": "Seeing something like this makes me really happy because something like this when i was younger would've been so helpful but honestly even now with my ARFID being really bad & my family being concerned for me, being able to relay it through something like this is so helpful.",
+      "created_utc": 1750665148.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "mzfvses",
+      "author": "justkeepwalking69",
+      "body": "So something like this would be helpful for my 11 year old daughter.  And I would like her to take control of this disorder, so possibly make it as simple as possible.  I like simplicity, the only thing that I think you should program into it, is a way to count how many times the same food was tried, I did not see it on the demo.  But I think if she sees that she is consistently trying strawberries over and over, it will be good for me as parent to know if it going up or down.  I say strawberries because that was last thing she took a bite of and literally threw it up at the table while we were trying to get her to eat it.  It\u2019s a horrible condition, and I hope it gets better.",
+      "created_utc": 1750730597.0,
+      "score": 1,
+      "context": []
+    },
+    {
+      "id": "mvnzron",
+      "author": "badgernextdoor",
+      "body": "Checking this out after work, I need something intuitive and reliable without being overly complicated. Thank you!!",
+      "created_utc": 1748901551.0,
+      "score": 6,
+      "context": [
+        {
+          "id": "mvnyg94",
+          "author": "AffectionateBike8793",
+          "body": "Website:\u00a0[https://www.arfidnotes.com](https://www.arfidnotes.com/)\n\nRead-only sharing page example:\u00a0[https://www.arfidnotes.com/shared/demo123share](https://www.arfidnotes.com/shared/demo123share)\n\nIf you are interested I can share the demo account credentials over PM. I'll be resetting the demo time to time. And let's hope people do not keep turning off the sharing :)",
+          "created_utc": 1748901146.0
+        }
+      ]
+    },
+    {
+      "id": "mvyd8kj",
+      "author": "bostonterrier2",
+      "body": "This is  blocked at work so I'll have to look later but this sounds like something I have wished for often. Thank you!",
+      "created_utc": 1749046178.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "mvnyg94",
+          "author": "AffectionateBike8793",
+          "body": "Website:\u00a0[https://www.arfidnotes.com](https://www.arfidnotes.com/)\n\nRead-only sharing page example:\u00a0[https://www.arfidnotes.com/shared/demo123share](https://www.arfidnotes.com/shared/demo123share)\n\nIf you are interested I can share the demo account credentials over PM. I'll be resetting the demo time to time. And let's hope people do not keep turning off the sharing :)",
+          "created_utc": 1748901146.0
+        }
+      ]
+    },
+    {
+      "id": "mvo15jc",
+      "author": "AffectionateBike8793",
+      "body": "  \nI actually added a lot of things to log. My daughter is mostly sensitive to texture and warm level of the food but I know there are other things for other people as well. \n\nhttps://preview.redd.it/li9rybyd7l4f1.png?width=1230&format=png&auto=webp&s=12c7668b4b2c0c3a8afbc8e80e4088e6ce843e89",
+      "created_utc": 1748901990.0,
+      "score": 16,
+      "context": [
+        {
+          "id": "mvo0mjh",
+          "author": "Sweet-MamaRoRo",
+          "body": "I think also a way to log things like texture, smell, taste etc will help with discovering patterns. In  feeding therepy we rate foods out of 10, talk about the texture, temperature, smell, color, appearance, and last of all taste. So not just yes and no, but more nuanced discussion and documentation. I would like if it would do a yes no maybe would try again as the final question. Something that gives you the ick would be a no, something you really like would be a yes and stuff you are more neutral about would be the maybe. Idk I just encourage everything to be more neutral and positive around food.",
+          "created_utc": 1748901822.0
+        }
+      ]
+    },
+    {
+      "id": "mvo1cug",
+      "author": "AffectionateBike8793",
+      "body": "would try again as the final question is really good one, I'll add tomorrow.",
+      "created_utc": 1748902055.0,
+      "score": 9,
+      "context": [
+        {
+          "id": "mvo0mjh",
+          "author": "Sweet-MamaRoRo",
+          "body": "I think also a way to log things like texture, smell, taste etc will help with discovering patterns. In  feeding therepy we rate foods out of 10, talk about the texture, temperature, smell, color, appearance, and last of all taste. So not just yes and no, but more nuanced discussion and documentation. I would like if it would do a yes no maybe would try again as the final question. Something that gives you the ick would be a no, something you really like would be a yes and stuff you are more neutral about would be the maybe. Idk I just encourage everything to be more neutral and positive around food.",
+          "created_utc": 1748901822.0
+        }
+      ]
+    },
+    {
+      "id": "mvp7ypj",
+      "author": "himydandelion",
+      "body": "Our automoderator took this down but this looks AWESOME!!!! I approved it, feel free to send us a note if you have any other trouble but this looks great to share here. \n\nI also wanna say you seem like a wonderful dad <3",
+      "created_utc": 1748916775.0,
+      "score": 7,
+      "context": [
+        {
+          "id": "mvntk57",
+          "author": "AffectionateBike8793",
+          "body": "Website: [https://www.arfidnotes.com](https://www.arfidnotes.com)\n\nDemo login: \\`demo@arfidnotes.com / demopassword123\\`\n\nRead-only sharing page example: [https://www.arfidnotes.com/shared/demo123share](https://www.arfidnotes.com/shared/demo123share)\n\nI'll be resetting the demo time to time. And let's hope people do not keep turning off the sharing :)",
+          "created_utc": 1748899664.0
+        }
+      ]
+    },
+    {
+      "id": "mw0gpmr",
+      "author": "lenthatswho",
+      "body": "I concur!! I\u2019d also love for it to be aimed directly at me vs a caretaker - but of course your daughter was your first priority!",
+      "created_utc": 1749067582.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "mvsel2k",
+          "author": "Snow1918",
+          "body": "The website is pretty good but I would recommend potentially also aiming to have it be set to individuals with ARFID rather than just Parents of a child with ARFID. The how they're doing tag feels a bit like the website is meant only for those who care for someone with ARFID.  \n\nAs a graphic designer I love the overall organization of the elements and the design is simple but elegant. \n\nI would maybe tweak the colors on the words challenging and restricted to be more balanced again the orange background and move the position of the Mobile recent food logs labeling because it is kind of squished. \n\nI think this will be an awesome tool for ARFID people and families \u2728",
+          "created_utc": 1748965629.0
+        }
+      ]
+    },
+    {
+      "id": "mvnybo7",
+      "author": "AffectionateBike8793",
+      "body": "Oh, actually I built it but seems like this sub does not allow me to share. Here trying once again :)  \n  \nWebsite:\u00a0[https://www.arfidnotes.com](https://www.arfidnotes.com/)\n\nRead-only sharing page example:\u00a0[https://www.arfidnotes.com/shared/demo123share](https://www.arfidnotes.com/shared/demo123share)",
+      "created_utc": 1748901108.0,
+      "score": 6,
+      "context": [
+        {
+          "id": "mvnwltc",
+          "author": "ArtPenPalThrowaway",
+          "body": "Would [Mist](https://www.getmistapp.com/) be good for your purposes?",
+          "created_utc": 1748900588.0
+        }
+      ]
+    },
+    {
+      "id": "mvr6rh5",
+      "author": "AffectionateBike8793",
+      "body": "Great suggestions, thank you! \n\nI'll add an option to select an action \"touched / licked / tasted / smelled etc.\" when a new activity logged. So we can see where are we with this food.",
+      "created_utc": 1748951863.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "mvqzkj3",
+          "author": "None",
+          "body": "[deleted]",
+          "created_utc": 1748948777.0
+        }
+      ]
+    },
+    {
+      "id": "mvtfqi3",
+      "author": "AffectionateBike8793",
+      "body": "A spreadsheet is the most robust solution if that works for you! \n\nI'll have a look, thank you for sharing!",
+      "created_utc": 1748975919.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "mvs8fty",
+          "author": "WindermerePeaks1",
+          "body": "hi! i am not as smart as you but i made something that i use that people here have liked and thought maybe you could use it as inspiration because id really like to use your website i would just change some things. here\u2019s the food sheet i was working on: https://docs.google.com/spreadsheets/d/1c_ZXgTRM6Hule9CFVLdg9ZV--K7_kGJ7i93et9Zs13c/copy",
+          "created_utc": 1748963925.0
+        }
+      ]
+    },
+    {
+      "id": "mvs2ubn",
+      "author": "AffectionateBike8793",
+      "body": "Providing hints for a food therapist would not scale unfortunately. It would be too costly and also requires some process to include real professionals. \n\nBut I am planning to provide AI generated hints by analyzing the current foods and proposing possible food chaining routes and then users can add those to their list and try to practice. \n\nOf course, it should have a very visible disclaimer says that app is intended only as a supportive tool. Users should always consult qualified healthcare professionals for medical or dietary advice.\n\nFor example: \n\n>!To transition from french Fries \u2192 Veggie Fries \u2192 to Roasted Broccoli!<  \n  \n>!1) Baked potato wedges (same vegetable, new texture) !<  \n>!2) Sweet-potato fries (color change, flavor still sweet-salty) !<  \n>!3) Carrot \u201cfries\u201d (roasted carrot sticks seasoned like fries) !<  \n>!4) Broccoli stem fries (thin broccoli stems roasted until crisp) !<  \n>!5) Roasted broccoli florets (goal)!<",
+      "created_utc": 1748962352.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "mvs0c1b",
+          "author": "pumpkindoo",
+          "body": "Helpful hints from a food therapist would be nice, like food chaining, divided food trays, etc.  If you try different techniques, you can log it beside the food",
+          "created_utc": 1748961637.0
+        }
+      ]
+    },
+    {
+      "id": "mzglv1e",
+      "author": "AffectionateBike8793",
+      "body": "Yes, that can be done. Soon, I'll start working on it again. I am thinking adding a simple mobile app to make it easy for quick logging. And keep the web for more complex data visualisations.",
+      "created_utc": 1750741046.0,
+      "score": 1,
+      "context": [
+        {
+          "id": "mzfvses",
+          "author": "justkeepwalking69",
+          "body": "So something like this would be helpful for my 11 year old daughter.  And I would like her to take control of this disorder, so possibly make it as simple as possible.  I like simplicity, the only thing that I think you should program into it, is a way to count how many times the same food was tried, I did not see it on the demo.  But I think if she sees that she is consistently trying strawberries over and over, it will be good for me as parent to know if it going up or down.  I say strawberries because that was last thing she took a bite of and literally threw it up at the table while we were trying to get her to eat it.  It\u2019s a horrible condition, and I hope it gets better.",
+          "created_utc": 1750730597.0
+        }
+      ]
+    },
+    {
+      "id": "mvxfakj",
+      "author": "krankity-krab",
+      "body": "oh wow, this is fantastic! i feel it would be incredibly helpful for both my child & I!",
+      "created_utc": 1749033407.0,
+      "score": 2,
+      "context": [
+        {
+          "id": "mvo0mjh",
+          "author": "Sweet-MamaRoRo",
+          "body": "I think also a way to log things like texture, smell, taste etc will help with discovering patterns. In  feeding therepy we rate foods out of 10, talk about the texture, temperature, smell, color, appearance, and last of all taste. So not just yes and no, but more nuanced discussion and documentation. I would like if it would do a yes no maybe would try again as the final question. Something that gives you the ick would be a no, something you really like would be a yes and stuff you are more neutral about would be the maybe. Idk I just encourage everything to be more neutral and positive around food.",
+          "created_utc": 1748901822.0
+        },
+        {
+          "id": "mvo15jc",
+          "author": "AffectionateBike8793",
+          "body": "  \nI actually added a lot of things to log. My daughter is mostly sensitive to texture and warm level of the food but I know there are other things for other people as well. \n\nhttps://preview.redd.it/li9rybyd7l4f1.png?width=1230&format=png&auto=webp&s=12c7668b4b2c0c3a8afbc8e80e4088e6ce843e89",
+          "created_utc": 1748901990.0
+        }
+      ]
+    }
+  ]
+}
