@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
@@ -68,48 +69,105 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
   );
 };
 
+const BASE_MODULES = [
+  {
+    id: 1,
+    title: 'Introduction',
+    description: 'Setting the stage for recovery and onboarding',
+    status: 'available' as 'locked' | 'available' | 'completed',
+    progress: 0,
+    submodules: [
+      {
+        id: 1,
+        title: 'Welcome & Privacy',
+        prompt: 'What brings you here today?'
+      },
+      {
+        id: 2,
+        title: 'Your Hopes',
+        prompt: 'What would you like this space to help you with?'
+      },
+      {
+        id: 3,
+        title: 'Getting Started',
+        prompt: 'How are you feeling about starting this?'
+      },
+      {
+        id: 4,
+        title: 'Voice of the Space',
+        prompt: 'If this journaling space had a voice, what would you want it to say back to you?'
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: 'Identity',
+    description: 'Who you are beyond the eating disorder',
+    status: 'locked' as 'locked' | 'available' | 'completed',
+    progress: 0,
+    submodules: [
+      {
+        id: 1,
+        title: 'Roles',
+        prompt: 'What roles do you play in your life? Which feel most authentic to you?'
+      },
+      {
+        id: 2,
+        title: 'Values',
+        prompt: 'What values guide your decisions or relationships?'
+      },
+      {
+        id: 3,
+        title: 'True Self',
+        prompt: 'When do you feel most like yourself?'
+      },
+      {
+        id: 4,
+        title: 'Hidden Aspects',
+        prompt: 'What’s something others might not see about you that you wish they did?'
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: 'Your Journey',
+    description: 'Delving into what brought you here and your recovery path',
+    status: 'locked' as 'locked' | 'available' | 'completed',
+    progress: 0,
+    submodules: [
+      {
+        id: 1,
+        title: 'Why Now?',
+        prompt: 'Why now? Why are you engaging with this tool at this point in your journey?'
+      },
+      {
+        id: 2,
+        title: 'Getting Better',
+        prompt: 'What does “getting better” mean to you?'
+      },
+      {
+        id: 3,
+        title: 'First Signs',
+        prompt: 'When did you first start noticing something felt off?'
+      },
+      {
+        id: 4,
+        title: 'What Helped or Hurt',
+        prompt: 'What has helped or hurt your recovery efforts so far?'
+      }
+    ]
+  }
+];
+
 const HomeScreen: React.FC = () => {
-  const [modules] = useState([
-    {
-      id: 1,
-      title: "Who Am I?",
-      description: "Explore your identity, values, and what makes you unique",
-      status: 'available' as const,
-      progress: 0
-    },
-    {
-      id: 2,
-      title: "Relationships",
-      description: "Examine your family, friends, and social connections",
-      status: 'locked' as const,
-      progress: 0
-    },
-    {
-      id: 3,
-      title: "Life Fulfillment",
-      description: "Assess your overall satisfaction and life balance",
-      status: 'locked' as const,
-      progress: 0
-    },
-    {
-      id: 4,
-      title: "Future Vision",
-      description: "Envision your ideal future and recovery goals",
-      status: 'locked' as const,
-      progress: 0
-    },
-    {
-      id: 5,
-      title: "My Journey",
-      description: "Reflect on what brought you here and your recovery path",
-      status: 'locked' as const,
-      progress: 0
-    }
-  ]);
+  const [modules, setModules] = useState(BASE_MODULES);
+  const navigation = useNavigation();
 
   const handleModulePress = (moduleId: number) => {
-    console.log(`Module ${moduleId} pressed`);
-    // TODO: Navigate to module
+    const mod = modules.find(m => m.id === moduleId);
+    if (mod) {
+      navigation.navigate('ModuleScreen', { module: mod });
+    }
   };
 
   return (
@@ -118,9 +176,8 @@ const HomeScreen: React.FC = () => {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Your Journey</Text>
-          <Text style={styles.subtitle}>5 starter modules to explore yourself</Text>
+          <Text style={styles.subtitle}>3 core modules to start your recovery journey</Text>
         </View>
-
         {/* Progress Overview */}
         <View style={styles.progressSection}>
           <View style={styles.progressCard}>
@@ -128,21 +185,21 @@ const HomeScreen: React.FC = () => {
               <Ionicons name="trophy" size={24} color="#FFD700" />
               <Text style={styles.progressTitle}>Progress</Text>
             </View>
-            <Text style={styles.progressText}>0 of 5 modules completed</Text>
+            <Text style={styles.progressText}>
+              {modules.filter(m => m.status === 'completed').length} of {modules.length} modules completed
+            </Text>
             <View style={styles.streakRow}>
               <Ionicons name="flame" size={20} color="#FF6B6B" />
               <Text style={styles.streakText}>0 day streak</Text>
             </View>
           </View>
         </View>
-
         {/* Module Pathway */}
         <View style={styles.modulesSection}>
-          <Text style={styles.sectionTitle}>Starter Modules</Text>
+          <Text style={styles.sectionTitle}>Core Modules</Text>
           <Text style={styles.sectionDescription}>
             Complete these foundational modules to unlock personalized content
           </Text>
-          
           {modules.map((module, index) => (
             <View key={module.id}>
               <ModuleCard
@@ -162,7 +219,6 @@ const HomeScreen: React.FC = () => {
             </View>
           ))}
         </View>
-
         {/* Coming Soon */}
         <View style={styles.comingSoonSection}>
           <Text style={styles.sectionTitle}>Coming Soon</Text>
@@ -170,7 +226,7 @@ const HomeScreen: React.FC = () => {
             <Ionicons name="sparkles" size={24} color="#FF6B9D" />
             <Text style={styles.comingSoonTitle}>Dynamic Modules</Text>
             <Text style={styles.comingSoonDescription}>
-              After completing starter modules, unlock personalized content based on your data and insights.
+              After completing core modules, unlock personalized content based on your data and insights.
             </Text>
           </View>
         </View>

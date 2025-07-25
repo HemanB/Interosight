@@ -1,15 +1,27 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 
 // Import screens
 import HomeScreen from '../screens/home/HomeScreen';
+import ModuleScreen from '../screens/modules/ModuleScreen';
+import JournalingScreen from '../screens/reflect/JournalingScreen';
 import ConnectScreen from '../screens/connect/ConnectScreen';
 import LoggingScreen from '../screens/logging/LoggingScreen';
 import ResourcesScreen from '../screens/resources/ResourcesScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
 
 const Tab = createBottomTabNavigator();
+const HomeStack = createNativeStackNavigator();
+
+const HomeStackNavigator: React.FC = () => (
+  <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+    <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+    <HomeStack.Screen name="ModuleScreen" component={ModuleScreen} />
+    <HomeStack.Screen name="JournalingScreen" component={JournalingScreen} />
+  </HomeStack.Navigator>
+);
 
 export const TabNavigator: React.FC = () => {
   return (
@@ -53,7 +65,7 @@ export const TabNavigator: React.FC = () => {
     >
       <Tab.Screen 
         name="Home" 
-        component={HomeScreen}
+        component={HomeStackNavigator}
         options={{ tabBarLabel: 'Home' }}
       />
       <Tab.Screen 

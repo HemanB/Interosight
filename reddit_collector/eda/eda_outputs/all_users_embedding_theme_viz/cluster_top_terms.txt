@@ -1,0 +1,15 @@
+Cluster 0 (n=6531):
+  like, people, eat, eating, food, feel, weight, recovery, know, much, get, even, body, one, really, think, time, would, also, want
+
+Cluster 1 (n=30):
+  nan, tbh, chance, anyone, seeing, country, happens, find, center, capital, europe, ali, baba, rue, paul, delvaux, brussels
+
+Cluster 2 (n=22):
+  rule
+
+Cluster 3 (n=21):
+  thank, fucking, great, response, nice, thanks
+
+Cluster 4 (n=18):
+  thank, okay
+
