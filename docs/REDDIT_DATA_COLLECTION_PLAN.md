@@ -81,7 +81,7 @@ Set up a passive data collector to gather as much longitudinal user data as poss
 
 *This plan is a living document. Update as new insights are gained from data exploration and modeling.* 
 
-## Progress Update (2024)
+## Progress Update
 
 - **Data Collection:**
   - Posts and comments have been collected from the following subreddits: AnorexiaNervosa, ARFID, bulimia, EatingDisorders, fuckeatingdisorders.
@@ -106,5 +106,95 @@ Set up a passive data collector to gather as much longitudinal user data as poss
 
 - **Ready for Modeling:**
   - The data is now ready for unsupervised, state-based ML modeling and further feature engineering.
+
+--- 
+
+## Longitudinal Per-User Journaling Timelines & Exploratory Data Analysis
+
+### Objective
+
+To generate a corpus of longitudinal, per-user journaling timelines from Reddit data, enabling deep analysis of recovery trajectories, semantic expression, and prompt suitability. This corpus will serve as the foundation for developing analytical tools and exploratory data analysis (EDA) to better understand recovery states and the evolution of user narratives.
+
+### Exploratory Data Analysis Plan
+
+For each high-activity user (e.g., Sareeee48), perform EDA across the following axes:
+
+#### Temporal Analysis
+- Plot post/comment frequency over time (weekly/monthly bins)
+- Identify time gaps or periods of increased activity
+- Compute average interval between entries
+
+#### Content & Topic Analysis
+- LLM-Based analysis:
+- System prompt for 5b model:
+"You are a clinical language model tasked with scoring user-written Reddit posts related to eating, body image, or self-perception. For each input text, assign a score between 0 and 1 for the following five dimensions. A score of 0 means there is no evidence of the dimension in the text. A score of 1 means there is strong, explicit evidence. Use only the information present in the text. Do not infer or assume anything not clearly stated.
+
+Definitions of each dimension:
+
+Restraint – Mentions of deliberate attempts to limit eating, skip meals, avoid food, or follow rigid eating rules. Examples: "I skipped dinner," "I try not to eat carbs," "I feel proud when I don’t eat."
+
+Body Dissatisfaction – Negative statements about body shape, size, or appearance. Examples: "I hate my stomach," "I can’t stand how I look," "My arms disgust me."
+
+Weight Concern – Anxiety or distress about gaining or maintaining weight. Examples: "I’m scared of gaining weight," "The scale controls my day," "Even small changes freak me out."
+
+Preoccupation – Recurrent thoughts or obsessions with food, weight, or body that interfere with functioning. Examples: "I think about food constantly," "I can’t focus on anything else," "It’s always on my mind."
+
+Importance – Degree to which shape or weight determines self-worth, identity, or control. Examples: "My body is the only thing I control," "If I gain weight, I’m nothing," "My worth depends on how I look."
+
+Output your result as a dictionary with keys as the dimension names and values as floats between 0 and 1. Do not add explanations."
+
+#### Linguistic & Sentiment Features
+- Sentiment analysis (e.g., VADER, RoBERTa): trend over time
+- Emotion tagging (e.g., fear, anger, sadness, hope)
+- Word count per entry (verbosity trends)
+- Lexical richness (e.g., unique word ratio)
+
+#### Narrative Trajectory
+- Identify shifts in pronoun usage (e.g., “I” vs “you” vs “we”)
+- Extract recurring self-referential phrases (e.g., “I feel”, “I can’t”, “I want to”)
+- Detect expressions of agency vs helplessness
+
+#### Recovery-Relevant Markers
+- Frequency of recovery terms (e.g., “therapy,” “relapse,” “meal plan,” “urge”)
+- Presence of motivation language vs denial/resistance
+- Quotes or reflections that show insight or change in mindset
+
+#### Prompt Suitability
+- Identify segments that could be transformed into journaling entries
+- Identify implicit “prompts” the user responded to (e.g., "Someone asked about...")
+
+### Data Inclusion Principle
+
+Both posts and comments are essential for constructing rich, high-resolution user timelines and for all downstream EDA. All analyses and visualizations should aggregate both types of user-generated content.
+
+--- 
+
+## Exploratory Data Analysis (EDA) Summary (2024)
+
+### Purpose
+- To understand longitudinal, per-user and cross-user behavioral, semantic, and recovery trajectories in eating disorder-related subreddits.
+- To build a foundation for downstream modeling, prompt design, and app feature development by deeply characterizing Reddit user histories.
+
+### Data Sources
+- Per-user JSONL timelines (posts + comments) from subreddits: AnorexiaNervosa, ARFID, bulimia, EatingDisorders, fuckeatingdisorders.
+- Top users identified by activity; timelines include timestamps, subreddit, and full text.
+
+### Core EDA Components & Findings
+- **Temporal Analysis:** User activity is bursty, with periods of high and low engagement. Gaps and high-density stretches are common.
+- **Topic Modeling (LDA, BERTopic):** Recurring themes identified, but topic interpretability depends on model and parameters. Global LDA enables cross-user comparison.
+- **LLM-Based Subscale Scoring:** Automated scoring of posts/comments on EDE-Q subscales (Restraint, Body Dissatisfaction, Weight Concern, Preoccupation, Importance) reveals nuanced, longitudinal trends, but is computationally expensive.
+- **Embedding-Based Theme Discovery:** UMAP+HDBSCAN clustering of sentence embeddings reveals latent semantic themes and user trajectories. Cluster interpretability and granularity depend on parameter tuning; large min_cluster_size may yield no clusters.
+- **Cluster Summarization:** Top terms for each cluster help interpret emergent themes. Most clusters are interpretable, but some are broad or noisy.
+
+### Limitations
+- LLM scoring is slow for large datasets.
+- Clustering and topic modeling require careful parameter tuning and manual review for interpretability.
+- Some logic is duplicated across scripts; modularization is in progress.
+
+### Next Steps
+- Refactor EDA codebase for modularity and reusability (see `eda_utils.py`).
+- Tune clustering parameters and explore additional dimensionality reduction techniques.
+- Integrate EDA outputs with downstream modeling and prompt design.
+- Expand analysis to more users and subreddits as data grows.
 
 --- 
