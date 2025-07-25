@@ -2,12 +2,18 @@
 
 ## [Unreleased]
 
+### Changed
+- **Repository Refactor:** Began major codebase cleanup and restructuring for maintainability and clarity.
+- **Ollama Setup Isolation:** Moved `setup-ollama.sh`, `test-llm.js`, and `test-prompt-generation.js` into a new `ollama_setup/` folder for local LLM setup/testing.
+- **Removed Unused Node Files:** Deleted obsolete `package.json` and `package-lock.json` from the project root to reduce clutter and avoid confusion.
+- **Preparation for PRD and Documentation:** Planning to introduce a dedicated `memory_docs/` folder and a more detailed Product Requirements Document (PRD) to supplement the existing Project Holy Grail.
+
 ### Added
 - **LLM Integration**: Integration with local Ollama models for production use
 - **Dynamic Follow-up Questions**: AI-generated contextual prompts based on conversation
 - **Enhanced Chat System**: Real AI responses with crisis detection and safety protocols
 
-## [v0.5.4] - 2024-07-04
+## [2024-07-04]
 
 ### Added
 - **Comprehensive Resources Screen**: Complete resource management system with card-based UI
@@ -42,7 +48,7 @@
 - **Professional Boundaries**: Clear disclaimers about app limitations
 - **Data Privacy**: User-specific data storage with proper authentication
 
-## [v0.5.3] - 2024-07-04
+## [2024-07-04]
 
 ### Added
 - **Crisis Hotlines Modal**: Predefined crisis support numbers with call functionality
@@ -51,7 +57,7 @@
   - Professional appearance with availability information
   - Educational content about what to expect when calling
 
-## [v0.5.1] - 2024-07-04
+## [2024-07-04]
 
 ### Added
 - **Emergency Contacts Modal**: Full contact management system
@@ -60,7 +66,7 @@
   - Professional UI with color-coded action buttons
   - Empty state handling and user guidance
 
-## [v0.5.0] - 2024-07-04
+## [2024-07-04]
 
 ### Added
 - **Resources Screen**: Complete redesign of crisis tools into comprehensive resources
@@ -74,7 +80,7 @@
 - **Architecture**: Modular modal system for different resource types
 - **Design**: Modern card-based interface replacing basic placeholder screen
 
-## [v0.3.0] - 2024-06-26
+## [2024-06-26]
 
 ### Added
 - **LLM Integration**: Complete AI-powered chat system with multiple backend support
@@ -102,7 +108,7 @@
 - **Test Script**: `test-llm.js` for verifying LLM connectivity
 - **Documentation**: Comprehensive setup and configuration guides
 
-## [v0.2.1] - 2024-06-26
+## [2024-06-26]
 
 ### Fixed
 - **End Reflection Bug**: Fixed the "End reflection" functionality that was not working properly
@@ -124,7 +130,7 @@
 - Smoother transition between sessions
 - No more confusing popup dialogs interrupting the flow
 
-## [v0.2.0] - Previous Version
+## [Previous Version]
 
 ### Features
 - Initial chat interface with prompt-driven flow
