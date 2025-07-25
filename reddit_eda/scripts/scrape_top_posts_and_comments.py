@@ -5,12 +5,12 @@ from praw.models import MoreComments
 from dotenv import load_dotenv
 import time
 
-load_dotenv(dotenv_path='reddit_collector/.env')    # Load environment variables from .env file
+load_dotenv(dotenv_path='reddit_eda/.env')    # Load environment variables from .env file
 
 # --- CONFIGURATION ---
 SUBREDDIT = 'ARFID'   
 TOP_POST_LIMIT = 1000
-OUTPUT_DIR = f'reddit_collector/database/{SUBREDDIT}/'
+OUTPUT_DIR = f'reddit_eda/database/{SUBREDDIT}/'
 
 # --- SETUP ---
 reddit = praw.Reddit(
