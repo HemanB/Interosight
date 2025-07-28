@@ -1,5 +1,3 @@
 docs/PROJECT_HOLY_GRAIL.md 
-reddit_collector/database/
-reddit_collector/.env
-reddit_eda/.env
 reddit_eda/database/
+reddit_eda/.env
