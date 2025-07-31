@@ -1,214 +1,196 @@
 import React, { useState } from 'react';
-import { Settings, User, Bell, Shield, Download } from 'lucide-react';
+import { User, Shield, Download, Trash2, CheckCircle, AlertTriangle, FileText } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 const SettingsScreen: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'profile' | 'preferences' | 'privacy' | 'data'>('profile');
-
-  const tabs = [
-    { id: 'profile', name: 'Profile', icon: User },
-    { id: 'preferences', name: 'Preferences', icon: Settings },
-    { id: 'privacy', name: 'Privacy', icon: Shield },
-    { id: 'data', name: 'Data', icon: Download },
-  ];
+  const [activeTab, setActiveTab] = useState<'profile' | 'privacy' | 'data'>('profile');
+  const { userProfile } = useAuth();
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-        <p className="text-gray-600 mt-1">Manage your account and preferences</p>
-      </div>
+    <div className="p-6">
+      <div className="max-w-4xl mx-auto space-y-8">
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
+          <p className="text-gray-600 mt-1">
+            Manage your account and preferences
+          </p>
+        </div>
 
-      <div className="flex space-x-8">
-        {/* Sidebar Navigation */}
-        <div className="w-64">
-          <nav className="space-y-1">
-            {tabs.map((tab) => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
-                    isActive
-                      ? 'bg-primary-50 text-primary-700 border border-primary-200'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <tab.icon className="w-5 h-5 mr-3" />
-                  {tab.name}
-                </button>
-              );
-            })}
+        {/* Tab Navigation */}
+        <div className="border-b border-gray-200">
+          <nav className="-mb-px flex space-x-8">
+            {[
+              { id: 'profile', name: 'Profile', icon: User },
+              { id: 'privacy', name: 'Privacy', icon: Shield },
+              { id: 'data', name: 'Data', icon: Download },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === tab.id
+                    ? 'border-primary-500 text-primary-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <tab.icon className="w-4 h-4 inline mr-2" />
+                {tab.name}
+              </button>
+            ))}
           </nav>
         </div>
 
         {/* Content */}
-        <div className="flex-1">
-          {activeTab === 'profile' && (
-            <div className="space-y-6">
-              <div className="card">
-                <h3 className="text-lg font-semibold mb-4">Profile Information</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Display Name
-                    </label>
-                    <input
-                      type="text"
-                      className="input-field"
-                      defaultValue="Demo User"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      className="input-field"
-                      defaultValue="demo@example.com"
-                      disabled
-                    />
-                    <p className="text-sm text-gray-500 mt-1">Email cannot be changed</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Recovery Stage
-                    </label>
-                    <select className="input-field">
-                      <option value="early">Early Recovery</option>
-                      <option value="maintenance">Maintenance</option>
-                      <option value="advanced">Advanced Recovery</option>
-                    </select>
-                  </div>
-                  <button className="btn-primary">Save Changes</button>
-                </div>
+        {activeTab === 'profile' && (
+          <div className="card">
+            <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Display Name
+                </label>
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder="Your display name"
+                  defaultValue={userProfile?.displayName || ''}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className="input-field"
+                  placeholder="your.email@example.com"
+                  defaultValue={userProfile?.email || ''}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Age (Optional)
+                </label>
+                <input
+                  type="number"
+                  className="input-field"
+                  placeholder="Your age"
+                  min="13"
+                  max="120"
+                  defaultValue={userProfile?.age || ''}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Gender Identity (Optional)
+                </label>
+                <select className="input-field" defaultValue={userProfile?.gender || ''}>
+                  <option value="">Prefer not to say</option>
+                  <option value="woman">Woman</option>
+                  <option value="man">Man</option>
+                  <option value="non-binary">Non-binary</option>
+                  <option value="gender-fluid">Gender fluid</option>
+                  <option value="agender">Agender</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <button className="btn-primary">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'privacy' && (
+          <div className="space-y-6">
+            <div className="card border-orange-200 bg-orange-50">
+              <div className="flex items-center mb-3">
+                <AlertTriangle className="w-6 h-6 text-orange-600 mr-2" />
+                <h3 className="text-lg font-semibold text-orange-900">Beta Privacy Notice</h3>
+              </div>
+              <div className="space-y-3 text-sm text-orange-800">
+                <p>
+                  <strong>Important:</strong> This is a beta application with limited privacy protections. 
+                  While we implement standard security measures, we cannot guarantee complete data privacy or protection.
+                </p>
+                <p>
+                  <strong>Recommendation:</strong> Please keep identifiable information to a minimum when using this beta version. 
+                  Consider using a pseudonym and avoid sharing highly sensitive personal details.
+                </p>
+                <p>
+                  <strong>Data Handling:</strong> Your data is stored securely, but as this is a beta application, 
+                  we cannot provide the same level of privacy guarantees as a production system.
+                </p>
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {activeTab === 'preferences' && (
-            <div className="space-y-6">
-              <div className="card">
-                <h3 className="text-lg font-semibold mb-4">App Preferences</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-gray-900">Email Notifications</h4>
-                      <p className="text-sm text-gray-600">Receive reminders and insights via email</p>
-                    </div>
-                    <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" defaultChecked />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-gray-900">Weekly Insights</h4>
-                      <p className="text-sm text-gray-600">Get weekly summary of your progress</p>
-                    </div>
-                    <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" defaultChecked />
-                  </div>
-                </div>
-              </div>
-
-              <div className="card">
-                <h3 className="text-lg font-semibold mb-4">Journaling Preferences</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Default Word Count Goal
-                    </label>
-                    <select className="input-field">
-                      <option value="100">100 words</option>
-                      <option value="200">200 words</option>
-                      <option value="300">300 words</option>
-                      <option value="500">500 words</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Reminder Time
-                    </label>
-                    <input type="time" className="input-field" defaultValue="20:00" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'privacy' && (
-            <div className="space-y-6">
-              <div className="card">
-                <h3 className="text-lg font-semibold mb-4">Privacy Settings</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-gray-900">Data Sharing</h4>
-                      <p className="text-sm text-gray-600">Allow anonymous data for research purposes</p>
-                    </div>
-                    <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-gray-900">Analytics</h4>
-                      <p className="text-sm text-gray-600">Help improve the app with usage analytics</p>
-                    </div>
-                    <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" defaultChecked />
-                  </div>
-                </div>
-              </div>
-
-              <div className="card">
-                <h3 className="text-lg font-semibold mb-4">Account Security</h3>
-                <div className="space-y-4">
-                  <button className="btn-secondary w-full">Change Password</button>
-                  <button className="btn-secondary w-full">Enable Two-Factor Authentication</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'data' && (
-            <div className="space-y-6">
-              <div className="card">
-                <h3 className="text-lg font-semibold mb-4">Data Management</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <div>
-                      <h4 className="font-medium text-gray-900">Export Your Data</h4>
-                      <p className="text-sm text-gray-600">Download all your data in JSON format</p>
-                    </div>
+        {activeTab === 'data' && (
+          <div className="space-y-6">
+            <div className="card">
+              <h2 className="text-xl font-semibold mb-4">Data Management</h2>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-2">Export Data</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Download your data in different formats for backup or sharing with healthcare providers.
+                  </p>
+                  <div className="flex flex-wrap gap-3">
                     <button className="btn-secondary flex items-center">
                       <Download className="w-4 h-4 mr-2" />
-                      Export
+                      Download JSON
+                    </button>
+                    <button className="btn-secondary flex items-center">
+                      <FileText className="w-4 h-4 mr-2" />
+                      Export as PDF
                     </button>
                   </div>
                 </div>
-              </div>
 
-              <div className="card">
-                <h3 className="text-lg font-semibold mb-4">Data Usage</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Journal Entries</span>
-                    <span className="text-sm font-medium">12 entries</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Meal Logs</span>
-                    <span className="text-sm font-medium">28 logs</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Behavior Logs</span>
-                    <span className="text-sm font-medium">8 logs</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Total Storage</span>
-                    <span className="text-sm font-medium">2.4 MB</span>
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-2">Data Statistics</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div className="p-3 bg-gray-50 rounded-lg">
+                      <p className="text-2xl font-bold text-primary-600">3</p>
+                      <p className="text-sm text-gray-600">Journal Entries</p>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded-lg">
+                      <p className="text-2xl font-bold text-green-600">3</p>
+                      <p className="text-sm text-gray-600">Meal Logs</p>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded-lg">
+                      <p className="text-2xl font-bold text-orange-600">2</p>
+                      <p className="text-sm text-gray-600">Behavior Logs</p>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded-lg">
+                      <p className="text-2xl font-bold text-purple-600">240</p>
+                      <p className="text-sm text-gray-600">Total Words</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          )}
-        </div>
+
+            <div className="card border-red-200 bg-red-50">
+              <div className="flex items-center mb-3">
+                <AlertTriangle className="w-6 h-6 text-red-600 mr-2" />
+                <h2 className="text-xl font-semibold text-red-900">Danger Zone</h2>
+              </div>
+              <div>
+                <h3 className="font-medium text-red-900 mb-2">Delete Account</h3>
+                <p className="text-sm text-red-700 mb-3">
+                  Permanently delete your account and all associated data. This action cannot be undone.
+                </p>
+                <button className="btn-secondary text-red-600 border-red-300 hover:bg-red-100 flex items-center">
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Delete Account
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

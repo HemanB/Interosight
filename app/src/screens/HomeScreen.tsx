@@ -1,159 +1,263 @@
-import React, { useState } from 'react';
-import { BookOpen, Utensils, Activity } from 'lucide-react';
+import React from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
-const HomeScreen: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'journaling' | 'logging'>('journaling');
+// Module data structure based on PRD requirements
+const modules = [
+  {
+    id: 'introduction',
+    title: 'Introduction',
+    description: 'Setting the stage for recovery',
+    status: 'current' as const,
+    submodules: 4,
+    completedSubmodules: 0,
+    type: 'base' as const
+  },
+  {
+    id: 'identity',
+    title: 'Identity',
+    description: 'Who you are beyond the eating disorder',
+    status: 'locked' as const,
+    submodules: 4,
+    completedSubmodules: 0,
+    type: 'base' as const
+  },
+  {
+    id: 'journey',
+    title: 'Your Journey',
+    description: 'What brought you here and past recovery attempts',
+    status: 'locked' as const,
+    submodules: 4,
+    completedSubmodules: 0,
+    type: 'base' as const
+  },
+  {
+    id: 'daily-impact',
+    title: 'Daily Impact',
+    description: 'How ED affects your daily life',
+    status: 'locked' as const,
+    submodules: 4,
+    completedSubmodules: 0,
+    type: 'dynamic' as const
+  },
+  {
+    id: 'interpersonal',
+    title: 'Interpersonal Impact',
+    description: 'Impact on relationships and connection',
+    status: 'locked' as const,
+    submodules: 4,
+    completedSubmodules: 0,
+    type: 'dynamic' as const
+  },
+  {
+    id: 'emotional',
+    title: 'Emotional Landscape',
+    description: 'Emotional cognition and interpretation',
+    status: 'locked' as const,
+    submodules: 4,
+    completedSubmodules: 0,
+    type: 'dynamic' as const
+  }
+];
+
+const getStatusIcon = (status: 'completed' | 'current' | 'locked') => {
+  switch (status) {
+    case 'completed':
+      return '✓';
+    case 'current':
+      return '○';
+    case 'locked':
+      return '🔒';
+  }
+};
+
+const getStatusColor = (status: 'completed' | 'current' | 'locked') => {
+  switch (status) {
+    case 'completed':
+      return 'text-primary-600';
+    case 'current':
+      return 'text-primary-600 animate-pulse';
+    case 'locked':
+      return 'text-gray-400';
+  }
+};
+
+interface HomeScreenProps {
+  setCurrentScreen?: (screen: { screen: string; moduleId?: string }) => void;
+}
+
+const HomeScreen: React.FC<HomeScreenProps> = ({ setCurrentScreen }) => {
+  const { userProfile } = useAuth();
+
+  // Navigation handlers for main action cards
+  const handleContinueJourney = () => {
+    // Find the current module and navigate to it
+    const currentModule = modules.find(m => m.status === 'current');
+    if (currentModule && setCurrentScreen) {
+      setCurrentScreen({ screen: 'module', moduleId: currentModule.id });
+    }
+  };
+
+  const handleFreeformJournaling = () => {
+    if (setCurrentScreen) {
+      setCurrentScreen({ screen: 'freeform-journal' });
+    }
+  };
+
+  const handleLogEntry = () => {
+    if (setCurrentScreen) {
+      setCurrentScreen({ screen: 'log' });
+    }
+  };
+
+  // Navigation handler for module cards
+  const handleModuleClick = (module: typeof modules[0]) => {
+    if (module.status === 'current' && setCurrentScreen) {
+      setCurrentScreen({ screen: 'module', moduleId: module.id });
+    }
+    // For locked modules, we could show a message or unlock logic
+  };
+
+  // Calculate overall progress
+  const totalModules = modules.length;
+  const completedModules = 0; // Fresh account - no completed modules
+  const currentModule = modules.find(m => m.status === 'current');
+  const progressPercentage = ((completedModules + (currentModule ? 0.5 : 0)) / totalModules) * 100;
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
-          <p className="text-gray-600 mt-1">Continue your recovery journey</p>
-        </div>
-        <div className="flex items-center space-x-4">
-          <div className="text-right">
-            <p className="text-sm text-gray-500">Current Streak</p>
-            <p className="text-2xl font-bold text-primary-600">5 days</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Tab Navigation */}
-      <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8">
-          <button
-            onClick={() => setActiveTab('journaling')}
-            className={`py-2 px-1 border-b-2 font-medium text-sm ${
-              activeTab === 'journaling'
-                ? 'border-primary-500 text-primary-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            }`}
-          >
-            <BookOpen className="w-4 h-4 inline mr-2" />
-            Journaling
-          </button>
-          <button
-            onClick={() => setActiveTab('logging')}
-            className={`py-2 px-1 border-b-2 font-medium text-sm ${
-              activeTab === 'logging'
-                ? 'border-primary-500 text-primary-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            }`}
-          >
-            <Utensils className="w-4 h-4 inline mr-2" />
-            Logging
-          </button>
-        </nav>
-      </div>
-
-      {/* Content */}
-      {activeTab === 'journaling' ? (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <div className="card">
-              <h2 className="text-xl font-semibold mb-4">Reflective Journaling</h2>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Today's Prompt
-                  </label>
-                  <p className="text-gray-900 bg-gray-50 p-4 rounded-lg">
-                    "What does it mean to you to be in recovery? How has your understanding evolved?"
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Your Response
-                  </label>
-                  <textarea
-                    className="input-field h-32 resize-none"
-                    placeholder="Share your thoughts, feelings, and reflections..."
-                  />
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">0 words</span>
-                  <button className="btn-primary">Continue Reflection</button>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="max-w-6xl mx-auto">
+      {/* Welcome Section */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <div className="card">
-              <h3 className="text-lg font-semibold mb-4">Recent Entries</h3>
-              <div className="space-y-3">
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <h4 className="font-medium text-gray-900">Identity Reflection</h4>
-                  <p className="text-sm text-gray-600 mt-1">Exploring who I am beyond...</p>
-                  <p className="text-xs text-gray-500 mt-2">Yesterday</p>
-                </div>
-              </div>
-            </div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+              Welcome to Interosight
+            </h1>
+            <p className="text-gray-600">Take one step at a time toward healing and self-understanding</p>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold text-primary-600">{Math.round(progressPercentage)}%</div>
+            <div className="text-sm text-gray-500">Journey Complete</div>
           </div>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <div className="card">
-              <h2 className="text-xl font-semibold mb-4">Track Your Day</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium flex items-center">
-                    <Utensils className="w-5 h-5 mr-2" />
-                    Meal Log
-                  </h3>
-                  <div className="space-y-3">
-                    <input
-                      type="text"
-                      className="input-field"
-                      placeholder="Meal type (breakfast, lunch, etc.)"
-                    />
-                    <textarea
-                      className="input-field h-20 resize-none"
-                      placeholder="What did you eat? How did it feel?"
-                    />
-                    <button className="btn-secondary w-full">Log Meal</button>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium flex items-center">
-                    <Activity className="w-5 h-5 mr-2" />
-                    Behavior Log
-                  </h3>
-                  <div className="space-y-3">
-                    <input
-                      type="text"
-                      className="input-field"
-                      placeholder="Trigger or situation"
-                    />
-                    <textarea
-                      className="input-field h-20 resize-none"
-                      placeholder="What happened? How did you respond?"
-                    />
-                    <button className="btn-secondary w-full">Log Behavior</button>
-                  </div>
-                </div>
-              </div>
+        
+        {/* Progress Bar */}
+        <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
+          <div 
+            className="bg-primary-600 h-3 rounded-full transition-all duration-500"
+            style={{ width: `${progressPercentage}%` }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div 
+          className="card cursor-pointer hover:shadow-lg transition-all"
+          onClick={handleContinueJourney}
+        >
+          <div className="text-center">
+            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">📚</span>
             </div>
-          </div>
-          <div className="space-y-6">
-            <div className="card">
-              <h3 className="text-lg font-semibold mb-4">This Week</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center">
-                  <p className="text-2xl font-bold text-primary-600">28</p>
-                  <p className="text-sm text-gray-600">Meals Logged</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-2xl font-bold text-primary-600">8</p>
-                  <p className="text-sm text-gray-600">Behaviors Tracked</p>
-                </div>
-              </div>
-            </div>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Start Your Journey</h3>
+            <p className="text-gray-600 mb-4">Begin with guided prompts and structured reflection</p>
+            <button className="btn-primary w-full">
+              Get Started
+            </button>
           </div>
         </div>
-      )}
+        
+        <div 
+          className="card cursor-pointer hover:shadow-lg transition-all"
+          onClick={handleFreeformJournaling}
+        >
+          <div className="text-center">
+            <div className="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">✍️</span>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Freeform Journaling</h3>
+            <p className="text-gray-600 mb-4">Write freely about anything on your mind</p>
+            <button className="btn-primary w-full">
+              Start Writing
+            </button>
+          </div>
+        </div>
+        
+        <div 
+          className="card cursor-pointer hover:shadow-lg transition-all"
+          onClick={handleLogEntry}
+        >
+          <div className="text-center">
+            <div className="w-16 h-16 bg-olive-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">📊</span>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Track Your Day</h3>
+            <p className="text-gray-600 mb-4">Log meals, behaviors, and emotions</p>
+            <button className="btn-primary w-full">
+              Log Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Modules Section */}
+      <div className="card mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold text-gray-800">Your Recovery Modules</h2>
+          <div className="text-sm text-gray-500">
+            {completedModules} of {totalModules} completed
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {modules.map((module) => (
+            <div 
+              key={module.id} 
+              className={`card-module ${module.status} cursor-pointer hover:shadow-lg transition-all ${
+                module.status === 'current' ? 'ring-2 ring-primary-200' : ''
+              }`}
+              onClick={() => handleModuleClick(module)}
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center mb-2">
+                    <h3 className="text-lg font-semibold text-gray-800">{module.title}</h3>
+                    {module.type === 'dynamic' && (
+                      <span className="ml-2 px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded-full">
+                        Dynamic
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">{module.description}</p>
+                  <div className="flex items-center space-x-2">
+                    <div className="flex-1 bg-olive-200 rounded-full h-2">
+                      <div 
+                        className="bg-primary-500 h-2 rounded-full transition-all duration-300"
+                        style={{ width: `${(module.completedSubmodules / module.submodules) * 100}%` }}
+                      ></div>
+                    </div>
+                    <span className="text-xs text-primary-600 font-medium">
+                      {module.completedSubmodules}/{module.submodules}
+                    </span>
+                  </div>
+                </div>
+                <div className={`text-2xl ${getStatusColor(module.status)}`}>
+                  {getStatusIcon(module.status)}
+                </div>
+              </div>
+              <button 
+                className={`w-full py-2 px-4 rounded-lg font-medium transition-colors ${
+                  module.status === 'current' 
+                    ? 'bg-primary-600 text-white hover:bg-primary-700' 
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {module.status === 'current' ? 'Start Module' : 'Locked'}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
