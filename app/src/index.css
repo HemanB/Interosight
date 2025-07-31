@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-olive-50 text-gray-900;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-sm;
+  }
+  
+  .btn-secondary {
+    @apply bg-olive-200 hover:bg-olive-300 text-olive-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-olive-500 focus:ring-offset-2 shadow-sm;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent hover:bg-olive-100 text-olive-700 font-medium py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-olive-500 focus:ring-offset-2;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-olive-200 p-6 hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .card-module {
+    @apply bg-white rounded-xl shadow-sm border border-olive-200 p-6 hover:shadow-md transition-all duration-200 cursor-pointer;
+  }
+  
+  .card-module:hover {
+    @apply border-primary-400 shadow-md transform -translate-y-1;
+  }
+  
+  .card-module.completed {
+    @apply border-primary-500 bg-primary-50;
+  }
+  
+  .card-module.current {
+    @apply border-primary-600 bg-primary-100 shadow-md;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border border-olive-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 bg-white;
+  }
+  
+  .textarea-field {
+    @apply w-full px-4 py-3 border border-olive-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 bg-white resize-none;
+    min-height: 120px;
+  }
+  
+  .sidebar {
+    @apply w-64 bg-white border-r border-olive-200 h-screen fixed left-0 top-0 shadow-sm;
+  }
+  
+  .main-content {
+    @apply ml-64 p-8;
+  }
+  
+  .nav-item {
+    @apply flex items-center px-4 py-3 text-gray-700 hover:bg-olive-100 hover:text-olive-800 rounded-lg transition-colors duration-200 cursor-pointer;
+  }
+  
+  .nav-item.active {
+    @apply bg-primary-100 text-primary-800 font-medium;
+  }
+  
+  .progress-ring {
+    @apply w-16 h-16 rounded-full border-4 border-olive-200 flex items-center justify-center;
+  }
+  
+  .progress-ring.completed {
+    @apply border-primary-500 bg-primary-100;
+  }
+  
+  .progress-ring.current {
+    @apply border-primary-600 bg-primary-200 animate-pulse;
+  }
+  
+  .journey-path {
+    @apply flex items-center justify-center space-x-8 py-8;
+  }
+  
+  .module-node {
+    @apply flex flex-col items-center space-y-2;
+  }
+  
+  .module-node.completed .progress-ring {
+    @apply border-primary-500 bg-primary-100;
+  }
+  
+  .module-node.current .progress-ring {
+    @apply border-primary-600 bg-primary-200 animate-pulse;
+  }
+  
+  .module-node.locked .progress-ring {
+    @apply border-gray-300 bg-gray-100;
+  }
+  
+  .streak-counter {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white px-4 py-2 rounded-full font-medium shadow-sm;
+  }
+  
+  .insight-card {
+    @apply bg-gradient-to-br from-accent-50 to-accent-100 border border-accent-200 rounded-xl p-6 shadow-sm;
+  }
+  
+  .journal-prompt {
+    @apply text-xl font-medium text-gray-800 mb-4 leading-relaxed;
+  }
+  
+  .stats-card {
+    @apply bg-white rounded-xl shadow-sm border border-olive-200 p-6 text-center;
+  }
+  
+  .stats-number {
+    @apply text-3xl font-bold text-primary-600;
+  }
+  
+  .stats-label {
+    @apply text-sm text-gray-600 mt-1;
+  }
+}
