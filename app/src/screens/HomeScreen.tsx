@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { getModuleProgress } from '../services/moduleService';
 
 // Module data structure based on PRD requirements
 const modules = [
@@ -87,11 +88,53 @@ interface HomeScreenProps {
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ setCurrentScreen }) => {
   const { userProfile } = useAuth();
+  const [modulesWithProgress, setModulesWithProgress] = useState(modules);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load module progress from Firestore
+  const loadModuleProgress = async () => {
+    if (!userProfile?.uid) return;
+    
+    try {
+      setIsLoading(true);
+      const updatedModules = await Promise.all(
+        modules.map(async (module) => {
+          try {
+            const progress = await getModuleProgress(userProfile.uid, module.id);
+            if (progress && progress.submodules) {
+              const completedCount = Object.values(progress.submodules).filter(
+                (submodule: any) => submodule.status === 'completed'
+              ).length;
+              
+              return {
+                ...module,
+                completedSubmodules: completedCount
+              };
+            }
+            return module;
+          } catch (error) {
+            console.error(`Error loading progress for module ${module.id}:`, error);
+            return module;
+          }
+        })
+      );
+      
+      setModulesWithProgress(updatedModules);
+    } catch (error) {
+      console.error('Error loading module progress:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadModuleProgress();
+  }, [userProfile?.uid]);
 
   // Navigation handlers for main action cards
   const handleContinueJourney = () => {
     // Find the current module and navigate to it
-    const currentModule = modules.find(m => m.status === 'current');
+    const currentModule = modulesWithProgress.find(m => m.status === 'current');
     if (currentModule && setCurrentScreen) {
       setCurrentScreen({ screen: 'module', moduleId: currentModule.id });
     }
@@ -117,35 +160,31 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ setCurrentScreen }) => {
     // For locked modules, we could show a message or unlock logic
   };
 
+  // Refresh progress when component mounts or when returning from modules
+  useEffect(() => {
+    const handleFocus = () => {
+      loadModuleProgress();
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, [userProfile?.uid]);
+
   // Calculate overall progress
-  const totalModules = modules.length;
-  const completedModules = 0; // Fresh account - no completed modules
-  const currentModule = modules.find(m => m.status === 'current');
+  const totalModules = modulesWithProgress.length;
+  const completedModules = modulesWithProgress.reduce((sum, module) => sum + module.completedSubmodules, 0);
+  const currentModule = modulesWithProgress.find(m => m.status === 'current');
   const progressPercentage = ((completedModules + (currentModule ? 0.5 : 0)) / totalModules) * 100;
 
   return (
     <div className="max-w-6xl mx-auto">
       {/* Welcome Section */}
       <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              Welcome to Interosight
-            </h1>
-            <p className="text-gray-600">Take one step at a time toward healing and self-understanding</p>
-          </div>
-          <div className="text-right">
-            <div className="text-2xl font-bold text-primary-600">{Math.round(progressPercentage)}%</div>
-            <div className="text-sm text-gray-500">Journey Complete</div>
-          </div>
-        </div>
-        
-        {/* Progress Bar */}
-        <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
-          <div 
-            className="bg-primary-600 h-3 rounded-full transition-all duration-500"
-            style={{ width: `${progressPercentage}%` }}
-          ></div>
+        <div className="mb-4">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            Welcome to Interosight
+          </h1>
+          <p className="text-gray-600">Take one step at a time toward healing and self-understanding</p>
         </div>
       </div>
 
@@ -210,7 +249,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ setCurrentScreen }) => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {modules.map((module) => (
+          {modulesWithProgress.map((module) => (
             <div 
               key={module.id} 
               className={`card-module ${module.status} cursor-pointer hover:shadow-lg transition-all ${
