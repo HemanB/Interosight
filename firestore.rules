@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Journal entries - Full read/write for user's own entries
+    match /journal_entries/{entryId} {
+      allow read, write: if isAuthenticated() && 
+        (resource == null || resource.data.userId == request.auth.uid);
+    }
+
+    // Discarded prompts - Write-only for analytics
+    match /discarded_prompts/{promptId} {
+      allow write: if isAuthenticated() && 
+        (resource == null || resource.data.userId == request.auth.uid);
+      // No read access - analytics data only
+    }
+
+    // Module progress tracking
+    match /users/{userId}/module_progress/{moduleId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // User profile and preferences
+    match /users/{userId}/profile {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Validate data integrity
+    match /journal_entries/{entryId} {
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.content.size() > 0 &&
+        request.resource.data.content.size() <= 50000 &&
+        request.resource.data.trainingDataPreserved == true;
+
+      allow update: if isAuthenticated() &&
+        resource.data.userId == request.auth.uid &&
+        (
+          // Allow soft deletes
+          (request.resource.data.isDeleted == true &&
+           request.resource.data.trainingDataPreserved == true) ||
+          // Allow edits with history preservation
+          (request.resource.data.isEdited == true &&
+           request.resource.data.originalContent == resource.data.content)
+        );
+    }
+
+    // Validate discarded prompts
+    match /discarded_prompts/{promptId} {
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.discardedPrompt.size() > 0 &&
+        request.resource.data.trainingDataPreserved == true;
+    }
+
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      match /module_progress/{moduleId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      
+      match /modules/{moduleId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+        
+        match /submodules/{submoduleId} {
+          allow read, write: if request.auth != null && request.auth.uid == userId;
+          
+          match /entries/{entryId} {
+            allow read, write: if request.auth != null && request.auth.uid == userId;
+          }
+          
+          match /discarded/{promptId} {
+            allow read, write: if request.auth != null && request.auth.uid == userId;
+          }
+        }
+      }
+    }
+  }
+} 
