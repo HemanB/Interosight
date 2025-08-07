@@ -45,7 +45,7 @@ const FreeformJournalScreen: React.FC<FreeformJournalScreenProps> = ({ setCurren
   const loadEntries = async () => {
     if (!user) return;
     try {
-      const userEntries = await getFreeformEntries(user.uid);
+      const userEntries = await getFreeformEntries(user.uid, sessionId);
       setEntries(userEntries);
     } catch (err) {
       console.error('Error loading entries:', err);

@@ -1,23 +1,55 @@
 import { 
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  addDoc,
-  updateDoc,
+  collection, 
+  doc, 
+  getDoc, 
+  getDocs, 
   setDoc,
+  addDoc,
+  query,
+  orderBy,
   serverTimestamp,
   Timestamp,
-  DocumentReference
+  where,
+  FieldValue,
+  limit
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import { getAllModules } from '../data/modules';
-import type { JournalEntry, ModuleProgress, DiscardedPrompt, UserProfile, Module } from '../types';
+import { generateEntrySummary } from './googleAIService';
+import type { JournalEntry, ModuleProgress, DiscardedPrompt, Module, Submodule } from '../types';
 
 // User Profile Functions
+export interface UserProfile {
+  id: string;
+  email: string;
+  displayName?: string;
+  age?: number;
+  gender?: string;
+  recoveryStage?: 'early' | 'maintenance' | 'advanced';
+  createdAt: string;
+  lastActive: string;
+  preferences: {
+    notifications: {
+      email: boolean;
+      reflection: boolean;
+      encouragement: boolean;
+    };
+    privacy: {
+      dataSharing: boolean;
+      analytics: boolean;
+    };
+    ui: {
+      theme: 'light' | 'dark';
+      textSize: 'small' | 'medium' | 'large';
+    };
+  };
+  privacySettings: {
+    dataProcessing: boolean;
+    thirdPartySharing: boolean;
+    marketingEmails: boolean;
+    researchParticipation: boolean;
+  };
+}
+
 export const getUserProfile = async (userId: string): Promise<UserProfile | null> => {
   try {
     const userRef = doc(db, 'users', userId);
@@ -410,11 +442,36 @@ export const createMealLog = async (log: MealLog): Promise<string> => {
   try {
     const logRef = collection(db, 'users', log.userId, 'meal_logs');
     
+    // Generate summary for the meal log
+    let llmSummary = '';
+    try {
+      llmSummary = await generateEntrySummary({
+        content: log.description,
+        entryType: 'meal',
+        metadata: {
+          mealType: log.mealType,
+          location: log.locationContext,
+          socialContext: log.socialContext,
+          satietyPre: log.satietyPre,
+          satietyPost: log.satietyPost,
+          emotionPre: log.emotionPre,
+          emotionPost: log.emotionPost,
+          affectPre: log.affectPre,
+          affectPost: log.affectPost
+        }
+      });
+    } catch (error) {
+      console.error('Error generating summary for meal log:', error);
+      // Fallback to simple summary
+      llmSummary = log.description.length > 100 ? log.description.substring(0, 100) + '...' : log.description;
+    }
+    
     const entry = {
       ...log,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
-      isDeleted: false
+      isDeleted: false,
+      llmSummary
     };
     
     const docRef = await addDoc(logRef, entry);
@@ -440,11 +497,31 @@ export const createBehaviorLog = async (log: BehaviorLog): Promise<string> => {
   try {
     const logRef = collection(db, 'users', log.userId, 'behavior_logs');
     
+    // Generate summary for the behavior log
+    let llmSummary = '';
+    try {
+      llmSummary = await generateEntrySummary({
+        content: log.description,
+        entryType: 'behavior',
+        metadata: {
+          emotionPre: log.emotionPre,
+          emotionPost: log.emotionPost,
+          affectPre: log.affectPre,
+          affectPost: log.affectPost
+        }
+      });
+    } catch (error) {
+      console.error('Error generating summary for behavior log:', error);
+      // Fallback to simple summary
+      llmSummary = log.description.length > 100 ? log.description.substring(0, 100) + '...' : log.description;
+    }
+    
     const entry = {
       ...log,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
-      isDeleted: false
+      isDeleted: false,
+      llmSummary
     };
     
     const docRef = await addDoc(logRef, entry);

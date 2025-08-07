@@ -1,6 +1,6 @@
 import { collection, addDoc, query, where, orderBy, getDocs, doc, updateDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import { generateFollowUpPrompt } from './googleAIService';
+import { generateFollowUpPrompt, generateEntrySummary } from './googleAIService';
 import type { JournalEntry } from '../types';
 
 export interface FreeformEntry {
@@ -18,6 +18,7 @@ export interface FreeformEntry {
   parentEntryId?: string;
   isAIPrompt?: boolean;
   sessionId?: string;
+  llmSummary?: string;
 }
 
 export const createFreeformEntry = async (
@@ -39,6 +40,22 @@ export const createFreeformEntry = async (
     const maxChainPosition = Math.max(0, ...sessionEntries.map(e => e.chainPosition || 0));
     const chainPosition = maxChainPosition + 1;
     
+    // Generate summary for user entries (not AI prompts)
+    let llmSummary = '';
+    if (!isAIPrompt) {
+      try {
+        llmSummary = await generateEntrySummary({
+          content,
+          entryType: 'freeform',
+          metadata: {}
+        });
+      } catch (error) {
+        console.error('Error generating summary for freeform entry:', error);
+        // Fallback to simple summary
+        llmSummary = content.length > 100 ? content.substring(0, 100) + '...' : content;
+      }
+    }
+    
     const entry: any = {
       content,
       wordCount: calculateWordCount(content),
@@ -50,7 +67,8 @@ export const createFreeformEntry = async (
       isDeleted: false,
       chainPosition,
       isAIPrompt,
-      sessionId
+      sessionId,
+      llmSummary
     };
     
     // Only include parentEntryId if it has a valid value
@@ -66,7 +84,7 @@ export const createFreeformEntry = async (
   }
 };
 
-export const getFreeformEntries = async (userId: string): Promise<FreeformEntry[]> => {
+export const getFreeformEntries = async (userId: string, sessionId?: string): Promise<FreeformEntry[]> => {
   try {
     const entriesRef = collection(db, 'users', userId, 'freeform_entries');
     // First get all entries, then filter and sort in memory
@@ -79,10 +97,16 @@ export const getFreeformEntries = async (userId: string): Promise<FreeformEntry[
       ...doc.data()
     })) as FreeformEntry[];
     
-    // Filter out deleted entries and sort by chain position
-    return entries
-      .filter(entry => !entry.isDeleted)
-      .sort((a, b) => (a.chainPosition || 0) - (b.chainPosition || 0));
+    // Filter out deleted entries and filter by session if sessionId is provided
+    let filteredEntries = entries.filter(entry => !entry.isDeleted);
+    
+    if (sessionId) {
+      // Only return entries from the specified session
+      filteredEntries = filteredEntries.filter(entry => entry.sessionId === sessionId);
+    }
+    
+    // Sort by chain position
+    return filteredEntries.sort((a, b) => (a.chainPosition || 0) - (b.chainPosition || 0));
   } catch (error) {
     console.error('Error loading freeform entries:', error);
     throw error;
