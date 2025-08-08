@@ -78,6 +78,7 @@ export interface JournalEntry {
   sessionId: string;
   isCompleted: boolean;
   metadata: JournalMetadata;
+  llmSummary?: string;
 }
 
 export interface JournalMetadata {
@@ -114,6 +115,7 @@ export interface MealLog {
   locationContext: 'Home' | 'Work' | 'School' | 'Restaurant' | 'Cafeteria' | 'Bedroom' | 'Kitchen' | 'Car' | 'Other';
   createdAt: string; // ISO date string
   wordCount: number;
+  llmSummary?: string;
 }
 
 // Behavior Log - Updated to match new logging system
@@ -127,6 +129,7 @@ export interface BehaviorLog {
   affectPost: number; // 1-10 scale with emoji mapping (general affect)
   createdAt: string; // ISO date string
   wordCount: number;
+  llmSummary?: string;
 }
 
 // Insights & Analytics

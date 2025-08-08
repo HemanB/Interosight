@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { createMealLog, createBehaviorLog } from '../services/firebaseService';
 
 const LogScreen: React.FC = () => {
+  const { user } = useAuth();
   const [logType, setLogType] = useState<'meal' | 'behavior'>('meal');
   const [isSubmitting, setIsSubmitting] = useState(false);
   // Retrospective logging state
@@ -93,11 +96,61 @@ const LogScreen: React.FC = () => {
     setCustomDateTime('');
   };
   const handleSubmit = async () => {
+    if (!user) {
+      console.error('No user found');
+      return;
+    }
+
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      const timestamp = getEventTimestamp();
+      
+      if (logType === 'meal') {
+        if (!mealType || !mealDescription.trim()) {
+          throw new Error('Please fill in all required fields');
+        }
+
+        const mealLog = {
+          userId: user.uid,
+          mealType: mealType as any,
+          description: mealDescription,
+          satietyPre,
+          satietyPost,
+          emotionPre,
+          emotionPost,
+          affectPre,
+          affectPost,
+          socialContext: socialContext as any,
+          locationContext: locationContext as any,
+          wordCount: mealDescription.trim().split(/\s+/).filter(word => word.length > 0).length
+        };
+
+        await createMealLog(mealLog);
+      } else {
+        if (!behaviorDescription.trim()) {
+          throw new Error('Please fill in all required fields');
+        }
+
+        const behaviorLog = {
+          userId: user.uid,
+          description: behaviorDescription,
+          emotionPre: behaviorEmotionPre,
+          emotionPost: behaviorEmotionPost,
+          affectPre: behaviorAffectPre,
+          affectPost: behaviorAffectPost,
+          wordCount: behaviorDescription.trim().split(/\s+/).filter(word => word.length > 0).length
+        };
+
+        await createBehaviorLog(behaviorLog);
+      }
+
       resetForm();
+    } catch (error) {
+      console.error('Error saving log:', error);
+      alert(error instanceof Error ? error.message : 'Failed to save log');
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
   return (
     <div className="max-w-4xl mx-auto">

@@ -98,277 +98,233 @@ Deliver a minimum viable product that provides users with a structured, data-dri
 - **Base Modules (3):** Introduction, Identity, Your Journey
 - **Dynamic Modules (3):** Daily Impact, Interpersonal Impact, Emotional Landscape
 - **Core Features:**
-  - User onboarding and privacy management
-  - Structured journaling with LLM-powered reprompting
-  - Meal/behavior logging (text-based only for demo)
-  - Progress tracking and visualization
-  - Basic insight generation and notifications
-  - Firebase/Firestore database integration
-  - Beta web app with demo mode
-  - Guest user experience (no account required for initial trial)
-
-**Demo-Specific Features:**
-- Guest mode allowing users to try core features without registration
-- Sample data to demonstrate insights and patterns
-- Quick tutorial/walkthrough for new users
-- Feedback collection mechanism
-- Reddit-friendly sharing capabilities
+  - Structured journaling with AI follow-up prompts
+  - Freeform journaling with session isolation
+  - Meal and behavior logging with pre/post emotional states
+  - Comprehensive history view with AI-generated summaries
+  - Progress tracking and module completion
+  - User authentication and data privacy
+  - Responsive web interface
 
 ### Out of Scope (Future Versions)
-- **Advanced Features:**
-  - Photo upload for meal tracking on mobile app
-  - Integration with healthcare provider system
-  - Advanced ML models for predictive insights
-  - Integration with wearable devices
-  - Advanced analytics dashboard for healthcare providers
-  - Multi-language support
-  - Offline-first functionality
+- Mobile app development
+- Advanced analytics and machine learning
+- Reddit data collection pipeline
+- Email notifications
+- Social features
+- Professional dashboard for clinicians
 
-## Functional Requirements
+## Current Implementation Status
 
-### 1. User Management
-- User registration and authentication via Firebase Auth
-- Profile creation with demographic data collection
-- Privacy policy acceptance and data consent management
-- Account settings and data export capabilities
-- **Demo Mode:**
-  - Guest access without registration
-  - Sample user profile for demonstration
-  - Clear distinction between demo and real user data
-  - Easy transition from demo to full account creation
+### ✅ Completed Features
 
-### 2. Module System
-- **Module Structure:**
-  - 3 base modules with 4-6 submodules each
-  - 3 dynamic modules assigned based on user progress
-  - Each submodule contains journaling prompts and input fields
-- **Progress Tracking:**
-  - Visual progress indicators for modules and submodules
-  - Completion status persistence
-  - Ability to revisit and edit previous entries
+**Application Foundation:**
+- Modern React + TypeScript + Vite stack
+- Tailwind CSS with custom design system
+- Firebase integration with Firestore
+- User authentication system
+- Responsive web interface
 
-### 3. Journaling System
-- **LLM-Powered Reprompting:**
-  - Initial prompts for each submodule are LLM generated but designed with a strong system prompt.
-  - Dynamic follow-up prompts based on user responses
-  - Word count fulfillment for completion
-  - Ability to revisit previous sessions and update or continue journal entries
-- **Input Types:**
-  - Rich text input with auto-expanding fields
-  - Timestamp and metadata capture
+**Module System:**
+- Introduction module with 4 submodules
+- Structured journaling prompts with word count requirements
+- Progress tracking and completion functionality
+- AI-generated follow-up prompts
+- Module progression system
 
-### 4. Logging System
-- **Meal Logging:**
-  - Text input (prompt mealtype, meal desc., and reflection)
-  - Satiety pre/post (Quantified on slider)
-  - Emotions pre/post (Check all that apply)
-  - General Feeling pre/post (Quantified on slider)
-  - Social Information (Basic: alone, in a room with others, with others)
-  - Location Information (Basic: Home, Work, School, Cafeteria, Bedroom, etc)
-- **Behavior Logging:**
-  - Text input (prompt trigger, behavior, and reflection)
-  - Emotions pre/post (Check all that apply)
-  - General Feeling pre/post (Quantified on slider)
-  - Social Information (Basic: alone, in a room with others, with others)
-  - Location Information (Basic: Home, Work, School, Cafeteria, Bedroom, etc)
-- **History & Review:**
-  - Chronological view of all entries each organized as a distinct card with all cards layered and scrollable
-  - Search and filter capabilities
-  - Data export functionality
+**Journaling Features:**
+- Freeform journaling with session isolation
+- AI-powered conversation threads
+- Real-time word counting
+- Session-based data integrity
+- Clinical, insight-focused AI summaries (40 words max)
 
-### 5. Data Management
-- **Raw Data Storage:**
-  - Firebase Firestore for user data
-  - Image storage in Firebase Storage
-  - Secure, encrypted data transmission
+**Activity Logging:**
+- Comprehensive meal logging with pre/post emotional states
+- Behavior logging with environmental context
+- Satiety tracking (hunger/satiety levels)
+- Emotional state tracking before and after activities
+- Location and social context recording
 
-### 6. Insight Generation (In-Progress)
-- **Basic Analytics:**
-  - Display basic graph of meal timing consistency
-  - Emotional state information
-  - Journaling engagement metrics
-    - Time spent
-    - Word count
-    - Major topics identified
-- **Notifications:**
-  - Reflection reminders based on user patterns
-  - Therapy session preparation prompts
-  - Encouragement and Celebration
-- **Recommendations:**
-  - Dynamic module suggestions
-  - Additional journaling prompts
-  - Recovery resource recommendations
-- **Demo Insights:**
-  - Sample data visualization to show potential insights
-  - Mock patterns and trends for demonstration
-  - Clear indication of what insights would look like with real data
+**History System:**
+- Complete chronological history view
+- AI-generated summaries for all entry types
+- Color-coded entry types (freeform, module, meal, behavior)
+- Day stratification and time range filtering
+- Modal entry viewing with full details and conversation threads
 
-## UI Guidelines
+**AI Integration:**
+- Google AI (Gemini) integration for contextual prompts
+- Clinical, objective summary generation
+- Safety protocols and crisis detection
+- Efficient processing at entry creation time
 
-### Design Principles
-- **Compassionate & Non-Judgmental:** Warm, supportive visual language
-- **Accessible:** WCAG 2.1 AA compliance, high contrast options
-- **Minimalist:** Clean, distraction-free interface focused on content
+### 🔄 In Progress Features
 
-### Visual Design
-- **Color Palette:**
-  - Primary: monochromatic black-white scale with subtle grays
-  - Accent: Soft blue (#3B82F6) for interactive elements and progress indicators
-  - Modern but not industrial feel - warm and approachable
-  - High contrast for accessibility
+**Advanced Analytics:**
+- Pattern recognition algorithms
+- Behavioral trend analysis
+- Emotional state tracking over time
+- Trigger identification and analysis
 
-- **Typography:**
-  - Sans-serif fonts for readability (Inter or system fonts)
-  - Large, clear text for prompts and instructions (18px+ for body text)
-  - Adequate line spacing (1.6+ line-height) for comfortable reading
-  - Clear hierarchy with different font weights and sizes
+**Dynamic Module Progression:**
+- User trajectory analysis
+- Adaptive module assignment
+- Personalized content delivery
+- Progress-based recommendations
 
-- **Imagery:**
-  - None for now
-  - Subtle geometric patterns or shapes for visual interest
-  - Clean, minimal icons for navigation and actions
+**Data Visualization:**
+- Interactive charts and graphs
+- Progress tracking visualizations
+- Trend analysis displays
+- Comparative analytics
 
-### Interaction Design
-- **Journey Visualization:**
-  - Horizontal path showing module progression
-  - Clear visual indicators for completed, current, and future modules
-  - Smooth animations for progress updates
-- **Journaling Interface:**
-  - Large, prominent prompt display
-  - Auto-expanding text input areas
-  - Clear action buttons with descriptive labels
-  - Progress indicators that fill based on engagement
-- **Navigation:**
-  - Intuitive back/forward navigation
-  - Breadcrumb trails for complex flows
-  - Easy access to saved progress and history
+### 📋 Planned Features
 
-### Accessibility Features
-- Screen reader compatibility
-- Keyboard navigation support
-- High contrast mode
-- Adjustable text sizing
-- Reduced motion options
-- Clear focus indicators
+**Reddit Integration:**
+- Data collection pipeline using PRAW
+- User behavior analysis
+- Community insights generation
 
-## Technical Stack Notes
+**Machine Learning Features:**
+- Advanced pattern recognition
+- Predictive analytics
+- Personalized recommendations
 
-### Frontend
-- **Framework:** React with TypeScript
+**Mobile App Development:**
+- React Native implementation
+- iOS/Android deployment
+- Offline functionality
+
+## Technical Architecture
+
+### Frontend Stack
+- **Framework:** React 18 + TypeScript
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS with custom design system
+- **Routing:** React Router DOM
 - **State Management:** React Context + local state
-- **Styling:** Tailwind CSS or styled-components
-- **UI Components:** Custom components with accessibility focus
-- **Image Handling:** React Dropzone for uploads, image compression
+- **Icons:** Lucide React
 
-### Backend
-- **Database:** Firebase Firestore (primary), Firebase Storage (images)
+### Backend Stack
+- **Database:** Firebase Firestore
 - **Authentication:** Firebase Auth
-- **API:** Firebase Functions for serverless backend logic
+- **AI Services:** Google AI (Gemini)
+- **Hosting:** Vercel (web)
 
-### AI/ML Components
-- **Text Processing:** HuggingFace API
-- **LLM Integration:** HuggingFace API (using smaller, cost-effective models for demo)
-- **Analysis:** Python backend for data processing and insight generation
-- **Demo Considerations:**
-  - Rate limiting to control API costs
-  - Caching for common responses
-  - Fallback responses if API is unavailable
-  - Mock responses for demo mode to reduce costs
+### Data Models
+- **Journal Entries:** Module and freeform entries with conversation threads
+- **Activity Logs:** Meal and behavior logs with pre/post emotional states
+- **History Aggregation:** Comprehensive history with AI summaries
+- **Module System:** Progressive learning with structured content
 
-### Infrastructure
-- **Hosting:** Vercel or Netlify for frontend
-- **CI/CD:** GitHub Actions
-- **Monitoring:** Firebase Analytics, error tracking
-- **Security:** Firebase Security Rules, data encryption
+### Security & Privacy
+- **Data Access:** User-specific data isolation
+- **Authentication:** Secure Firebase Auth integration
+- **Privacy:** No data sharing with third parties
+- **Backup:** User data export capabilities
 
-## Dependencies
+## User Experience Design
 
-### External Dependencies
-- **Firebase Services:** Firestore, Auth, Storage, Functions
-- **AI/ML APIs:** HuggingFace API
-- **Image Processing:** Client-side compression libraries
-- **Analytics:** Firebase Analytics, error tracking service
+### Core Principles
+1. **Clinical Focus:** Professional, non-judgmental interface
+2. **Progressive Disclosure:** Information revealed as needed
+3. **Immediate Feedback:** Real-time validation and responses
+4. **Accessibility:** Inclusive design for all users
+5. **Privacy First:** User data protection and control
 
-### Internal Dependencies
-- **Module Content:** Curated prompts and content for all modules, specific system prompts for each module and submodule.
-- **Privacy Framework:** Data handling and consent management system
+### Key Screens
+1. **Authentication:** Sign-in/sign-up with demo mode
+2. **Home Dashboard:** Module overview and action cards
+3. **Module Journaling:** Structured prompts with AI follow-up
+4. **Freeform Journaling:** Unstructured reflection with session isolation
+5. **Activity Logging:** Comprehensive meal and behavior tracking
+6. **History View:** Chronological organization with AI summaries
+7. **Settings:** Profile, preferences, and data management
 
-### Development Dependencies
-- **Frontend:** React, TypeScript, testing framework
-- **Backend:** Node.js, Python (for ML components)
-- **Database:** Firebase CLI, local development tools
-- **Design:** Figma or similar for UI/UX design
+### Design System
+- **Color Palette:** Olive green theme with clinical focus
+- **Typography:** Inter font family for readability
+- **Layout:** Desktop-first with responsive design
+- **Components:** Reusable card and button components
+- **Navigation:** Sidebar navigation for professional feel
 
-## Open Questions & Risks
+## Success Metrics & KPIs
+
+### Technical Metrics
+- **Performance:** Page load times under 3 seconds
+- **Reliability:** 99.9% uptime for core features
+- **Data Quality:** 90%+ data integrity across all entry types
+- **AI Response Time:** Summary generation under 5 seconds
+
+### User Experience Metrics
+- **Engagement:** 70%+ of users create at least one entry
+- **Completion:** 50%+ module completion rate
+- **Retention:** 30%+ weekly active user retention
+- **Satisfaction:** Positive user feedback on core features
+
+### Development Metrics
+- **Code Quality:** TypeScript coverage >90%
+- **Test Coverage:** Unit tests for all critical functions
+- **Documentation:** Complete API and component documentation
+- **Deployment:** Automated CI/CD pipeline
+
+## Risk Assessment
 
 ### Technical Risks
-1. **LLM API Costs:** High usage of HuggingFace API can be expensive
-   - *Mitigation:* Implement usage limits (rate limiting, input token limits per message)
-2. **Image Storage Costs:** Large image files could increase storage costs
-   - *Mitigation:* Client-side compression, storage limits, input limits
+- **AI Service Reliability:** Mitigated with fallback mechanisms
+- **Data Scale Management:** Addressed with optimized queries
+- **Performance Degradation:** Handled with efficient caching
+- **Security Vulnerabilities:** Minimized with proper authentication
 
-### Product Risks
-1. **User Engagement:** Users may not engage deeply enough for meaningful insights
-   - *Mitigation:* Gamification, progress visualization, gentle reminders
-2. **Data Quality:** Users may provide insufficient or inaccurate data
-   - *Mitigation:* Clear instructions, validation, example entries
-3. **Privacy Concerns:** Users may be hesitant to share sensitive information
-   - *Mitigation:* Transparent privacy policy, data control features
+### User Experience Risks
+- **Complexity Overload:** Mitigated with progressive disclosure
+- **Privacy Concerns:** Addressed with transparent data practices
+- **Engagement Drop-off:** Handled with immediate value delivery
+- **Accessibility Issues:** Addressed with inclusive design
 
-### Open Questions
-1. **LLM Prompt Engineering:** What prompts generate the most meaningful reprompts?
-2. **Semantic Richness Threshold:** What constitutes "sufficient" engagement for completion?
-3. **Dynamic Module Assignment:** What criteria determine when to assign dynamic modules?
-4. **Insight Frequency:** How often should insights be generated and delivered?
-5. **Data Retention:** How long should user data be retained for analysis?
+### Business Risks
+- **Reddit Community Reception:** Mitigated with user-centered design
+- **Competition:** Addressed with unique value proposition
+- **Regulatory Compliance:** Handled with privacy-first approach
+- **Scalability Challenges:** Addressed with modern architecture
 
-**Demo-Specific Questions:**
-6. **Reddit Community Response:** How will the eating disorder recovery subreddits receive this tool?
-7. **Demo vs Full Experience:** What features are most important to showcase in the demo?
-8. **Feedback Collection:** What's the best way to collect meaningful feedback from Reddit users?
-9. **Cost Management:** How can we keep API costs low while providing a compelling demo experience?
-10. **Technical Support:** How will we handle technical issues during the Reddit demo period?
+## Next Steps
 
-### Regulatory Considerations
-- **HIPAA Compliance:** Ensure data handling meets healthcare privacy standards
-- **GDPR Compliance:** Implement data portability and deletion features
-- **COPPA Compliance:** Age verification and parental consent for minors
-- **DHAF/ORCHA Compliance:** Fulfill the criteria set forth by the digital health assessment framework
+### Immediate Priorities (Next 2-4 weeks)
+1. **Advanced Analytics Implementation**
+   - Pattern recognition algorithms
+   - Behavioral trend analysis
+   - Personalized insights generation
 
-## Demo Launch Strategy
+2. **Dynamic Module System**
+   - User trajectory analysis
+   - Adaptive content delivery
+   - Progress-based recommendations
 
-### Reddit Community Targeting
-- **Primary Subreddits:**
-  - r/EatingDisorders
-  - r/fuckeatingdisorders
-  - r/EDAnonymous
-  - r/AnorexiaNervosa
-  - r/bulimia
-- **Secondary Subreddits:**
-  - r/mentalhealth
-  - r/therapy
-  - r/selfhelp
+3. **Data Visualization**
+   - Interactive charts and graphs
+   - Progress tracking visualizations
+   - Comparative analytics
 
-### Launch Approach
-- **Soft Launch:** Share with 2-3 smaller subreddits first to gather initial feedback
-- **Main Launch:** Post to larger recovery subreddits with refined messaging
-- **Follow-up:** Engage with comments and feedback post-launch
+### Medium-term Goals (Next 1-2 months)
+1. **Reddit Integration**
+   - Data collection pipeline
+   - User behavior analysis
+   - Community insights
 
-### Messaging Strategy
-- **Tone:** Humble, community-focused, seeking feedback
-- **Key Points:**
-  - Built by someone in recovery for the recovery community
-  - Free demo available, no pressure to sign up
-  - Seeking honest feedback to improve the tool
-  - Emphasize privacy and user control
-- **Call to Action:** Try the demo and share your thoughts
+2. **Machine Learning Features**
+   - Advanced pattern recognition
+   - Predictive analytics
+   - Personalized recommendations
 
-### Success Indicators
-- Positive engagement in Reddit comments
-- Users trying the demo and providing feedback
-- Community members sharing the tool with others
-- Constructive criticism that can inform development
+3. **Mobile App Development**
+   - React Native implementation
+   - iOS/Android deployment
+   - Offline functionality
 
----
+## Conclusion
 
-*This PRD is a living document that will be updated as the project evolves and new requirements emerge.* 
+The Interosight MVP has successfully progressed through three major development phases and is now in the advanced features phase. The foundation is solid, with comprehensive backend integration, AI features, and a complete history system. The application provides immediate value to users while maintaining the flexibility to evolve based on user feedback and community needs.
+
+The next phase focuses on advanced analytics and personalized insights to provide maximum value to users in their recovery journey, while preparing for the Reddit community launch and future mobile app development. 

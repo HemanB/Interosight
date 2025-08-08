@@ -155,6 +155,35 @@ const ModuleScreen: React.FC<ModuleScreenProps> = ({ moduleId, setCurrentScreen 
     try {
       // Get the conversation history
       const lastEntry = entries[entries.length - 1];
+      const lastAIPrompt = entries.filter(e => e.type === 'ai_prompt').pop();
+      
+      // If there's already an AI prompt, this is a shuffle
+      if (lastAIPrompt) {
+        // Track the discarded prompt
+        await trackDiscardedPrompt(
+          user.uid,
+          moduleId,
+          currentPromptData.id,
+          lastAIPrompt.content,
+          {
+            originalPrompt: currentPromptData.prompt,
+            userResponse: lastEntry.content,
+            shuffleCount: entries.filter(e => e.type === 'ai_prompt').length,
+            reason: 'shuffle',
+            chainPosition: entries.length,
+            parentEntryId: lastEntry.id,
+            promptFeatures: {
+              emotionalIntensity: 0.5,
+              personalizationLevel: 0.7,
+              questionType: 'follow_up'
+            }
+          }
+        );
+        
+        // Delete the old AI prompt
+        // Note: In a real implementation, you'd want to soft delete or mark as discarded
+        // For now, we'll just generate a new one and let the old one remain in the chain
+      }
 
       // Generate follow-up using the entire conversation context
       const followUp = await generateFollowUpPrompt({
@@ -162,7 +191,7 @@ const ModuleScreen: React.FC<ModuleScreenProps> = ({ moduleId, setCurrentScreen 
         originalPrompt: currentPromptData.prompt,
         previousPrompts: entries
           .filter(e => e.type === 'ai_prompt')
-          .map(e => e.content)
+          .map(e => ({ content: e.content, type: e.type }))
       });
 
       // Save the AI reprompt
@@ -175,7 +204,7 @@ const ModuleScreen: React.FC<ModuleScreenProps> = ({ moduleId, setCurrentScreen 
         {
           originalPrompt: currentPromptData.prompt,
           userResponse: lastEntry.content,
-          shuffleCount: 0,
+          shuffleCount: entries.filter(e => e.type === 'ai_prompt').length,
           chainPosition: entries.length,
           parentEntryId: lastEntry.id
         }
@@ -194,7 +223,7 @@ const ModuleScreen: React.FC<ModuleScreenProps> = ({ moduleId, setCurrentScreen 
           {
             originalPrompt: currentPromptData.prompt,
             userResponse: entries[entries.length - 1].content,
-            shuffleCount: 0,
+            shuffleCount: entries.filter(e => e.type === 'ai_prompt').length,
             reason: 'timeout',
             chainPosition: entries.length,
             parentEntryId: entries[entries.length - 1].id,

@@ -14,6 +14,7 @@ import {
   limit
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { generateEntrySummary } from './googleAIService';
 import type { JournalEntry, ModuleProgress, DiscardedPrompt, Module, Submodule } from '../types';
 
 // Default module content
@@ -143,6 +144,22 @@ export const createModuleEntry = async (
     const lastEntry = snapshot.docs[0]?.data();
     const chainPosition = lastEntry ? (lastEntry.chainPosition + 1) : 0;
 
+    // Generate summary for user responses (not AI prompts)
+    let llmSummary = '';
+    if (!isAIPrompt) {
+      try {
+        llmSummary = await generateEntrySummary({
+          content,
+          entryType: 'module',
+          metadata: {}
+        });
+      } catch (error) {
+        console.error('Error generating summary for module entry:', error);
+        // Fallback to simple summary
+        llmSummary = content.length > 100 ? content.substring(0, 100) + '...' : content;
+      }
+    }
+
     // Prepare entry data
     const entryData: Omit<JournalEntry, 'id'> = {
       content,
@@ -161,7 +178,8 @@ export const createModuleEntry = async (
       tags: [],
       isEdited: false,
       editHistory: [],
-      isDeleted: false
+      isDeleted: false,
+      llmSummary
     };
 
     // Add optional context fields if provided

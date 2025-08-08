@@ -190,21 +190,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ setCurrentScreen }) => {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div 
-          className="card cursor-pointer hover:shadow-lg transition-all"
-          onClick={handleContinueJourney}
-        >
-          <div className="text-center">
-            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">📚</span>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Start Your Journey</h3>
-            <p className="text-gray-600 mb-4">Begin with guided prompts and structured reflection</p>
-            <button className="btn-primary w-full">
-              Get Started
-            </button>
-          </div>
-        </div>
         
         <div 
           className="card cursor-pointer hover:shadow-lg transition-all"
@@ -222,21 +207,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ setCurrentScreen }) => {
           </div>
         </div>
         
-        <div 
-          className="card cursor-pointer hover:shadow-lg transition-all"
-          onClick={handleLogEntry}
-        >
-          <div className="text-center">
-            <div className="w-16 h-16 bg-olive-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">📊</span>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Track Your Day</h3>
-            <p className="text-gray-600 mb-4">Log meals, behaviors, and emotions</p>
-            <button className="btn-primary w-full">
-              Log Now
-            </button>
-          </div>
-        </div>
+        
       </div>
 
       {/* Modules Section */}
