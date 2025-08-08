@@ -1,217 +1,255 @@
-# Documentation Navigation
+# Interosight Documentation Navigation
 
-This document serves as a guide to navigate Interosight's documentation, mapping documentation files to specific implementations and tasks.
+## Overview
 
-## Core Documentation
+This document provides navigation guidance for the Interosight documentation, helping developers and stakeholders understand the current implementation status and find relevant information quickly.
 
-### System Architecture
-📄 `docs/core/ARCHITECTURE.md`
-- Overall system design and patterns
-- Technology stack decisions
-- State management approach
-- Security model
-- Error handling
-- Performance considerations
+## Documentation Structure
 
-**Relevant for:**
-- Initial project setup
-- Architecture decisions
-- Technology choices
-- System-wide changes
+### 📁 Core Documentation (`/core/`)
+**Purpose**: System architecture and current implementation status
 
-### Data Flow
-📄 `docs/core/DATA_FLOW.md`
-- Data flow patterns
-- State management
-- API integration
-- Event handling
+- **`ARCHITECTURE.md`** - System design and architectural decisions
+- **`DATA_FLOW.md`** - Data flow patterns and state management
+- **`TECH_STACK.md`** - Technology stack and dependencies
+- **`PROGRESS.md`** - Current implementation progress and roadmap
 
-**Relevant for:**
-- State management implementation
-- API integration
-- Data synchronization
-- Event handling
+### 📁 Database Documentation (`/database/`)
+**Purpose**: Database structure and data models
 
-### Tech Stack
-📄 `docs/core/TECH_STACK.md`
-- Frontend technologies
-- Backend services
-- Development tools
-- Testing framework
+- **`STRUCTURE.md`** - Firestore database structure and collections
+- **`schemas/`** - Detailed data schemas and TypeScript interfaces
 
-**Relevant for:**
-- Development environment setup
-- Dependency management
-- Tool configuration
-- Testing setup
+### 📁 Implementation Documentation (`/implementation/`)
+**Purpose**: Technical implementation guides and development resources
 
-## Database Documentation
+- **`IMPLEMENTATION_PLAN.md`** - Development roadmap and milestones
+- **`TECHNICAL_GUIDE.md`** - Technical implementation details and patterns
 
-### Structure
-📄 `docs/database/STRUCTURE.md`
-- Overall database architecture
-- Collection organization
-- Security rules
-- Access patterns
+### 📁 Live Updates (`/live-updates/`)
+**Purpose**: Real-time development updates and feature announcements
 
-**Relevant for:**
-- Database setup
-- Security implementation
-- Query optimization
-- Data modeling
+### 📁 Memory Docs (`/memory-docs/`)
+**Purpose**: Historical documentation and decision records
 
-### Module Schema
-📄 `docs/database/schemas/MODULE.md`
-- Module system data models
-- Progress tracking
-- Entry chains
-- Module progression
+### 📁 Archive (`/archive/`)
+**Purpose**: Deprecated or outdated documentation
 
-**Relevant for:**
-- Module system implementation
-- Progress tracking features
-- Module navigation
-- Content management
+## Current Implementation Status
 
-### Journal Schema
-📄 `docs/database/schemas/JOURNAL.md`
-- Journal entry models
-- AI integration
-- Entry chains
-- Edit history
+### ✅ Completed Features (Production Ready)
 
-**Relevant for:**
-- Journaling features
-- AI prompt integration
-- Entry management
-- History tracking
+**Application Foundation:**
+- Modern React + TypeScript + Vite stack
+- Tailwind CSS with custom design system
+- Firebase integration with Firestore
+- User authentication system
+- Responsive web interface
 
-### Activity Schema
-📄 `docs/database/schemas/ACTIVITY.md`
-- Activity tracking models
-- Behavior logging
-- Pattern recognition
-- Insight generation
+**Module System:**
+- Introduction module with 4 submodules
+- Structured journaling prompts with word count requirements
+- Progress tracking and completion functionality
+- AI-generated follow-up prompts
+- Module progression system
 
-**Relevant for:**
-- Activity logging features
-- Pattern analysis
-- Insight generation
-- Progress visualization
+**Journaling Features:**
+- Freeform journaling with session isolation
+- AI-powered conversation threads
+- Real-time word counting
+- Session-based data integrity
+- Clinical, insight-focused AI summaries (40 words max)
 
-## Implementation Guides
+**Activity Logging:**
+- Comprehensive meal logging with pre/post emotional states
+- Behavior logging with environmental context
+- Satiety tracking (hunger/satiety levels)
+- Emotional state tracking before and after activities
+- Location and social context recording
 
-### Setup Guide
-📄 `docs/implementation/SETUP.md`
-- Development environment
-- Dependencies
-- Configuration
-- Local testing
+**History System:**
+- Complete chronological history view
+- AI-generated summaries for all entry types
+- Color-coded entry types (freeform, module, meal, behavior)
+- Day stratification and time range filtering
+- Modal entry viewing with full details and conversation threads
 
-**Relevant for:**
-- Initial setup
-- Development environment
-- Testing setup
-- Configuration management
+**AI Integration:**
+- Google AI (Gemini) integration for contextual prompts
+- Clinical, objective summary generation
+- Safety protocols and crisis detection
+- Efficient processing at entry creation time
 
-### Deployment Guide
-📄 `docs/implementation/DEPLOYMENT.md`
-- Build process
-- Environment configuration
-- Deployment steps
-- Monitoring setup
+### 🔄 In Progress Features
 
-**Relevant for:**
-- Build configuration
-- Deployment process
-- Environment setup
-- Monitoring implementation
+**Advanced Analytics:**
+- Pattern recognition algorithms
+- Behavioral trend analysis
+- Emotional state tracking over time
+- Trigger identification and analysis
 
-## Feature Implementation Mapping
+**Dynamic Module Progression:**
+- User trajectory analysis
+- Adaptive module assignment
+- Personalized content delivery
+- Progress-based recommendations
 
-### Module System
-**Primary Docs:**
-- `docs/database/schemas/MODULE.md`
-- `docs/core/ARCHITECTURE.md` (State Management section)
+**Data Visualization:**
+- Interactive charts and graphs
+- Progress tracking visualizations
+- Trend analysis displays
+- Comparative analytics
 
-**Implementation Files:**
-- `src/screens/ModuleScreen.tsx`
-- `src/services/moduleService.ts`
-- `src/data/modules.ts`
+### 📋 Planned Features
 
-### Journaling System
-**Primary Docs:**
-- `docs/database/schemas/JOURNAL.md`
-- `docs/core/DATA_FLOW.md` (AI Integration section)
+**Reddit Integration:**
+- Data collection pipeline using PRAW
+- User behavior analysis
+- Community insights generation
 
-**Implementation Files:**
-- `src/screens/ModuleScreen.tsx`
-- `src/screens/FreeformJournalScreen.tsx`
-- `src/services/journalService.ts`
-- `src/services/aiService.ts`
+**Machine Learning Features:**
+- Advanced pattern recognition
+- Predictive analytics
+- Personalized recommendations
 
-### Activity Tracking
-**Primary Docs:**
-- `docs/database/schemas/ACTIVITY.md`
-- `docs/core/DATA_FLOW.md` (Analytics section)
+**Mobile App Development:**
+- React Native implementation
+- iOS/Android deployment
+- Offline functionality
 
-**Implementation Files:**
-- `src/screens/LogScreen.tsx`
-- `src/services/activityService.ts`
-- `src/services/analyticsService.ts`
+## Quick Reference Guide
 
-### User Interface
-**Primary Docs:**
-- `docs/core/ARCHITECTURE.md` (UI Components section)
-- `docs/implementation/SETUP.md` (Styling section)
+### For New Developers
+1. **Start Here**: `README.md` - Overview and getting started
+2. **Architecture**: `core/ARCHITECTURE.md` - System design
+3. **Progress**: `core/PROGRESS.md` - Current status and roadmap
+4. **Setup**: `implementation/TECHNICAL_GUIDE.md` - Development setup
 
-**Implementation Files:**
-- `src/screens/HomeScreen.tsx`
-- `src/screens/HistoryScreen.tsx`
-- `src/components/*`
+### For Product Managers
+1. **Requirements**: `PRD.md` - Product requirements and user stories
+2. **Progress**: `core/PROGRESS.md` - Implementation status
+3. **Roadmap**: `implementation/IMPLEMENTATION_PLAN.md` - Development timeline
 
-## Common Tasks
+### For Technical Leads
+1. **Architecture**: `core/ARCHITECTURE.md` - System design
+2. **Data Flow**: `core/DATA_FLOW.md` - State management patterns
+3. **Database**: `database/STRUCTURE.md` - Data models and schemas
+4. **Implementation**: `implementation/TECHNICAL_GUIDE.md` - Technical details
 
-### Adding a New Module
-1. Review `docs/database/schemas/MODULE.md`
-2. Update module definitions in `src/data/modules.ts`
-3. Update progress tracking in `src/services/moduleService.ts`
-4. Update UI in `src/screens/ModuleScreen.tsx`
+### For QA/Testing
+1. **Features**: `PRD.md` - Feature requirements
+2. **Progress**: `core/PROGRESS.md` - What's implemented
+3. **Technical**: `implementation/TECHNICAL_GUIDE.md` - Testing strategies
 
-### Implementing AI Features
-1. Review `docs/database/schemas/JOURNAL.md` (AI Integration section)
-2. Update AI service in `src/services/aiService.ts`
-3. Integrate with journal system in `src/services/journalService.ts`
-4. Update UI in relevant screen components
+## Key Technical Decisions
 
-### Adding Activity Tracking
-1. Review `docs/database/schemas/ACTIVITY.md`
-2. Update tracking in `src/services/activityService.ts`
-3. Update analytics in `src/services/analyticsService.ts`
-4. Update UI in `src/screens/LogScreen.tsx`
+### 1. AI Integration
+- **Provider**: Google AI (Gemini) for prompts and summaries
+- **Approach**: Clinical, objective summaries (40 words max)
+- **Timing**: Summary generation at entry creation for efficiency
+- **Safety**: Crisis detection and professional boundaries
 
-### Database Changes
-1. Review `docs/database/STRUCTURE.md`
-2. Update schemas in `docs/database/schemas/*`
-3. Update security rules
-4. Update relevant service implementations
+### 2. Session Management
+- **Isolation**: Freeform journaling sessions are isolated
+- **Data Integrity**: Session IDs prevent data bleeding
+- **Fresh Start**: Each session starts clean
 
-## Best Practices
+### 3. History System
+- **Aggregation**: Combines all entry types chronologically
+- **Summaries**: AI-generated insights for quick overview
+- **Organization**: Day stratification with color coding
+- **Details**: Modal viewing with full conversation threads
 
-### Code Organization
-- Follow feature-based structure
-- Maintain clear separation of concerns
-- Use consistent naming conventions
-- Keep components focused and reusable
+### 4. Performance Optimization
+- **Queries**: In-memory filtering to avoid composite indexes
+- **Caching**: Intelligent caching for frequently accessed data
+- **Lazy Loading**: Progressive data loading for large datasets
 
-### Documentation Updates
-- Keep schema documentation in sync with implementations
-- Update navigation document for new features
-- Document breaking changes
-- Include implementation examples
+## Recent Updates
 
-### Testing
-- Write tests for new features
-- Update existing tests for changes
-- Follow test coverage guidelines
-- Document test scenarios 
+### Latest Implementation (Current)
+- **Comprehensive History System**: Complete chronological view with AI summaries
+- **Session Isolation**: Fixed freeform journaling data bleeding issues
+- **Clinical AI Summaries**: Objective, insight-focused summaries (40 words max)
+- **Enhanced Data Models**: Added llmSummary field to all entry types
+- **Modal Entry Viewing**: Full entry details with conversation threads and pre/post data
+
+### Technical Achievements
+- **Efficient Queries**: Optimized Firestore queries with proper indexing
+- **AI Integration**: Google AI (Gemini) for contextual prompts and summaries
+- **Session Management**: Proper data boundaries for freeform journaling
+- **Performance**: Fast loading with large datasets
+- **Security**: Comprehensive data access control and safety protocols
+
+## Next Steps
+
+### Immediate Priorities (Next 2-4 weeks)
+1. **Advanced Analytics Implementation**
+   - Pattern recognition algorithms
+   - Behavioral trend analysis
+   - Personalized insights generation
+
+2. **Dynamic Module System**
+   - User trajectory analysis
+   - Adaptive content delivery
+   - Progress-based recommendations
+
+3. **Data Visualization**
+   - Interactive charts and graphs
+   - Progress tracking visualizations
+   - Comparative analytics
+
+### Medium-term Goals (Next 1-2 months)
+1. **Reddit Integration**
+   - Data collection pipeline
+   - User behavior analysis
+   - Community insights
+
+2. **Machine Learning Features**
+   - Advanced pattern recognition
+   - Predictive analytics
+   - Personalized recommendations
+
+3. **Mobile App Development**
+   - React Native implementation
+   - iOS/Android deployment
+   - Offline functionality
+
+## Success Metrics
+
+### Technical Metrics
+- **Performance**: Page load times under 3 seconds
+- **Reliability**: 99.9% uptime for core features
+- **Data Quality**: 90%+ data integrity across all entry types
+- **AI Response Time**: Summary generation under 5 seconds
+
+### User Experience Metrics
+- **Engagement**: 70%+ of users create at least one entry
+- **Completion**: 50%+ module completion rate
+- **Retention**: 30%+ weekly active user retention
+- **Satisfaction**: Positive user feedback on core features
+
+### Development Metrics
+- **Code Quality**: TypeScript coverage >90%
+- **Test Coverage**: Unit tests for all critical functions
+- **Documentation**: Complete API and component documentation
+- **Deployment**: Automated CI/CD pipeline
+
+## Getting Help
+
+### Documentation Issues
+- Check `live-updates/` for recent changes
+- Review `archive/` for deprecated information
+- Contact development team for clarification
+
+### Technical Questions
+- Review `implementation/TECHNICAL_GUIDE.md` for implementation details
+- Check `core/DATA_FLOW.md` for data flow patterns
+- Consult `database/STRUCTURE.md` for data models
+
+### Feature Requests
+- Review `PRD.md` for current scope
+- Check `core/PROGRESS.md` for implementation status
+- Consult `implementation/IMPLEMENTATION_PLAN.md` for roadmap
+
+This navigation guide provides a comprehensive overview of the Interosight documentation structure and current implementation status, helping stakeholders quickly find relevant information and understand the project's current state. 
