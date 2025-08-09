@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { getAllUserHistory, type GroupedHistoryEntries, type HistoryEntry } from '../services/historyService';
+import EngagementChart from '../components/charts/EngagementChart';
+import ActivityTimelineChart from '../components/charts/ActivityTimelineChart';
+import EmotionalLandscapeChart from '../components/charts/EmotionalLandscapeChart';
 
 const HistoryScreen: React.FC = () => {
   const { user } = useAuth();
-  const [selectedTimeframe, setSelectedTimeframe] = useState<'7d' | '30d' | '90d'>('30d');
+
   const [historyData, setHistoryData] = useState<GroupedHistoryEntries[]>([]);
+  const [analyticsData, setAnalyticsData] = useState<GroupedHistoryEntries[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedEntry, setSelectedEntry] = useState<HistoryEntry | null>(null);
@@ -15,7 +19,7 @@ const HistoryScreen: React.FC = () => {
     if (user) {
       loadHistory();
     }
-  }, [user, selectedTimeframe]);
+  }, [user]);
 
   const loadHistory = async () => {
     if (!user) return;
@@ -37,9 +41,12 @@ const HistoryScreen: React.FC = () => {
         });
       });
       
-      // Filter by timeframe
-      const filteredData = filterByTimeframe(data, selectedTimeframe);
-      setHistoryData(filteredData);
+      // Set all data for recent activity
+      setHistoryData(data);
+      
+      // Filter by timeframe for analytics (7 days)
+      const filteredData = filterByTimeframe(data, '7d');
+      setAnalyticsData(filteredData);
     } catch (err) {
       console.error('Error loading history:', err);
       setError('Failed to load history data');
@@ -127,16 +134,7 @@ const HistoryScreen: React.FC = () => {
     }
   };
 
-  const getSentimentColor = (sentiment?: string) => {
-    switch (sentiment) {
-      case 'positive':
-        return 'text-green-600';
-      case 'negative':
-        return 'text-red-600';
-      default:
-        return 'text-gray-600';
-    }
-  };
+
 
   const formatFullDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
@@ -172,7 +170,7 @@ const HistoryScreen: React.FC = () => {
     );
   }
 
-  const totalEntries = historyData.reduce((sum, group) => sum + group.entries.length, 0);
+
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -180,27 +178,12 @@ const HistoryScreen: React.FC = () => {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">Your History</h1>
-            <p className="text-gray-600">Track your progress and insights over time</p>
+            <p className="text-gray-600">7-day analytics with complete activity history</p>
           </div>
           <div className="flex items-center space-x-2">
-            <button
-              className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${selectedTimeframe === '7d' ? 'bg-primary-500 text-white' : 'bg-olive-100 text-olive-700 hover:bg-olive-200'}`}
-              onClick={() => setSelectedTimeframe('7d')}
-            >
-              7 Days
-            </button>
-            <button
-              className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${selectedTimeframe === '30d' ? 'bg-primary-500 text-white' : 'bg-olive-100 text-olive-700 hover:bg-olive-200'}`}
-              onClick={() => setSelectedTimeframe('30d')}
-            >
-              30 Days
-            </button>
-            <button
-              className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${selectedTimeframe === '90d' ? 'bg-primary-500 text-white' : 'bg-olive-100 text-olive-700 hover:bg-olive-200'}`}
-              onClick={() => setSelectedTimeframe('90d')}
-            >
-              90 Days
-            </button>
+            <span className="text-sm text-gray-600 bg-olive-100 px-3 py-1 rounded-lg">
+              7-Day Analytics
+            </span>
           </div>
         </div>
       </div>
@@ -208,72 +191,17 @@ const HistoryScreen: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         <div className="card">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Engagement Over Time</h2>
-          <div className="h-64 bg-gradient-to-br from-primary-50 to-accent-50 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <div className="text-4xl mb-2">📈</div>
-              <p className="text-gray-600">Cumulative Word Count & Active Time</p>
-              <p className="text-sm text-gray-500 mt-2">
-                {totalEntries > 0 
-                  ? `${totalEntries} entries in the last ${selectedTimeframe === '7d' ? '7 days' : selectedTimeframe === '30d' ? '30 days' : '90 days'}`
-                  : 'No data yet. Start journaling and logging to see your progress!'
-                }
-              </p>
-            </div>
-          </div>
+          <EngagementChart historyData={analyticsData} />
         </div>
         <div className="card">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Activity Timeline</h2>
-          <div className="h-64 bg-gradient-to-br from-olive-50 to-accent-50 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <div className="text-4xl mb-2">⏰</div>
-              <p className="text-gray-600">30-Day Interaction Timeline</p>
-              <p className="text-sm text-gray-500 mt-2">
-                {historyData.length > 0 
-                  ? `${historyData.length} days with activity`
-                  : 'No activity yet. Your timeline will appear here.'
-                }
-              </p>
-            </div>
-          </div>
+          <ActivityTimelineChart historyData={analyticsData} />
         </div>
       </div>
 
       <div className="card mb-8">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Emotional Landscape</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="h-64 bg-gradient-to-br from-accent-50 to-primary-50 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <div className="text-4xl mb-2">🧇</div>
-              <p className="text-gray-600">Sentiment Analysis</p>
-              <p className="text-sm text-gray-500 mt-2">
-                {totalEntries > 0 
-                  ? 'Sentiment analysis will be available after you complete more entries.'
-                  : 'Sentiment analysis will be available after you complete the base modules.'
-                }
-              </p>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <div className="p-4 bg-olive-50 rounded-lg">
-              <h3 className="font-medium text-gray-800 mb-2">LLM Insights</h3>
-              <p className="text-sm text-gray-600">
-                {totalEntries > 0 
-                  ? 'Complete some activities to see insights here.'
-                  : 'No insights yet. Complete some activities to see insights here.'
-                }
-              </p>
-            </div>
-            <div className="p-4 bg-primary-50 rounded-lg">
-              <h3 className="font-medium text-gray-800 mb-2">Pattern Recognition</h3>
-              <p className="text-sm text-gray-600">
-                {totalEntries > 0 
-                  ? 'Patterns will appear as you log more data.'
-                  : 'No patterns detected yet. Patterns will appear as you log more data.'
-                }
-              </p>
-            </div>
-          </div>
-        </div>
+        <EmotionalLandscapeChart historyData={analyticsData} />
       </div>
 
       <div className="card">
