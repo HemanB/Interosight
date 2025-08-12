@@ -212,7 +212,7 @@ Deliver a minimum viable product that provides users with a structured, data-dri
 ### Visual Design
 - **Color Palette:**
   - Primary: monochromatic black-white scale with subtle grays
-  - Accent: Soft blue (#3B82F6) for interactive elements and progress indicators
+  - Accent: Olive for interactive elements and progress indicators
   - Modern but not industrial feel - warm and approachable
   - High contrast for accessibility
 

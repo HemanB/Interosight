@@ -28,14 +28,14 @@
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Dashboard  │───►│   Module    │───►│   Submodule │───►│   Journal   │
-│   (Home)     │    │   List      │    │   Selection │    │   Entry     │
+│   Dashboard │───►│   Module    │───►│  Submodule  │───►|  Journal    |
+│   (Home)    │    │   List      │    │  Selection  │───►|  Entry      |
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
        │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Progress   │    │   Module    │    │   Content   │    │   LLM       │
-│   Overview   │    │   Details   │    │   Loading   │    │   Response  │
+│   Progress  │    │   Module    │    │   Content   │    │   LLM       │
+│   Overview  │    │   Details   │    │   Loading   │    │   Response  │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
@@ -50,15 +50,15 @@
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Initial    │───►│   User      │───►│   LLM       │───►│   Follow-up │
-│   Prompt     │    │   Response  │    │   Processing│    │   Prompt    │
+│   Initial   │───►│   User      │───►│   LLM       │───►│   Follow-up │
+│   Prompt    │    │   Response  │    │   Processing│    │   Prompt    │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
        │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Prompt     │    │   Local     │    │   HuggingFace│   │   Session   │
-│   Display    │    │   State     │    │   API Call  │   │   Continue  │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐   ┌─────────────┐
+│   Prompt    │    │   Local     │    │  HuggingFace│   │   Session   │
+│   Display   │    │   State     │    │  API Call   |   |   Loops     |
+└─────────────┘    └─────────────┘    └─────────────┘   └─────────────┘
 ```
 
 **Data Flow:**
@@ -96,14 +96,14 @@
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   User       │───►│   Data      │───►│   Pattern   │───►│   Insight   │
-│   Data       │    │   Aggregation│   │   Analysis  │    │   Generation│
+│   User      │───►│   Data      │───►│   Pattern   │───►│   Insight   │
+│   Data      │    │   Aggregation│   │   Analysis  │    │   Generation│
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
        │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Firestore  │    │   Historical │    │   HuggingFace│   │   User      │
-│   Collections│    │   Data       │    │   API       │   │   Display   │
+│  Firestore  │    │  Historical │    │  HuggingFace│    |  User       |
+│  Collections│    │  Data       │    │   API       │    |  Display    |
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
@@ -120,14 +120,14 @@
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   React      │───►│   API       │───►│   HuggingFace│───►│   Response  │
-│   Component  │    │   Wrapper   │    │   Inference │    │   Processing│
+│   React     │───►│   API       │───►│  HuggingFace│───►│   Response  │
+│   Component │    │   Wrapper   │    │   Inference │    │   Processing│
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
        │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   User       │    │   Rate      │    │   Model     │    │   UI        │
-│   Input      │    │   Limiting  │    │   Selection │    │   Update    │
+│   User      │    │   Rate      │    │   Model     │    │   UI        │
+│   Input     │    │   Limiting  │    │   Selection │    │   Update    │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
@@ -142,14 +142,14 @@
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   React      │───►│   Firebase  │───►│   Firestore │───►│   Data      │
-│   App        │    │   SDK       │    │   Database  │    │   Storage   │
+│   React     │───►│   Firebase  │───►│   Firestore │───►│   Data      │
+│   App       │    │   SDK       │    │   Database  │    │   Storage   │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
        │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Local      │    │   Real-time │    │   Security  │    │   Offline   │
-│   State      │    │   Updates   │    │   Rules     │    │   Sync      │
+│   Local     │    │   Real-time │    │   Security  │    │   Offline   │
+│   State     │    │   Updates   │    │   Rules     │    │   Sync      │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
@@ -166,14 +166,14 @@
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   API        │───►│   Error     │───►│   Fallback  │───►│   User      │
-│   Request    │    │   Detection │    │   Response  │    │   Notification│
+│   API       │───►│   Error     │───►│   Fallback  │───►│  User       |
+│   Request   │    │   Detection │    │   Response  │    | Notification│
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
        │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┘
-│   Network    │    │   Retry     │    │   Cached    │    │   Graceful   │
-│   Timeout    │    │   Logic     │    │   Data      │    │   Degradation│
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────
+│   Network   │    │   Retry     │    │   Cached    │    │  Graceful   │
+│   Timeout   │    │   Logic     │    │   Data      │    │  Degradation│
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
@@ -181,14 +181,14 @@
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   User       │───►│   Client    │───►│   Server    │───►│   Database  │
-│   Input      │    │   Validation│    │   Validation│    │   Storage   │
+│   User      │───►│   Client    │───►│   Server    │───►│   Database  │
+│   Input     │    │   Validation│    │   Validation│    │   Storage   │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
        │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Form       │    │   Zod       │    │   Firestore │    │   Success   │
-│   Fields     │    │   Schema    │    │   Rules     │    │   Response  │
+│   Form      │    │   Zod       │    │   Firestore │    │   Success   │
+│   Fields    │    │   Schema    │    │   Rules     │    │   Response  │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
@@ -198,14 +198,14 @@
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   User       │───►│   Cache     │───►│   API       │───►│   Response  │
-│   Request    │    │   Check     │    │   Call      │    │   Storage   │
+│   User      │───►│   Cache     │───►│   API       │───►│   Response  │
+│   Request   │    │   Check     │    │   Call      │    │   Storage   │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
        │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Local      │    │   Hit/Miss  │    │   HuggingFace│   │   Cache     │
-│   Storage    │    │   Decision  │    │   API       │    │   Update    │
+│   Local     │    │   Hit/Miss  │    │  HuggingFace│    |  Cache      |
+│   Storage   │    │   Decision  │    │   API       │    │   Update    │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
@@ -213,14 +213,14 @@
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Route      │───►│   Component │───►│   Data      │───►│   UI        │
-│   Navigation │    │   Loading   │    │   Fetching  │    │   Rendering │
+│  Route      │───►│   Component │───►│   Data      │───►│   UI        │
+│  Navigation │    │   Loading   │    │   Fetching  │    │   Rendering │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
        │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   React      │    │   Suspense  │    │   Firestore │    │   User      │
-│   Router     │    │   Boundary  │    │   Query     │    │   Interaction│
+│   React     │    │   Suspense  │    │   Firestore │    │   User      │
+│   Router    │    │   Boundary  │    │   Query     │    │  Interaction│
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
 

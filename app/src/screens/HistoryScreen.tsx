@@ -3,7 +3,6 @@ import { useAuth } from '../hooks/useAuth';
 import { getAllUserHistory, type GroupedHistoryEntries, type HistoryEntry } from '../services/historyService';
 import EngagementChart from '../components/charts/EngagementChart';
 import ActivityTimelineChart from '../components/charts/ActivityTimelineChart';
-import EmotionalLandscapeChart from '../components/charts/EmotionalLandscapeChart';
 
 const HistoryScreen: React.FC = () => {
   const { user } = useAuth();
@@ -200,8 +199,19 @@ const HistoryScreen: React.FC = () => {
       </div>
 
       <div className="card mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Emotional Landscape</h2>
-        <EmotionalLandscapeChart historyData={analyticsData} />
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Emotional & Analysis Features</h2>
+        <div className="text-center py-12">
+          <div className="text-4xl mb-4">🧠</div>
+          <h3 className="text-lg font-medium text-gray-700 mb-2">Coming Soon</h3>
+          <p className="text-gray-600 mb-4 max-w-md mx-auto">
+            Emotional landscape analysis and advanced insights require more user input data to provide meaningful patterns and trends.
+          </p>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-md mx-auto">
+            <p className="text-sm text-blue-800">
+              <strong>Tip:</strong> Continue journaling, logging meals, and completing modules to help build the data foundation needed for these advanced analytics features.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="card">
@@ -306,7 +316,7 @@ const HistoryScreen: React.FC = () => {
                   <div>
                     <h3 className="font-medium text-gray-700 mb-2">Conversation</h3>
                     <div className="space-y-3">
-                      {selectedEntry.metadata.conversationThread.map((message, index) => (
+                                                    {selectedEntry.metadata.conversationThread.map((message) => (
                         <div
                           key={message.id}
                           className={`p-3 rounded-lg ${
@@ -347,9 +357,9 @@ const HistoryScreen: React.FC = () => {
                           <div>
                             <span className="text-red-700">Emotions:</span>
                             <div className="flex flex-wrap gap-1 mt-1">
-                              {selectedEntry.metadata.emotionPre?.map((emotion, index) => (
+                              {selectedEntry.metadata.emotionPre?.map((emotion) => (
                                 <span
-                                  key={index}
+                                  key={emotion}
                                   className="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full"
                                 >
                                   {emotion}
@@ -374,9 +384,9 @@ const HistoryScreen: React.FC = () => {
                           <div>
                             <span className="text-green-700">Emotions:</span>
                             <div className="flex flex-wrap gap-1 mt-1">
-                              {selectedEntry.metadata.emotionPost?.map((emotion, index) => (
+                              {selectedEntry.metadata.emotionPost?.map((emotion) => (
                                 <span
-                                  key={index}
+                                  key={emotion}
                                   className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
                                 >
                                   {emotion}
@@ -405,9 +415,9 @@ const HistoryScreen: React.FC = () => {
                           <div>
                             <span className="text-red-700">Emotions:</span>
                             <div className="flex flex-wrap gap-1 mt-1">
-                              {selectedEntry.metadata.emotionPre?.map((emotion, index) => (
+                              {selectedEntry.metadata.emotionPre?.map((emotion) => (
                                 <span
-                                  key={index}
+                                  key={emotion}
                                   className="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full"
                                 >
                                   {emotion}
@@ -428,9 +438,9 @@ const HistoryScreen: React.FC = () => {
                           <div>
                             <span className="text-green-700">Emotions:</span>
                             <div className="flex flex-wrap gap-1 mt-1">
-                              {selectedEntry.metadata.emotionPost?.map((emotion, index) => (
+                              {selectedEntry.metadata.emotionPost?.map((emotion) => (
                                 <span
-                                  key={index}
+                                  key={emotion}
                                   className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
                                 >
                                   {emotion}

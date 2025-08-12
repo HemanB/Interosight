@@ -16,7 +16,7 @@ InteroSight is a web-based application designed to support eating disorder recov
          ▼                       ▼                       ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   User Data     │    │   Analytics &   │    │   Insights &    │
-│   (Local State) │    │   Storage       │    │   Recommendations│
+│   (Local State) │    │   Storage       │    │  Recommendations│
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 

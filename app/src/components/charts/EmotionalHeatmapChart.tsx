@@ -49,13 +49,20 @@ const EmotionalHeatmapChart: React.FC<EmotionalHeatmapChartProps> = ({ historyDa
 
     // Process each history group to build daily aggregations
     historyData.forEach(group => {
-      const groupDate = new Date(group.date);
-      const dateKey = groupDate.toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
+      // Convert group.date to actual Date object
+      let groupDate: Date;
+      if (group.date === 'Today') {
+        groupDate = new Date();
+      } else if (group.date === 'Yesterday') {
+        groupDate = new Date();
+        groupDate.setDate(groupDate.getDate() - 1);
+      } else {
+        // Parse the full date string
+        groupDate = new Date(group.date);
+      }
+
+      // Create a consistent date key format for matching
+      const dateKey = groupDate.toISOString().split('T')[0]; // YYYY-MM-DD format
       
       const existing = dailyData.get(dateKey) || {
         emotions: [],
@@ -161,12 +168,7 @@ const EmotionalHeatmapChart: React.FC<EmotionalHeatmapChartProps> = ({ historyDa
         const date = new Date(weekStart.getTime() + day * 24 * 60 * 60 * 1000);
         const isInRange = date >= fiveMonthsAgo && date <= today;
         
-        const dateStr = date.toLocaleDateString('en-US', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
+        const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD format
         
         const dayData = heatmapData.find(d => d.date === dateStr) || null;
         
@@ -249,7 +251,7 @@ const EmotionalHeatmapChart: React.FC<EmotionalHeatmapChartProps> = ({ historyDa
                     className={`w-2.5 h-2.5 rounded-sm border cursor-pointer transition-colors hover:border-gray-400 ${getIntensityClass(day.data, day.isInRange)}`}
                     title={
                       day.isInRange && day.data
-                        ? `${day.data.intensity} entries on ${day.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}, Avg affect: ${day.data.avgAffect.toFixed(1)}`
+                        ? `${day.data.intensity} entries on ${day.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}, Avg affect: ${day.data.avgAffect.toFixed(1)}${day.data.emotions.length > 0 ? `, Emotions: ${day.data.emotions.slice(0, 3).join(', ')}${day.data.emotions.length > 3 ? '...' : ''}` : ''}`
                         : day.isInRange
                         ? `No entries on ${day.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
                         : ''

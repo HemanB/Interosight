@@ -30,12 +30,12 @@ const followUpModelConfig = {
 };
 
 const summaryModelConfig = {
-  model: "gemini-1.5-flash", // More powerful for clinical summaries
+  model: "gemini-1.5-flash", // Cost-effective for clinical summaries
   generationConfig: {
     temperature: 0.3, // Lower temperature for more consistent clinical analysis
     topP: 0.9,
     topK: 40,
-    maxOutputTokens: 150, // Shorter for 40-word summaries
+    maxOutputTokens: 150, // Shorter for 30-word summaries
   }
 };
 
@@ -68,7 +68,7 @@ export const generateFollowUpPrompt = async ({
 
     // Build the conversation history
     const conversationHistory = previousPrompts
-      .map((p, index) => {
+      .map((p) => {
         if (p.type === 'module_journal') {
           return `User: ${p.content}`;
         } else {
@@ -77,7 +77,7 @@ export const generateFollowUpPrompt = async ({
       })
       .join('\n');
 
-    const prompt = `You are a therapeutic journaling assistant for eating disorder recovery. Your goal is to help users explore their thoughts and feelings more deeply.
+    const prompt = `You are a therapeutic journaling assistant specializing in eating disorder recovery and mental health support. Your goal is to help users explore their thoughts, feelings, and experiences more deeply in a safe, supportive environment.
 
 Initial prompt: "${originalPrompt}"
 
@@ -87,13 +87,15 @@ User: ${userResponse}
 
 Based on the complete conversation history above, generate a follow-up question that:
 1. Builds on the user's ENTIRE response chain, not just their last response
-2. Shows understanding of the conversation's progression
-3. Encourages deeper reflection
-4. Is empathetic and supportive
-5. Avoids being too directive or prescriptive
-6. Uses open-ended phrasing
-7. Is 1-2 sentences long
-8. Does not repeat previous questions or themes unless deliberately building upon them
+2. Shows deep understanding of the conversation's emotional progression
+3. Encourages deeper self-reflection and insight
+4. Is empathetic, supportive, and trauma-informed
+5. Avoids being directive, prescriptive, or judgmental
+6. Uses open-ended, exploratory phrasing
+7. Is 1-2 sentences long and feels natural
+8. Does not repeat previous questions unless deliberately building upon them
+9. Recognizes patterns in eating disorders, body image, emotions, or behaviors when relevant
+10. Maintains therapeutic boundaries while being warm and encouraging
 
 Response format: Just the follow-up question, no additional text.`;
 
@@ -153,19 +155,21 @@ export const generateEntrySummary = async ({
     switch (entryType) {
       case 'freeform':
       case 'module':
-        systemPrompt = `You are a clinical data analyst. Your task is to create a purely factual summary of what the user stated in their journal entry.
+        systemPrompt = `You are a clinical data analyst specializing in therapeutic journaling. Your task is to create a factual summary of the user's journal entry that captures the essence of their thoughts, feelings, and experiences.
 
 Guidelines:
 - KEEP SUMMARIES TO 30 WORDS OR LESS
-- Present ONLY the facts that the user stated
-- NO recommendations, suggestions, or analysis
-- NO interpretations or insights
-- Focus on key factual information the user shared
-- Use neutral, objective language
-- Include relevant contextual details the user mentioned
-- Make it easy for both user and clinician to quickly understand what was shared`;
+- Be sensitive to mental health and emotional vulnerability
+- Present ONLY the facts, thoughts, and feelings the user explicitly stated
+- Include key themes, emotions, insights, or experiences they shared
+- NO recommendations, suggestions, or clinical analysis
+- NO interpretations beyond what the user directly expressed
+- Use empathetic but objective language
+- Focus on what the user revealed about their internal experience
+- Make it easy for both user and clinician to quickly understand the entry's core content
+- Preserve the user's voice and perspective`;
 
-        userPrompt = `Please provide a purely factual summary of what the user stated in this journal entry:
+        userPrompt = `Please provide a factual summary of what the user shared in this journal entry:
 
 ${content}
 
@@ -173,18 +177,21 @@ Summary:`;
         break;
 
       case 'meal':
-        systemPrompt = `You are a clinical data analyst. Your task is to create a purely factual summary of the user's meal and relevant contextual information.
+        systemPrompt = `You are a clinical data analyst specializing in eating disorder recovery. Your task is to create a factual summary of the user's meal experience and relevant contextual information.
 
 Guidelines:
 - KEEP SUMMARIES TO 30 WORDS OR LESS
-- Present ONLY the facts that the user stated
-- Include what they ate, where, with whom, and how they felt
+- Be sensitive to eating disorders and the user's relationship with food
+- Present ONLY the facts that the user stated about their meal experience
+- Include what they ate, where, with whom, and their emotional journey
+- Recognize patterns like emotional eating, social eating, or restrictive behaviors
 - NO recommendations, suggestions, or analysis
-- NO interpretations or insights
-- Focus on factual details: meal type, location, social context, emotional states
-- Make it easy for both user and clinician to quickly understand the meal experience`;
+- NO interpretations beyond what the user directly expressed
+- Focus on factual details: meal type, location, social context, emotional states before/after
+- Make it easy for both user and clinician to quickly understand the meal experience
+- Be mindful of triggers and use neutral, supportive language`;
 
-        userPrompt = `Please provide a purely factual summary of this meal log entry:
+        userPrompt = `Please provide a factual summary of this meal log entry:
 
 Meal: ${metadata.mealType || 'Unknown'}
 Location: ${metadata.location || 'Unknown'}
@@ -197,18 +204,21 @@ Summary:`;
         break;
 
       case 'behavior':
-        systemPrompt = `You are a clinical data analyst. Your task is to create a purely factual summary of the user's behavior and relevant contextual information.
+        systemPrompt = `You are a clinical data analyst specializing in eating disorder recovery and behavioral health. Your task is to create a factual summary of the user's behavior and relevant contextual information for both the user and the clinician to reference in the future.
 
 Guidelines:
 - KEEP SUMMARIES TO 30 WORDS OR LESS
-- Present ONLY the facts that the user stated
-- Include what they did, how they felt before and after
+- Be sensitive to eating disorders and the user's experience
+- Recognize patterns like body dysmorphia, calorie counting, compulsive behaviors, exercise patterns, etc.
+- Present ONLY the facts that the user stated about their behavior
+- Include what they did, how they felt before and after, and any triggers they identified
 - NO recommendations, suggestions, or analysis
-- NO interpretations or insights
-- Focus on factual details: behavior description, emotional states
-- Make it easy for both user and clinician to quickly understand what occurred`;
+- NO interpretations beyond what the user directly expressed
+- Focus on factual details: behavior description, emotional states, environmental context
+- Make it easy for both user and clinician to quickly understand what occurred
+- Use neutral, non-judgmental language while being clinically accurate`;
 
-        userPrompt = `Please provide a purely factual summary of this behavior log entry:
+        userPrompt = `Please provide a factual summary of this behavior log entry:
 
 Description: ${content}
 Before: Emotions: ${metadata.emotionPre?.join(', ') || 'None'}, Affect: ${metadata.affectPre || 0}/10
@@ -218,15 +228,19 @@ Summary:`;
         break;
 
       default:
-        systemPrompt = `You are a clinical data analyst. Your task is to create a purely factual summary of what the user stated.
+        systemPrompt = `You are a clinical data analyst specializing in mental health and wellness. Your task is to create a factual summary of what the user stated in their entry.
 
 Guidelines:
 - KEEP SUMMARIES TO 30 WORDS OR LESS
-- Present ONLY the facts that the user stated
+- Be sensitive to mental health and emotional vulnerability
+- Present ONLY the facts, thoughts, and feelings the user explicitly stated
 - NO recommendations, suggestions, or analysis
-- Use neutral, objective language`;
+- NO interpretations beyond what the user directly expressed
+- Use empathetic but objective language
+- Focus on the core content and context the user shared
+- Make it easy for both user and clinician to quickly understand the entry`;
 
-        userPrompt = `Please provide a purely factual summary of what the user stated:
+        userPrompt = `Please provide a factual summary of what the user stated:
 
 ${content}
 

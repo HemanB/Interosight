@@ -67,61 +67,69 @@ const ActivityTimelineChart: React.FC<ActivityTimelineChartProps> = ({ historyDa
   const computedChartData = useMemo(() => {
     if (!isVisible || historyData.length === 0) return null;
 
-    // Create activity map by date
-    const activityMap = new Map<string, { 
-      totalEntries: number; 
-      wordCount: number; 
-      activities: { [key: string]: number } 
-    }>();
-    
-    // Process all entries and group by date
-    historyData.forEach(group => {
-      const date = group.date;
-      const existing = activityMap.get(date) || { 
-        totalEntries: 0, 
-        wordCount: 0, 
-        activities: {} 
-      };
-      
-      group.entries.forEach(entry => {
-        existing.totalEntries += 1;
-        existing.wordCount += entry.metadata.wordCount || 0;
-        existing.activities[entry.type] = (existing.activities[entry.type] || 0) + 1;
-      });
-      
-      activityMap.set(date, existing);
-    });
-
-    // Sort dates and create timeline data
-    const sortedDates = Array.from(activityMap.keys()).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+    // Generate the past 7 days
+    const today = new Date();
+    const sevenDaysAgo = new Date(today.getTime() - 6 * 24 * 60 * 60 * 1000);
     
     const labels: string[] = [];
-    const activityData: number[] = [];
-    const wordCountData: number[] = [];
-
-    sortedDates.forEach(date => {
-      const data = activityMap.get(date)!;
-      labels.push(date);
-      activityData.push(data.totalEntries);
-      wordCountData.push(data.wordCount);
-    });
+    const dailyEntryCount: number[] = [];
+    const dailyWordCount: number[] = [];
+    
+    // Create data for each of the past 7 days
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(sevenDaysAgo.getTime() + i * 24 * 60 * 60 * 1000);
+      const dateKey = date.toLocaleDateString('en-US', { 
+        weekday: 'short', 
+        month: 'short', 
+        day: 'numeric' 
+      });
+      
+      labels.push(dateKey);
+      
+      // Find data for this date
+      const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD format
+      const group = historyData.find(g => {
+        let groupDate: Date;
+        if (g.date === 'Today') {
+          groupDate = new Date();
+        } else if (g.date === 'Yesterday') {
+          groupDate = new Date();
+          groupDate.setDate(groupDate.getDate() - 1);
+        } else {
+          groupDate = new Date(g.date);
+        }
+        return groupDate.toISOString().split('T')[0] === dateStr;
+      });
+      
+      if (group) {
+        const entryCount = group.entries.length;
+        const wordCount = group.entries.reduce((sum, entry) => sum + (entry.metadata.wordCount || 0), 0);
+        dailyEntryCount.push(entryCount);
+        dailyWordCount.push(wordCount);
+      } else {
+        dailyEntryCount.push(0);
+        dailyWordCount.push(0);
+      }
+    }
 
     return {
       labels,
       datasets: [
         {
-          label: 'Daily Entries',
-          data: activityData,
-          backgroundColor: 'rgba(34, 197, 94, 0.8)',
+          label: 'Word Count',
+          data: dailyWordCount,
+          backgroundColor: 'rgba(34, 197, 94, 0.6)',
           borderColor: 'rgb(34, 197, 94)',
           borderWidth: 1,
+          yAxisID: 'y1', // Secondary axis for word count
         },
         {
-          label: 'Word Count',
-          data: wordCountData,
-          backgroundColor: 'rgba(59, 130, 246, 0.6)',
+          label: 'Daily Entries',
+          data: dailyEntryCount,
+          backgroundColor: 'rgba(59, 130, 246, 0.8)',
           borderColor: 'rgb(59, 130, 246)',
           borderWidth: 1,
+          yAxisID: 'y', // Primary axis for entry count
         },
       ],
     };
@@ -168,19 +176,39 @@ const ActivityTimelineChart: React.FC<ActivityTimelineChartProps> = ({ historyDa
         display: true,
         title: {
           display: true,
-          text: 'Date',
+          text: 'Past 7 Days',
         },
         ticks: {
-          maxTicksLimit: 10,
+          maxTicksLimit: 7,
         },
       },
       y: {
+        type: 'linear' as const,
         display: true,
+        position: 'left' as const,
         title: {
           display: true,
-          text: 'Count',
+          text: 'Daily Entries',
+          color: 'rgb(59, 130, 246)',
         },
         beginAtZero: true,
+        grid: {
+          drawOnChartArea: true,
+        },
+      },
+      y1: {
+        type: 'linear' as const,
+        display: true,
+        position: 'right' as const,
+        title: {
+          display: true,
+          text: 'Word Count',
+          color: 'rgb(34, 197, 94)',
+        },
+        beginAtZero: true,
+        grid: {
+          drawOnChartArea: false,
+        },
       },
     },
     interaction: {

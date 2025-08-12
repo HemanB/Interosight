@@ -68,43 +68,63 @@ const EngagementChart: React.FC<EngagementChartProps> = ({ historyData }) => {
   const computedChartData = useMemo(() => {
     if (!isVisible || historyData.length === 0) return null;
 
-    // Create a map of dates to aggregate data
-    const dateMap = new Map<string, { wordCount: number; entryCount: number; activities: string[] }>();
+    // Generate the past 7 days
+    const today = new Date();
+    const sevenDaysAgo = new Date(today.getTime() - 6 * 24 * 60 * 60 * 1000);
     
-    // Process all entries and group by date
-    historyData.forEach(group => {
-      const date = group.date;
-      const existing = dateMap.get(date) || { wordCount: 0, entryCount: 0, activities: [] };
-      
-      group.entries.forEach(entry => {
-        existing.wordCount += entry.metadata.wordCount || 0;
-        existing.entryCount += 1;
-        existing.activities.push(entry.type);
+    const labels: string[] = [];
+    const dailyWordCount: number[] = [];
+    const dailyEntryCount: number[] = [];
+    
+    // Create data for each of the past 7 days
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(sevenDaysAgo.getTime() + i * 24 * 60 * 60 * 1000);
+      const dateKey = date.toLocaleDateString('en-US', { 
+        weekday: 'short', 
+        month: 'short', 
+        day: 'numeric' 
       });
       
-      dateMap.set(date, existing);
-    });
+      labels.push(dateKey);
+      
+      // Find data for this date
+      const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD format
+      const group = historyData.find(g => {
+        let groupDate: Date;
+        if (g.date === 'Today') {
+          groupDate = new Date();
+        } else if (g.date === 'Yesterday') {
+          groupDate = new Date();
+          groupDate.setDate(groupDate.getDate() - 1);
+        } else {
+          groupDate = new Date(g.date);
+        }
+        return groupDate.toISOString().split('T')[0] === dateStr;
+      });
+      
+      if (group) {
+        const wordCount = group.entries.reduce((sum, entry) => sum + (entry.metadata.wordCount || 0), 0);
+        const entryCount = group.entries.length;
+        dailyWordCount.push(wordCount);
+        dailyEntryCount.push(entryCount);
+      } else {
+        dailyWordCount.push(0);
+        dailyEntryCount.push(0);
+      }
+    }
 
-    // Sort dates and create cumulative data
-    const sortedDates = Array.from(dateMap.keys()).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-    
+    // Calculate cumulative data
     let cumulativeWordCount = 0;
     let cumulativeEntries = 0;
     
-    const labels: string[] = [];
-    const wordCountData: number[] = [];
-    const entryCountData: number[] = [];
-    const activityData: number[] = [];
+    const cumulativeWordCountData: number[] = [];
+    const cumulativeEntryCountData: number[] = [];
 
-    sortedDates.forEach(date => {
-      const data = dateMap.get(date)!;
-      cumulativeWordCount += data.wordCount;
-      cumulativeEntries += data.entryCount;
-      
-      labels.push(date);
-      wordCountData.push(cumulativeWordCount);
-      entryCountData.push(cumulativeEntries);
-      activityData.push(data.activities.length);
+    dailyWordCount.forEach((wordCount, index) => {
+      cumulativeWordCount += wordCount;
+      cumulativeEntries += dailyEntryCount[index];
+      cumulativeWordCountData.push(cumulativeWordCount);
+      cumulativeEntryCountData.push(cumulativeEntries);
     });
 
     return {
@@ -112,19 +132,21 @@ const EngagementChart: React.FC<EngagementChartProps> = ({ historyData }) => {
       datasets: [
         {
           label: 'Cumulative Word Count',
-          data: wordCountData,
+          data: cumulativeWordCountData,
           borderColor: 'rgb(34, 197, 94)',
           backgroundColor: 'rgba(34, 197, 94, 0.1)',
           fill: true,
           tension: 0.4,
+          yAxisID: 'y1', // Secondary axis for word count
         },
         {
           label: 'Total Entries',
-          data: entryCountData,
+          data: cumulativeEntryCountData,
           borderColor: 'rgb(59, 130, 246)',
           backgroundColor: 'rgba(59, 130, 246, 0.1)',
           fill: false,
           tension: 0.4,
+          yAxisID: 'y', // Primary axis for entry count
         },
       ],
     };
@@ -171,19 +193,39 @@ const EngagementChart: React.FC<EngagementChartProps> = ({ historyData }) => {
         display: true,
         title: {
           display: true,
-          text: 'Date',
+          text: 'Past 7 Days',
         },
         ticks: {
-          maxTicksLimit: 8,
+          maxTicksLimit: 7,
         },
       },
       y: {
+        type: 'linear' as const,
         display: true,
+        position: 'left' as const,
         title: {
           display: true,
-          text: 'Count',
+          text: 'Total Entries',
+          color: 'rgb(59, 130, 246)',
         },
         beginAtZero: true,
+        grid: {
+          drawOnChartArea: true,
+        },
+      },
+      y1: {
+        type: 'linear' as const,
+        display: true,
+        position: 'right' as const,
+        title: {
+          display: true,
+          text: 'Cumulative Words',
+          color: 'rgb(34, 197, 94)',
+        },
+        beginAtZero: true,
+        grid: {
+          drawOnChartArea: false,
+        },
       },
     },
     interaction: {
